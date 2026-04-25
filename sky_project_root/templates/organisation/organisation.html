@@ -1,0 +1,15 @@
+<h1>Organisation Overview</h1>
+
+<h2>Departments</h2>
+<ul>
+    {% for dept in departments %}
+        <li>{{ dept.departmentName }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Team Dependencies</h2>
+<ul>
+    {% for dep in dependencies %}
+        <li>{{ dep.team }} depends on {{ dep.depends_on }}</li>
+    {% endfor %}
+</ul>
