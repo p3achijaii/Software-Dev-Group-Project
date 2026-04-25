@@ -3,7 +3,7 @@ from django.db import models
 class Department(models.Model):
     departmentID = models.AutoField(primary_key=True)
     departmentName = models.CharField(max_length=100)
-    deptHead = models.ForeignKey('Staff', on_delete=models.SET_NULL, null=True, blank=True, related_name='headed_departments')
+    leader = models.ForeignKey('Staff', on_delete=models.SET_NULL, null=True, blank=True, related_name='headed_departments')
     def __str__(self):
         return self.departmentName
 
@@ -17,6 +17,10 @@ class Staff(models.Model):
 
     def __str__(self):
         return f"{self.firstName} {self.lastName}"
+    
+    class Meta:
+        verbose_name = "Staff"
+        verbose_name_plural = "Staff"
 
 
 class Team(models.Model):
@@ -45,6 +49,18 @@ class TeamSkill(models.Model):
     def __str__(self):
         return f"{self.team} - {self.skill}"
 
+    class Meta:
+        verbose_name = "Team Skill"
+        verbose_name_plural = "Team Skills"
+
 class TeamMember(models.Model):
     staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    dateJoined = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.staff} in {self.team}"
+    
+    class Meta:
+        verbose_name = "Team Member"
+        verbose_name_plural = "Team Members"
