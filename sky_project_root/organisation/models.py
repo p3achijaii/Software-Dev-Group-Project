@@ -2,7 +2,7 @@ from django.db import models
 from team.models import Team
 
 class DependencyType(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, verbose_name="Dependency Type")
 
     def __str__(self):
         return self.name
@@ -14,7 +14,7 @@ class DependencyType(models.Model):
 class TeamDependency(models.Model):
     team = models.ForeignKey(Team, related_name='dependencies', on_delete=models.CASCADE)
 
-    depends_on = models.ForeignKey(Team, related_name='dependent_teams', on_delete=models.CASCADE)
+    depends_on = models.ForeignKey(Team, related_name='dependent_teams', on_delete=models.CASCADE, verbose_name="Team it depends on")
 
     dependency_type = models.ForeignKey(DependencyType, on_delete=models.SET_NULL, null=True, blank=True)
 
