@@ -44,3 +44,7 @@ class TeamSkill(models.Model):
 
     def __str__(self):
         return f"{self.team} - {self.skill}"
+
+class TeamMember(models.Model):
+    staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
