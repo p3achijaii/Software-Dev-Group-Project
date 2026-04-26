@@ -22,11 +22,20 @@ class Staff(models.Model):
         verbose_name = "Staff"
         verbose_name_plural = "Staff"
 
+class DevelopmentFocus(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Development Focus Area")
 
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Development Focus Area"
+        verbose_name_plural = "Development Focus Areas"
+        
 class Team(models.Model):
     teamID = models.AutoField(primary_key=True, verbose_name="Team ID")
     teamName = models.CharField(max_length=100, verbose_name="Team Name")
-
+    developmentFocus=models.ManyToManyField(DevelopmentFocus, blank=True, verbose_name="Development Focus Areas")
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='teams', verbose_name="Team Department")
     teamLeader = models.ForeignKey(Staff, on_delete=models.CASCADE, related_name='led_teams', verbose_name="Team Leader")
 

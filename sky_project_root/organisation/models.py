@@ -18,6 +18,16 @@ class TeamDependency(models.Model):
 
     dependency_type = models.ForeignKey(DependencyType, on_delete=models.SET_NULL, null=True, blank=True)
 
+    DIRECTION_CHOICES = [
+        ('UPSTREAM', 'Upstream'),
+        ('DOWNSTREAM', 'Downstream'),
+    ]
+
+    direction = models.CharField(
+        max_length=20,
+        choices=DIRECTION_CHOICES
+    )
+
     def __str__(self):
         return f"{self.team} depends on {self.depends_on}"
     
