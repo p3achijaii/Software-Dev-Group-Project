@@ -3,7 +3,7 @@ from django.db import models
 class Department(models.Model):
     departmentID = models.AutoField(primary_key=True, verbose_name="Department ID")
     departmentName = models.CharField(max_length=100, verbose_name="Department Name")
-    leader = models.ForeignKey('Staff', on_delete=models.SET_NULL, null=True, blank=True, related_name='headed_departments', verbose_name="Department Head")
+    leader = models.ForeignKey('Staff', on_delete=models.SET_NULL, null = True, blank=True, related_name='headed_departments', verbose_name="Department Head")
     def __str__(self):
         return self.departmentName
 
@@ -12,7 +12,7 @@ class Staff(models.Model):
     staffID = models.AutoField(primary_key=True, verbose_name="Staff ID")
     firstName = models.CharField(max_length=100, verbose_name="First Name")
     lastName = models.CharField(max_length=100, verbose_name="Last Name")
-    emailAddress = models.EmailField(null=True, blank = True, verbose_name="Email Address")
+    emailAddress = models.EmailField(null=True, blank=True, verbose_name="Email Address")
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='staff_members', verbose_name="Department")
 
     def __str__(self):

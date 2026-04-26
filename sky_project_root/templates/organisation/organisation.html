@@ -1,15 +1,30 @@
 <h1>Organisation Overview</h1>
 
 <h2>Departments</h2>
+
 <ul>
     {% for dept in departments %}
-        <li>{{ dept.departmentName }}</li>
+        <li>
+            <strong>{{ dept.departmentName }}</strong>
+
+            <ul>
+                {% for team in dept.team_set.all %}
+                    <li>{{ team.teamName }}</li>
+                {% empty %}
+                    <li>No teams</li>
+                {% endfor %}
+            </ul>
+
+        </li>
     {% endfor %}
 </ul>
 
 <h2>Team Dependencies</h2>
 <ul>
     {% for dep in dependencies %}
-        <li>{{ dep.team }} depends on {{ dep.depends_on }}</li>
+        <li>
+            {{ dep.team }} depends on {{ dep.depends_on }}
+            ({{dep.dependency_type}})
+        </li>
     {% endfor %}
 </ul>

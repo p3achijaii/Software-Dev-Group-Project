@@ -7,7 +7,6 @@ class DepartmentAdmin(admin.ModelAdmin):
     list_display = ("departmentID", "departmentName", "leader")
     search_fields = ("departmentName",)
 
-
 @admin.register(Staff)
 class StaffAdmin(admin.ModelAdmin):
     list_display = ("staffID", "firstName", "lastName", "emailAddress", "department")
