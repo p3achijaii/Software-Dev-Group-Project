@@ -177,49 +177,6 @@ select {
   line-height: 1.4;
 }
 
-.logo {
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none !important;
-    padding: 4px 8px;
-    border-radius: 6px;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
-    cursor: pointer;
-    position: relative;
-}
-
-.logo:hover {
-    background-color: rgba(0, 0, 0, 0.03); 
-    transform: translateY(-1px); 
-}
-
-.logo-sky, .logo-dir {
-    transition: filter 0.3s ease, opacity 0.3s ease;
-}
-
-.logo:hover .logo-sky,
-.logo:hover .logo-dir {
-    filter: brightness(1.15); 
-}
-
-.logo::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 1.5px;
-    background: linear-gradient(90deg, var(--grad-logo-sky), var(--grad-logo-dir));
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
-    opacity: 0;
-}
-
-.logo:hover::after {
-    width: 80%; 
-    opacity: 1;
-}
-
 /* ================================================
    AUTH PAGES  (Login / Register / Forgot Password)
    ================================================ */

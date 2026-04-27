@@ -14,10 +14,10 @@
 
     <header class="topbar">
         <div class="topbar-inner">
-            <a href="{% url 'home' %}" class="logo" aria-label="Return to Engineering Homepage" title="Home">
+            <div class="logo">
                 <span class="logo-sky">sky</span>
                 <span class="logo-dir">Directory</span>
-            </a>
+            </div>
 
             <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
