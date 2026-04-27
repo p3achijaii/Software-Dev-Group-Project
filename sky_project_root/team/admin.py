@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Department, Staff, Team, Skill, TeamSkill, TeamMember
+from .models import Department, Staff, Team, Skill, TeamSkill, TeamMember, DevelopmentFocus
 
 
 @admin.register(Department)
@@ -13,6 +13,9 @@ class StaffAdmin(admin.ModelAdmin):
     search_fields = ("firstName", "lastName", "emailAddress")
     list_filter = ("department",)
 
+@admin.register(DevelopmentFocus)
+class DevelopmentFocusAdmin(admin.ModelAdmin):
+    list_display = ('name',)
 
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
