@@ -18,12 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
 from graphs.views import visualization_dashboard
+from core import views
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='/graphs/', permanent=False)),  
-
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('', views.home, name='home'),  
     path('organisation/', include('organisation.urls')),
     path('dashboard/', visualization_dashboard, name='dashboard'),
 ]
