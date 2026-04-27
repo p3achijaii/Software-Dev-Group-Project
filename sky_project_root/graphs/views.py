@@ -106,4 +106,4 @@ def visualization_dashboard(request):
         'deps_table': deps_table,
     }
 
-    return render(request, 'graphs/dashboard.html', context)
+    return render(request, 'graphs/insights.html', context)

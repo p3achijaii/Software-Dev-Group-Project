@@ -1248,6 +1248,70 @@ input, textarea, select { font-family: inherit; }
 .metric-value.alert { color: #ef4444 !important; }
 
 /* ================================================
+   INSIGHTS PAGE
+   ================================================ */
+.page-body { padding: 32px 24px; }
+.container  { max-width: 1100px; margin: auto; }
+
+.section-label { font-size: 0.7rem; font-weight: 700; letter-spacing: .1em; color: var(--text-mute); text-transform: uppercase; margin-bottom: 6px; }
+.section-title  { font-size: 2rem; font-weight: 800; color: var(--text-pri); margin-bottom: 4px; }
+.section-sub    { font-size: 0.9rem; color: var(--text-sec); margin-bottom: 28px; }
+
+/* pills */
+.dept-pills { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px; background: var(--surface); border-radius: var(--r-md); border: 1px solid var(--border); margin-bottom: 24px; }
+.dept-pill  { padding: 6px 14px; border-radius: var(--r-pill); border: 1.5px solid var(--border); background: transparent; font-size: 0.8rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all .15s; }
+.dept-pill .dot { width: 8px; height: 8px; border-radius: 50%; }
+.dept-pill:hover { border-color: #9ca3af; }
+.dept-pill.active { color: #fff; border-color: transparent; }
+.dept-pill[data-dept="all"].active         { background: var(--text-pri); }
+.dept-pill[data-dept="xtv"].active         { background: var(--dept-xtv); }
+.dept-pill[data-dept="native"].active      { background: var(--dept-native); }
+.dept-pill[data-dept="mobile"].active      { background: var(--dept-mobile); }
+.dept-pill[data-dept="reliability"].active { background: var(--dept-reliability); }
+.dept-pill[data-dept="arch"].active        { background: var(--dept-arch); }
+.dept-pill[data-dept="programme"].active   { background: var(--dept-programme); }
+
+/* hero card */
+.hero-card        { background: var(--surface); border-radius: var(--r-md); border: 1px solid var(--border); padding: 20px 24px; margin-bottom: 16px; display: flex; align-items: center; gap: 16px; }
+.hero-avatar      { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.95rem; color: #fff; flex-shrink: 0; }
+.hero-label       { font-size: 0.65rem; font-weight: 700; letter-spacing: .08em; color: var(--text-mute); text-transform: uppercase; margin-bottom: 2px; }
+.hero-name        { font-size: 1.1rem; font-weight: 800; color: var(--text-pri); }
+.hero-sub         { font-size: 0.8rem; color: var(--text-sec); margin-top: 2px; }
+.hero-count       { margin-left: auto; text-align: right; flex-shrink: 0; }
+.hero-count-num   { font-size: 2rem; font-weight: 900; color: var(--text-pri); }
+.hero-count-label { font-size: 0.75rem; color: var(--text-sec); }
+
+/* stat grid */
+.stat-grid  { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.stat-card  { background: var(--surface); border-radius: var(--r-md); border: 1px solid var(--border); padding: 18px 20px; display: flex; justify-content: space-between; align-items: flex-start; }
+.stat-label { font-size: 0.8rem; color: var(--text-sec); margin-bottom: 6px; }
+.stat-value { font-size: 1.8rem; font-weight: 800; color: var(--text-pri); }
+.stat-icon  { font-size: 1.2rem; opacity: .35; }
+
+/* chart sections */
+.chart-section        { background: var(--surface); border-radius: var(--r-md); border: 1px solid var(--border); padding: 24px; margin-bottom: 16px; }
+.chart-section-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 4px; }
+.chart-title          { font-size: 1rem; font-weight: 700; color: var(--text-pri); }
+.chart-sub            { font-size: 0.8rem; color: var(--text-sec); margin-bottom: 20px; }
+.chart-badge          { font-size: 0.65rem; font-weight: 700; padding: 3px 10px; border-radius: var(--r-pill); border: 1px solid var(--border); color: var(--text-sec); white-space: nowrap; }
+.chart-accent         { width: 32px; height: 3px; border-radius: 2px; margin-bottom: 12px; }
+
+/* team list */
+.team-list              { list-style: none; }
+.team-list li           { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+.team-list li:last-child { border-bottom: none; }
+.team-dot               { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 10px; }
+.team-leader            { color: var(--text-sec); }
+.team-note              { font-size: 0.8rem; color: var(--text-sec); margin-top: 10px; }
+
+/* skill tags */
+.skill-tag { padding: 4px 12px; border: 1px solid var(--border); border-radius: var(--r-pill); font-size: 0.78rem; }
+
+/* dept section visibility */
+.dept-section        { display: none; }
+.dept-section.active { display: block; }
+
+/* ================================================
    UTILITIES
    ================================================ */
 .grad-text {
