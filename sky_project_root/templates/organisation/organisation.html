@@ -11,12 +11,16 @@
 <body>
 
     <!-- TOPBAR -->
-    <div class="topbar">
+    <header class="topbar">
         <div class="topbar-inner">
             <div class="logo">
-                <span class="logo-sky">Sky</span>
+                <span class="logo-sky">sky</span>
                 <span class="logo-dir">Directory</span>
             </div>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn-logout">Sign out</button>
+            </form>
         </div>
 
         <div class="main-nav">
@@ -28,250 +32,252 @@
             <a class="nav-link" href="/calendar/">Calendar</a>
             <a class="nav-link" href="/profile/">My profile</a>
         </div>
-    </div>
-
-    <!-- PAGE -->
-    <div class="page-wrap">
-
-        <!-- HEADER -->
-        <div class="page-header">
-            <div class="page-eyebrow">Overview</div>
-            <h1 class="page-title">Organisation Structure</h1>
-            <p class="page-desc">Departments, teams, and their dependencies</p>
         </div>
-        <div class="org-chart" style="margin-bottom:40px;">
 
-            <div class="org-tree">
+        <!-- PAGE -->
+        <div class="page-wrap">
 
-                {% for dept in departments %}
+            <!-- HEADER -->
+            <div class="page-header">
+                <div class="page-eyebrow">Overview</div>
+                <h1 class="page-title">Organisation Structure</h1>
+                <p class="page-desc">Departments, teams, and their dependencies</p>
+            </div>
+            <div class="org-chart" style="margin-bottom:40px;">
 
-                <div class="org-level">
-                    <div class="org-node">
-                        <div class="org-node-name">{{ dept.departmentName }}</div>
-                        <div class="org-node-role">
-                            Head: {{ dept.leader|default:"None" }}
+                <div class="org-tree">
+
+                    {% for dept in departments %}
+
+                    <div class="org-level">
+                        <div class="org-node">
+                            <div class="org-node-name">{{ dept.departmentName }}</div>
+                            <div class="org-node-role">
+                                Head: {{ dept.leader|default:"None" }}
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="org-connector"></div>
+                    <div class="org-connector"></div>
 
-                <div class="org-level">
+                    <div class="org-level">
 
-                    {% for team in dept.teams.all %}
-                    <div class="org-node">
-                        <div class="org-node-name">{{ team.teamName }}</div>
+                        {% for team in dept.teams.all %}
+                        <div class="org-node">
+                            <div class="org-node-name">{{ team.teamName }}</div>
 
-                        <div class="org-node-role">
-                            {{ team.teamLeader }}
+                            <div class="org-node-role">
+                                {{ team.teamLeader }}
+                            </div>
+
+                            <div class="org-node-role" style="margin-top:6px;">
+                                {% for focus in team.developmentFocus.all %}
+                                {{ focus.name }}{% if not forloop.last %}, {% endif %}
+                                {% empty %}
+                                No focus
+                                {% endfor %}
+                            </div>
                         </div>
+                        {% empty %}
+                        <div class="org-node">No teams</div>
+                        {% endfor %}
 
-                        <div class="org-node-role" style="margin-top:6px;">
-                            {% for focus in team.developmentFocus.all %}
-                            {{ focus.name }}{% if not forloop.last %}, {% endif %}
-                            {% empty %}
-                            No focus
-                            {% endfor %}
-                        </div>
                     </div>
-                    {% empty %}
-                    <div class="org-node">No teams</div>
+
+                    <div style="height:40px;"></div>
+
                     {% endfor %}
 
                 </div>
 
-                <div style="height:40px;"></div>
-
-                {% endfor %}
-
             </div>
+            <!-- DEPARTMENTS -->
+            <div class="search-bar">
+                <input type="text" id="teamSearch" class="search-input"
+                    placeholder="Search teams, leaders, or focus...">
+            </div>
+            <div class="filter-tabs">
+                <button class="dept-tab active" data-filter="all">All</button>
 
-        </div>
-        <!-- DEPARTMENTS -->
-        <div class="search-bar">
-            <input type="text" id="teamSearch" class="search-input" placeholder="Search teams, leaders, or focus...">
-        </div>
-        <div class="filter-tabs">
-            <button class="dept-tab active" data-filter="all">All</button>
+                {% for dept in departments %}
+                <button class="dept-tab" data-filter="{{ dept.departmentName|lower }}">
+                    {{ dept.departmentName }}
+                </button>
+                {% endfor %}
+            </div>
 
             {% for dept in departments %}
-            <button class="dept-tab" data-filter="{{ dept.departmentName|lower }}">
-                {{ dept.departmentName }}
-            </button>
-            {% endfor %}
-        </div>
+            <div class="chart-card department-block " style="margin-bottom:30px;">
 
-        {% for dept in departments %}
-        <div class="chart-card department-block " style="margin-bottom:30px;">
+                <h2 class="chart-title">{{ dept.departmentName }}</h2>
+                <p class="chart-subtitle">
+                    <strong>Department Head:</strong> {{ dept.leader|default:"None" }}
+                </p>
 
-            <h2 class="chart-title">{{ dept.departmentName }}</h2>
-            <p class="chart-subtitle">
-                <strong>Department Head:</strong> {{ dept.leader|default:"None" }}
-            </p>
+                <!-- TEAMS GRID -->
+                <div class="teams-grid">
 
-            <!-- TEAMS GRID -->
-            <div class="teams-grid">
+                    {% for team in dept.teams.all %}
+                    <div class="team-card" data-dept="{{ dept.departmentName|lower }}">
 
-                {% for team in dept.teams.all %}
-                <div class="team-card" data-dept="{{ dept.departmentName|lower }}">
+                        <div class="team-card-strip"></div>
 
-                    <div class="team-card-strip"></div>
+                        <div class="team-card-body">
 
-                    <div class="team-card-body">
+                            <div class="team-card-top">
+                                <div class="team-name">{{ team.teamName }}</div>
+                                <div class="dept-badge">{{ dept.departmentName }}</div>
+                            </div>
 
-                        <div class="team-card-top">
-                            <div class="team-name">{{ team.teamName }}</div>
-                            <div class="dept-badge">{{ dept.departmentName }}</div>
-                        </div>
+                            <!-- CORE INFO -->
+                            <div class="team-desc">
+                                <strong>Leader:</strong> {{ team.teamLeader }}<br>
 
-                        <!-- CORE INFO -->
-                        <div class="team-desc">
-                            <strong>Leader:</strong> {{ team.teamLeader }}<br>
+                                <strong>Focus:</strong>
+                                {% for focus in team.developmentFocus.all %}
+                                {{ focus.name }}{% if not forloop.last %}, {% endif %}
+                                {% empty %}
+                                None
+                                {% endfor %}
+                            </div>
 
-                            <strong>Focus:</strong>
-                            {% for focus in team.developmentFocus.all %}
-                            {{ focus.name }}{% if not forloop.last %}, {% endif %}
-                            {% empty %}
-                            None
-                            {% endfor %}
-                        </div>
-
-                        <!-- LINKS -->
-                        {% if team.githubRepo or team.communicationChannel %}
-                        <div class="team-desc">
-                            {% if team.githubRepo %}
-                            <strong>Repo:</strong>
-                            <a href="{{ team.githubRepo }}">{{ team.githubRepo }}</a><br>
+                            <!-- LINKS -->
+                            {% if team.githubRepo or team.communicationChannel %}
+                            <div class="team-desc">
+                                {% if team.githubRepo %}
+                                <strong>Repo:</strong>
+                                <a href="{{ team.githubRepo }}">{{ team.githubRepo }}</a><br>
+                                {% endif %}
+                                {% if team.communicationChannel %}
+                                <strong>Channel:</strong>
+                                <a href="{{ team.communicationChannel }}">{{ team.communicationChannel }}</a>
+                                {% endif %}
+                            </div>
                             {% endif %}
-                            {% if team.communicationChannel %}
-                            <strong>Channel:</strong>
-                            <a href="{{ team.communicationChannel }}">{{ team.communicationChannel }}</a>
-                            {% endif %}
+
+                            <!-- DEPENDENCIES (compact, cleaner) -->
+                            <div class="team-desc">
+                                <strong>Dependencies:</strong><br>
+
+                                {% if team.dependencies.all %}
+                                {% for dep in team.dependencies.all %}
+                                • {{ dep.depends_on }} ({{ dep.direction }})
+                                {% if dep.dependency_type %}
+                                - {{ dep.dependency_type }}
+                                {% endif %}
+                                <br>
+                                {% endfor %}
+                                {% else %}
+                                None
+                                {% endif %}
+                            </div>
+
                         </div>
-                        {% endif %}
-
-                        <!-- DEPENDENCIES (compact, cleaner) -->
-                        <div class="team-desc">
-                            <strong>Dependencies:</strong><br>
-
-                            {% if team.dependencies.all %}
-                            {% for dep in team.dependencies.all %}
-                            • {{ dep.depends_on }} ({{ dep.direction }})
-                            {% if dep.dependency_type %}
-                            - {{ dep.dependency_type }}
-                            {% endif %}
-                            <br>
-                            {% endfor %}
-                            {% else %}
-                            None
-                            {% endif %}
-                        </div>
-
                     </div>
+                    {% empty %}
+                    <p>No teams in this department</p>
+                    {% endfor %}
+
                 </div>
-                {% empty %}
-                <p>No teams in this department</p>
-                {% endfor %}
-
             </div>
-        </div>
-        {% endfor %}
+            {% endfor %}
 
-        <!-- GLOBAL DEPENDENCIES TABLE -->
-        <div class="table-card" style="margin-top:30px;">
+            <!-- GLOBAL DEPENDENCIES TABLE -->
+            <div class="table-card" style="margin-top:30px;">
 
-            <h2 class="chart-title">All Team Dependencies</h2>
-            <p class="chart-subtitle">Full relationship view across teams</p>
+                <h2 class="chart-title">All Team Dependencies</h2>
+                <p class="chart-subtitle">Full relationship view across teams</p>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Team</th>
-                        <th>Depends On</th>
-                        <th>Direction</th>
-                        <th>Type</th>
-                    </tr>
-                </thead>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Team</th>
+                            <th>Depends On</th>
+                            <th>Direction</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    {% for dep in dependencies %}
-                    <tr>
-                        <td class="name">{{ dep.team }}</td>
-                        <td>{{ dep.depends_on }}</td>
-                        <td>
-                            <span class="badge 
+                    <tbody>
+                        {% for dep in dependencies %}
+                        <tr>
+                            <td class="name">{{ dep.team }}</td>
+                            <td>{{ dep.depends_on }}</td>
+                            <td>
+                                <span class="badge 
                             {% if dep.direction == 'UPSTREAM' %}badge-upstream
                             {% elif dep.direction == 'DOWNSTREAM' %}badge-downstream
                             {% else %}badge-both{% endif %}">
-                                {{ dep.direction }}
-                            </span>
-                        </td>
-                        <td>{{ dep.dependency_type|default:"-" }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="4">No dependencies</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                                    {{ dep.direction }}
+                                </span>
+                            </td>
+                            <td>{{ dep.dependency_type|default:"-" }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4">No dependencies</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
 
         </div>
 
-    </div>
+        <!-- FOOTER -->
+        <div class="site-footer">
+            <strong>SKY</strong> Engineering Team Directory &copy; 2026
+        </div>
+        <script>
+            const searchInput = document.getElementById("teamSearch");
+            const cards = document.querySelectorAll(".team-card");
+            const filters = document.querySelectorAll(".dept-tab");
+            const departments = document.querySelectorAll(".department-block");
 
-    <!-- FOOTER -->
-    <div class="site-footer">
-        Sky Engineering Directory
-    </div>
-    <script>
-        const searchInput = document.getElementById("teamSearch");
-        const cards = document.querySelectorAll(".team-card");
-        const filters = document.querySelectorAll(".dept-tab");
-        const departments = document.querySelectorAll(".department-block");
-
-        let activeFilter = "all";
+            let activeFilter = "all";
 
 
-        searchInput.addEventListener("keyup", applyFilters);
+            searchInput.addEventListener("keyup", applyFilters);
 
-        filters.forEach(btn => {
-            btn.addEventListener("click", function () {
+            filters.forEach(btn => {
+                btn.addEventListener("click", function () {
 
 
-                filters.forEach(b => b.classList.remove("active"));
+                    filters.forEach(b => b.classList.remove("active"));
 
-                this.classList.add("active");
+                    this.classList.add("active");
 
-                activeFilter = this.dataset.filter;
+                    activeFilter = this.dataset.filter;
 
-                applyFilters();
+                    applyFilters();
+                });
             });
-        });
 
-        function applyFilters() {
-            let searchValue = searchInput.value.toLowerCase();
+            function applyFilters() {
+                let searchValue = searchInput.value.toLowerCase();
 
-            cards.forEach(card => {
-                let text = card.innerText.toLowerCase();
-                let dept = card.dataset.dept;
+                cards.forEach(card => {
+                    let text = card.innerText.toLowerCase();
+                    let dept = card.dataset.dept;
 
-                let matchesSearch = text.includes(searchValue);
-                let matchesFilter = (activeFilter === "all" || dept === activeFilter);
+                    let matchesSearch = text.includes(searchValue);
+                    let matchesFilter = (activeFilter === "all" || dept === activeFilter);
 
-                card.style.display = (matchesSearch && matchesFilter) ? "" : "none";
-            });
-            departments.forEach(deptBlock => {
-                let visibleCards = deptBlock.querySelectorAll(".team-card:not([style*='display: none'])");
+                    card.style.display = (matchesSearch && matchesFilter) ? "" : "none";
+                });
+                departments.forEach(deptBlock => {
+                    let visibleCards = deptBlock.querySelectorAll(".team-card:not([style*='display: none'])");
 
-                if (visibleCards.length === 0) {
-                    deptBlock.style.display = "none";
-                } else {
-                    deptBlock.style.display = "";
-                }
-            });
-        }
-    </script>
+                    if (visibleCards.length === 0) {
+                        deptBlock.style.display = "none";
+                    } else {
+                        deptBlock.style.display = "";
+                    }
+                });
+            }
+        </script>
+
 </body>
 
 </html>
