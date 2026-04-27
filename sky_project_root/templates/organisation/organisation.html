@@ -1,45 +1,170 @@
-<h1>Organisation Overview</h1>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-<h2>Departments</h2>
+<head>
+    <meta charset="UTF-8">
+    <title>Organisation Overview</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
 
-<ul>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+    <div class="topbar-inner">
+        <div class="logo">
+            <span class="logo-sky">Sky</span>
+            <span class="logo-dir">Directory</span>
+        </div>
+    </div>
+
+    <div class="main-nav">
+        <a class="nav-link">Dashboard</a>
+        <a class="nav-link">Team Directory</a>
+        <a class="nav-link active">Org chart</a>
+        <a class="nav-link">Messages</a>
+        <a class="nav-link">Meetings</a>
+        <a class="nav-link">Calendar</a>
+        <a class="nav-link">My profile</a>
+    </div>
+</div>
+
+<!-- PAGE -->
+<div class="page-wrap">
+
+    <!-- HEADER -->
+    <div class="page-header">
+        <div class="page-eyebrow">Overview</div>
+        <h1 class="page-title">Organisation Structure</h1>
+        <p class="page-desc">Departments, teams, and their dependencies</p>
+    </div>
+
+    <!-- DEPARTMENTS -->
     {% for dept in departments %}
-    <li style="margin-bottom:10px;">
-        <strong>{{ dept.departmentName }}</strong>
+    <div class="chart-card" style="margin-bottom:30px;">
 
-        <ul>
+        <h2 class="chart-title">{{ dept.departmentName }}</h2>
+        <p class="chart-subtitle">
+            <strong>Department Head:</strong> {{ dept.leader|default:"None" }}
+        </p>
+
+        <!-- TEAMS GRID -->
+        <div class="teams-grid">
+
             {% for team in dept.teams.all %}
-            <li>
-                <h4>{{ team.teamName }}</h4>
-                Team Leader: {{ team.teamLeader }}
-                <ul>
-                    {% for dep in team.dependencies.all %}
-                    <li>
-                        Depends on: {{ dep.depends_on }}<br>
-                        Dependency: {{ dep.dependency_type }}
-                    </li>
-                    {% empty %}
-                    <li>No dependencies</li>
-                    {% endfor %}
-                </ul>
-            </li>
+            <div class="team-card">
+
+                <div class="team-card-strip"></div>
+
+                <div class="team-card-body">
+
+                    <!-- HEADER -->
+                    <div class="team-card-top">
+                        <div class="team-name">{{ team.teamName }}</div>
+                        <div class="dept-badge">{{ dept.departmentName }}</div>
+                    </div>
+
+                    <!-- CORE INFO -->
+                    <div class="team-desc">
+                        <strong>Leader:</strong> {{ team.teamLeader }}<br>
+
+                        <strong>Focus:</strong>
+                        {% for focus in team.developmentFocus.all %}
+                            {{ focus.name }}{% if not forloop.last %}, {% endif %}
+                        {% empty %}
+                            None
+                        {% endfor %}
+                    </div>
+
+                    <!-- LINKS -->
+                    {% if team.githubRepo or team.communicationChannel %}
+                    <div class="team-desc">
+                        {% if team.githubRepo %}
+                            <strong>Repo:</strong>
+                            <a href="{{ team.githubRepo }}">{{ team.githubRepo }}</a><br>
+                        {% endif %}
+                        {% if team.communicationChannel %}
+                            <strong>Channel:</strong>
+                            <a href="{{ team.communicationChannel }}">{{ team.communicationChannel }}</a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    <!-- DEPENDENCIES (compact, cleaner) -->
+                    <div class="team-desc">
+                        <strong>Dependencies:</strong><br>
+
+                        {% if team.dependencies.all %}
+                            {% for dep in team.dependencies.all %}
+                                • {{ dep.depends_on }} ({{ dep.direction }})
+                                {% if dep.dependency_type %}
+                                    - {{ dep.dependency_type }}
+                                {% endif %}
+                                <br>
+                            {% endfor %}
+                        {% else %}
+                            None
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
             {% empty %}
-            <li>No teams</li>
+            <p>No teams in this department</p>
             {% endfor %}
-        </ul>
 
-    </li>
+        </div>
+    </div>
     {% endfor %}
-</ul>
 
-<h2>Team Dependencies</h2>
-<ul>
-    {% for dep in dependencies %}
-    <li>
-        {{ dep.team }} depends on {{ dep.depends_on }}
-        ({{dep.dependency_type}})
-    </li>
-    {% empty %}
-    <li>No dependencies</li>
-    {% endfor %}
-</ul>
+    <!-- GLOBAL DEPENDENCIES TABLE -->
+    <div class="table-card" style="margin-top:30px;">
+
+        <h2 class="chart-title">All Team Dependencies</h2>
+        <p class="chart-subtitle">Full relationship view across teams</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Team</th>
+                    <th>Depends On</th>
+                    <th>Direction</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for dep in dependencies %}
+                <tr>
+                    <td class="name">{{ dep.team }}</td>
+                    <td>{{ dep.depends_on }}</td>
+                    <td>
+                        <span class="badge 
+                            {% if dep.direction == 'UPSTREAM' %}badge-upstream
+                            {% elif dep.direction == 'DOWNSTREAM' %}badge-downstream
+                            {% else %}badge-both{% endif %}">
+                            {{ dep.direction }}
+                        </span>
+                    </td>
+                    <td>{{ dep.dependency_type|default:"-" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No dependencies</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="site-footer">
+    Sky Engineering Directory
+</div>
+
+</body>
+</html>
