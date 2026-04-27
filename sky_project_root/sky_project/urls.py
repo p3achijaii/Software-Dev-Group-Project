@@ -21,8 +21,9 @@ from graphs.views import visualization_dashboard
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("", RedirectView.as_view(url="/teams/", permanent=False)),
+    path("teams/", include("team.urls")),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', visualization_dashboard, name='home'),
     path('organisation/', include('organisation.urls')),
     path('insights/', visualization_dashboard, name='insight'),
 ]
