@@ -1,6 +1,6 @@
 from django.db import models
 from team.models import Team
-
+#represents dependency types between teams
 class DependencyType(models.Model):
     name = models.CharField(max_length=50, verbose_name="Dependency Type")
 
@@ -10,7 +10,7 @@ class DependencyType(models.Model):
     class Meta:
         verbose_name = "Dependency Type"
         verbose_name_plural = "Dependency Types"
-
+#represents dependency between teams
 class TeamDependency(models.Model):
     team = models.ForeignKey(Team, related_name='dependencies', on_delete=models.CASCADE)
 
@@ -30,7 +30,7 @@ class TeamDependency(models.Model):
 
     def __str__(self):
         return f"{self.team} depends on {self.depends_on}"
-    
+    #data models contain meta to ensure proper wording on the admin page
     class Meta:
         verbose_name = "Team Dependency"
         verbose_name_plural = "Team Dependencies"

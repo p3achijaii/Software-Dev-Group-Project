@@ -1,5 +1,5 @@
 from django.db import models
-
+#represents department
 class Department(models.Model):
     departmentID = models.AutoField(primary_key=True, verbose_name="Department ID")
     departmentName = models.CharField(max_length=100, verbose_name="Department Name")
@@ -7,7 +7,7 @@ class Department(models.Model):
     def __str__(self):
         return self.departmentName
 
-
+#represents staff
 class Staff(models.Model):
     staffID = models.AutoField(primary_key=True, verbose_name="Staff ID")
     firstName = models.CharField(max_length=100, verbose_name="First Name")
@@ -22,6 +22,7 @@ class Staff(models.Model):
         verbose_name = "Staff"
         verbose_name_plural = "Staff"
 
+#represents a team's development focus areas
 class DevelopmentFocus(models.Model):
     name = models.CharField(max_length=100, verbose_name="Development Focus Area")
 
@@ -31,7 +32,7 @@ class DevelopmentFocus(models.Model):
     class Meta:
         verbose_name = "Development Focus Area"
         verbose_name_plural = "Development Focus Areas"
-        
+#represents a team within a department        
 class Team(models.Model):
     teamID = models.AutoField(primary_key=True, verbose_name="Team ID")
     teamName = models.CharField(max_length=100, verbose_name="Team Name")
@@ -42,6 +43,7 @@ class Team(models.Model):
     def __str__(self):
         return self.teamName
 
+#represents skills
 class Skill(models.Model):
     skillID = models.AutoField(primary_key=True, verbose_name="Skill ID")
     skillName = models.CharField(max_length=100, verbose_name="Skill Name")
@@ -50,7 +52,7 @@ class Skill(models.Model):
     def __str__(self):
         return self.skillName
 
-
+#represents team skills
 class TeamSkill(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
@@ -61,7 +63,7 @@ class TeamSkill(models.Model):
     class Meta:
         verbose_name = "Team Skill"
         verbose_name_plural = "Team Skills"
-
+#represents team members
 class TeamMember(models.Model):
     staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
