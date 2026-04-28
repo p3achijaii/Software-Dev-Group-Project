@@ -1,109 +1,92 @@
 # Student 6: Data Visualization - Dashboard View Logic
 from django.shortcuts import render
-from django.db.models import Count, Prefetch
+from django.db.models import Count
 from django.contrib.auth.decorators import login_required
-from team.models import Department, Team, Staff, TeamMember
+from team.models import Department, Team, Staff
 from organisation.models import TeamDependency
+
+# Maps department name → JS section key used in insights.html
+DEPT_KEY = {
+    'xTV_Web':          'xtv',
+    'Native TVs':       'native',
+    'Mobile':           'mobile',
+    'Reliability_Tool': 'reliability',
+    'Arch':             'arch',
+    'Programme':        'programme',
+}
 
 @login_required
 def visualization_dashboard(request):
-    # --- Metric Cards ---
-    total_teams = Team.objects.count()
-    total_engineers = Staff.objects.count()
+    total_teams       = Team.objects.count()
+    total_engineers   = Staff.objects.count()
     total_dependencies = TeamDependency.objects.count()
     teams_without_manager = Team.objects.filter(teamLeader__isnull=True).count()
 
-    # --- Per-department arrays (same index across all lists) ---
+    # Per-department aggregates
     departments = list(
-        Department.objects.annotate(
-            num_teams=Count('teams', distinct=True)
-        ).select_related('leader')
+        Department.objects
+        .annotate(
+            num_teams=Count('teams', distinct=True),
+            num_staff=Count('staff_members', distinct=True),
+        )
+        .select_related('leader')
+        .order_by('departmentName')
     )
 
-    dept_names = []
-    dept_team_counts = []
-    dept_avg_sizes = []
-    dept_heads = []
-    dept_upstream = []
-    dept_downstream = []
+    dept_names        = []
+    dept_team_counts  = []
+    dept_staff_counts = []
+    dept_upstream     = []
+    dept_downstream   = []
+    dept_details      = {}
 
     for dept in departments:
-        dept_names.append(dept.departmentName)
+        name = dept.departmentName
+        dept_names.append(name)
         dept_team_counts.append(dept.num_teams)
+        dept_staff_counts.append(dept.num_staff)
+
+        up   = TeamDependency.objects.filter(team__department=dept, direction='UPSTREAM').count()
+        down = TeamDependency.objects.filter(team__department=dept, direction='DOWNSTREAM').count()
+        dept_upstream.append(up)
+        dept_downstream.append(down)
 
         leader = dept.leader
-        dept_heads.append(
-            f"{leader.firstName} {leader.lastName}" if leader else 'Unassigned'
-        )
+        dept_details[DEPT_KEY.get(name, name)] = {
+            'name':      name,
+            'leader':    f"{leader.firstName} {leader.lastName}" if leader else 'Unassigned',
+            'initials':  f"{leader.firstName[0]}{leader.lastName[0]}" if leader else '?',
+            'num_teams': dept.num_teams,
+            'num_staff': dept.num_staff,
+            'upstream':  up,
+            'downstream': down,
+        }
 
-        member_count = TeamMember.objects.filter(team__department=dept).count()
-        avg = round(member_count / dept.num_teams, 1) if dept.num_teams > 0 else 0
-        dept_avg_sizes.append(avg)
-
-        dept_upstream.append(
-            TeamDependency.objects.filter(team__department=dept).count()
-        )
-        dept_downstream.append(
-            TeamDependency.objects.filter(depends_on__department=dept).count()
-        )
-
-    # --- Teams without manager pie ---
-    has_manager_count = total_teams - teams_without_manager
-
-    # --- Dependency table (grouped by source team) ---
-    teams_with_deps = (
-        Team.objects
-        .filter(dependencies__isnull=False)
-        .select_related('department', 'teamLeader')
-        .prefetch_related(
-            Prefetch(
-                'dependencies',
-                queryset=TeamDependency.objects.select_related('depends_on', 'dependency_type')
-            )
-        )
-        .distinct()
+    # Dependency-type breakdown for donut chart
+    dep_types = list(
+        TeamDependency.objects
+        .values('dependency_type__name')
+        .annotate(count=Count('pk'))
+        .order_by('-count')
     )
-
-    deps_table = []
-    for team in teams_with_deps:
-        type_names = set()
-        linked = []
-        for dep in team.dependencies.all():
-            if dep.dependency_type:
-                type_names.add(dep.dependency_type.name.lower())
-            linked.append(dep.depends_on.teamName)
-
-        if 'upstream' in type_names and 'downstream' in type_names:
-            badge = 'both'
-        elif type_names:
-            badge = next(iter(type_names))
-        else:
-            badge = 'unclassified'
-
-        deps_table.append({
-            'team': team.teamName,
-            'department': team.department.departmentName,
-            'manager': (
-                f"{team.teamLeader.firstName} {team.teamLeader.lastName}"
-                if team.teamLeader else 'Unassigned'
-            ),
-            'dep_type': badge,
-            'linked_teams': ', '.join(linked),
-        })
+    dep_type_labels = [d['dependency_type__name'] or 'Unclassified' for d in dep_types]
+    dep_type_counts = [d['count'] for d in dep_types]
 
     context = {
-        'total_teams': total_teams,
-        'total_engineers': total_engineers,
-        'total_dependencies': total_dependencies,
-        'teams_without_manager': teams_without_manager,
-        'has_manager_count': has_manager_count,
-        'dept_names': dept_names,
-        'dept_team_counts': dept_team_counts,
-        'dept_avg_sizes': dept_avg_sizes,
-        'dept_heads': dept_heads,
-        'dept_upstream': dept_upstream,
-        'dept_downstream': dept_downstream,
-        'deps_table': deps_table,
+        'total_teams':            total_teams,
+        'total_engineers':        total_engineers,
+        'total_dependencies':     total_dependencies,
+        'teams_without_manager':  teams_without_manager,
+        'has_manager_count':      total_teams - teams_without_manager,
+        # chart data (passed via json_script in template)
+        'dept_names':        dept_names,
+        'dept_team_counts':  dept_team_counts,
+        'dept_staff_counts': dept_staff_counts,
+        'dept_upstream':     dept_upstream,
+        'dept_downstream':   dept_downstream,
+        'dep_type_labels':   dep_type_labels,
+        'dep_type_counts':   dep_type_counts,
+        'dept_details':      dept_details,
     }
 
     return render(request, 'graphs/insights.html', context)
