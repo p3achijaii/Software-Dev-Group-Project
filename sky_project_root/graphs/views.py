@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
-from team.models import Department, Team, Staff
+from team.models import Department, Team, Staff, Skill
 from organisation.models import TeamDependency
 
 # Maps department name → JS section key used in insights.html
@@ -62,6 +62,16 @@ def visualization_dashboard(request):
             'downstream': down,
         }
 
+    # Skill category counts for horizontal bar chart
+    skill_cats = list(
+        Skill.objects
+        .values('skillCategory')
+        .annotate(count=Count('pk'))
+        .order_by('-count')[:10]
+    )
+    skill_cat_labels = [s['skillCategory'] for s in skill_cats]
+    skill_cat_counts = [s['count'] for s in skill_cats]
+
     # Dependency-type breakdown for donut chart
     dep_types = list(
         TeamDependency.objects
@@ -87,6 +97,8 @@ def visualization_dashboard(request):
         'dep_type_labels':   dep_type_labels,
         'dep_type_counts':   dep_type_counts,
         'dept_details':      dept_details,
+        'skill_cat_labels':  skill_cat_labels,
+        'skill_cat_counts':  skill_cat_counts,
     }
 
     return render(request, 'graphs/insights.html', context)

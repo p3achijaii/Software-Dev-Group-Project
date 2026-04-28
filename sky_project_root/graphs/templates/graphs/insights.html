@@ -695,6 +695,8 @@
     {{ dep_type_labels|json_script:"db-dep-type-labels" }}
     {{ dep_type_counts|json_script:"db-dep-type-counts" }}
     {{ dept_details|json_script:"db-dept-details" }}
+    {{ skill_cat_labels|json_script:"db-skill-cat-labels" }}
+    {{ skill_cat_counts|json_script:"db-skill-cat-counts" }}
 
     <script>
         // ── DB data from Django ───────────────────────────────────────
@@ -708,8 +710,7 @@
             deptDetails:    JSON.parse(document.getElementById('db-dept-details').textContent),
         };
 
-        // Short labels for bar chart x-axis
-        const deptShort = db.deptNames.map(n => n.replace('_Tool','').replace(' TVs','').substring(0,6));
+        const deptShort = db.deptNames.map(n => n.replace('_Tool', ''));
 
         // ── colour palette ────────────────────────────────────────────
         const C = {
@@ -817,8 +818,9 @@
         vbar('allDeptChart', deptShort, db.teamCounts, deptColors);
 
         hbar('allSkillsChart',
-            ['CI/CD', 'API', 'Python', 'React', 'AWS', 'Kubernetes', 'Git', 'Jira', 'TypeScript'],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0], C.native);
+            JSON.parse(document.getElementById('db-skill-cat-labels').textContent),
+            JSON.parse(document.getElementById('db-skill-cat-counts').textContent),
+            C.native);
 
         grouped('allDepsChart', deptShort, [
             { label: 'Outgoing deps', data: db.upstream,   backgroundColor: C.fade(C.xtv, 0.45), borderRadius: 4 },
