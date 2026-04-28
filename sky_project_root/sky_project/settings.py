@@ -58,9 +58,12 @@ ROOT_URLCONF = 'sky_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates', BASE_DIR / 'core'], 
+        'DIRS': [BASE_DIR / 'templates', BASE_DIR / 'core'],
         'APP_DIRS': True,
         'OPTIONS': {
+            'libraries': {
+                'team_extras': 'team.templatetags.team_extras',
+            },
             'context_processors': [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -69,6 +72,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'sky_project.wsgi.application'
 
