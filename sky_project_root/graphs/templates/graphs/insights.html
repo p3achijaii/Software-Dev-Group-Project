@@ -688,7 +688,30 @@
         <strong>SKY</strong> Engineering Team Directory &copy; 2026
     </footer>
 
+    {{ dept_names|json_script:"db-dept-names" }}
+    {{ dept_team_counts|json_script:"db-dept-team-counts" }}
+    {{ dept_upstream|json_script:"db-dept-upstream" }}
+    {{ dept_downstream|json_script:"db-dept-downstream" }}
+    {{ dep_type_labels|json_script:"db-dep-type-labels" }}
+    {{ dep_type_counts|json_script:"db-dep-type-counts" }}
+    {{ dept_details|json_script:"db-dept-details" }}
+    {{ skill_cat_labels|json_script:"db-skill-cat-labels" }}
+    {{ skill_cat_counts|json_script:"db-skill-cat-counts" }}
+
     <script>
+        // ── DB data from Django ───────────────────────────────────────
+        const db = {
+            deptNames:      JSON.parse(document.getElementById('db-dept-names').textContent),
+            teamCounts:     JSON.parse(document.getElementById('db-dept-team-counts').textContent),
+            upstream:       JSON.parse(document.getElementById('db-dept-upstream').textContent),
+            downstream:     JSON.parse(document.getElementById('db-dept-downstream').textContent),
+            depTypeLabels:  JSON.parse(document.getElementById('db-dep-type-labels').textContent),
+            depTypeCounts:  JSON.parse(document.getElementById('db-dep-type-counts').textContent),
+            deptDetails:    JSON.parse(document.getElementById('db-dept-details').textContent),
+        };
+
+        const deptShort = db.deptNames.map(n => n.replace('_Tool', ''));
+
         // ── colour palette ────────────────────────────────────────────
         const C = {
             xtv: '#ec4899',
@@ -699,6 +722,23 @@
             programme: '#6366f1',
             fade: (hex, a) => hex + Math.round(a * 255).toString(16).padStart(2, '0')
         };
+        const deptColors = [C.xtv, C.native, C.mobile, C.reliability, C.arch, C.programme];
+
+        // ── populate per-dept hero cards & stat grids ─────────────────
+        const DEPT_KEY = {
+            'xTV_Web': 'xtv', 'Native TVs': 'native', 'Mobile': 'mobile',
+            'Reliability_Tool': 'reliability', 'Arch': 'arch', 'Programme': 'programme'
+        };
+        Object.entries(db.deptDetails).forEach(([key, d]) => {
+            const sec = document.getElementById('section-' + key);
+            if (!sec) return;
+            const heroNum  = sec.querySelector('.hero-count-num');
+            const heroSub  = sec.querySelector('.hero-sub');
+            const statVals = sec.querySelectorAll('.stat-value');
+            if (heroNum) heroNum.textContent = d.num_teams;
+            if (heroSub) heroSub.textContent = `${d.name} · ${d.num_teams} teams · ~${d.num_staff} engineers`;
+            if (statVals[0]) statVals[0].textContent = d.num_teams;
+        });
 
         // ── dept label/title map ──────────────────────────────────────
         const meta = {
@@ -725,8 +765,6 @@
         });
 
         // ── chart helpers ─────────────────────────────────────────────
-        const depts = ['xTV', 'Native', 'Mobile', 'Rel', 'Arch', 'Prog'];
-
         function hbar(id, labels, data, color) {
             const el = document.getElementById(id);
             if (!el) return;
@@ -776,23 +814,20 @@
             });
         }
 
-        // ── ALL DEPARTMENTS ───────────────────────────────────────────
-        vbar('allDeptChart', depts, [0, 0, 0, 0, 0, 0],
-            [C.xtv, C.native, C.mobile, C.reliability, C.arch, C.programme]);
+        // ── ALL DEPARTMENTS — real DB data ────────────────────────────
+        vbar('allDeptChart', deptShort, db.teamCounts, deptColors);
 
         hbar('allSkillsChart',
-            ['CI/CD', 'API', 'Python', 'React', 'AWS', 'Kubernetes', 'Git', 'Jira', 'TypeScript'],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0], C.native);
+            JSON.parse(document.getElementById('db-skill-cat-labels').textContent),
+            JSON.parse(document.getElementById('db-skill-cat-counts').textContent),
+            C.native);
 
-        grouped('allDepsChart', depts, [
-            { label: 'Outgoing deps', data: [0, 0, 0, 0, 0, 0], backgroundColor: C.fade(C.xtv, 0.45), borderRadius: 4 },
-            { label: 'Incoming deps', data: [0, 0, 0, 0, 0, 0], backgroundColor: C.native, borderRadius: 4 }
+        grouped('allDepsChart', deptShort, [
+            { label: 'Outgoing deps', data: db.upstream,   backgroundColor: C.fade(C.xtv, 0.45), borderRadius: 4 },
+            { label: 'Incoming deps', data: db.downstream, backgroundColor: C.native,             borderRadius: 4 }
         ]);
 
-        donut('allDepTypesChart',
-            ['Bug Resolution', 'Security Fixes', 'Deployment', 'Infrastructure', 'Agile Coaching', 'Other'],
-            [1, 1, 1, 1, 1, 1],
-            [C.xtv, C.native, C.mobile, C.reliability, C.arch, C.programme]);
+        donut('allDepTypesChart', db.depTypeLabels, db.depTypeCounts, deptColors);
 
         // ── xTV_Web ───────────────────────────────────────────────────
         hbar('xtvSkillsChart',
