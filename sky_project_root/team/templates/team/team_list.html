@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load team_extras %}
+{% block title %}Team Directory{% endblock %}
+
+{% block content %}
+<p class="section-label">DIRECTORY</p>
+<h1 class="section-title">Team Directory</h1>
+<p class="section-sub">
+    Search for engineering teams, departments, and managers. View skills,
+    dependencies, and start a conversation.
+
+<form method="get" action="{% url 'team:team_list' %}" class="dept-pills"
+    style="flex-direction:column;align-items:stretch;gap:14px;">
+    <div class="search-bar" style="margin-bottom:0;">
+        <i class="bi bi-search search-icon"></i>
+        <input type="search" name="q" value="{{ q }}" placeholder="Search teams, managers, technologies..."
+            class="search-input">
+        {% if active_dept_id %}<input type="hidden" name="dept" value="{{ active_dept_id }}">{% endif %}
+    </div>
+
+    <div class="filter-tabs" style="margin-bottom:0;">
+        <a href="?{% if q %}q={{ q }}{% endif %}"
+            class="dept-tab xtv {% if not active_dept_id %}active{% endif %}">All</a>
+        {% for d in departments %}
+        <a href="?dept={{ d.id }}{% if q %}&q={{ q }}{% endif %}"
+            class="dept-tab {{ d.color|dept_class }} {% if active_dept_id == d.id %}active{% endif %}">
+            {{ d.name }}
+        </a>
+        {% endfor %}
+    </div>
+</form>
+
+
+<p class="results-summary">
+    Showing <strong>{{ teams|length }}</strong> of <strong>{{ total }}</strong> teams
+</p>
+
+{% if teams %}
+<div class="teams-grid">
+    {% for team in teams %}
+    {% with dc=team.department.color|dept_class %}
+    <a href="{% url 'team:team_detail' team.slug %}" class="team-card">
+        <div class="team-card-strip {{ dc }}"></div>
+        <div class="team-card-body">
+            <div class="team-card-top">
+                <div class="team-name">{{ team.name }}</div>
+                <span class="dept-badge {{ dc }}">{{ team.department.name }}</span>
+            </div>
+            <p class="team-desc">{{ team.description }}</p>
+            <div class="team-card-footer">
+                <div>
+                    <div class="team-leader-label">Team Leader</div>
+                    <div class="team-leader-name">{{ team.leader_name }}</div>
+                </div>
+                <span class="team-members"><i class="bi bi-people"></i> {{ team.members.count }}</span>
+            </div>
+        </div>
+    </a>
+    {% endwith %}
+    {% endfor %}
+</div>
+{% else %}
+<div class="quick-actions" style="text-align:center;">
+    <p class="action-label">No teams match your search.</p>
+    <p class="action-desc">Try a different keyword or clear the department filter.</p>
+</div>
+{% endif %}
+{% endblock %}

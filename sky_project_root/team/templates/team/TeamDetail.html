@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% load team_extras %}
+{% block title %}{{ team.name }} — Team Directory{% endblock %}
+
+{% block content %}
+{% with dc=team.department.color|dept_class %}
+
+<a href="{% url 'team:team_list' %}" class="auth-back" style="margin-top:0;margin-bottom:16px;">
+    <i class="bi bi-arrow-left"></i> Back to directory
+</a>
+
+<section class="profile-header-card">
+    <div class="team-card-strip {{ dc }}" style="margin:-28px -28px 20px;"></div>
+    <div class="team-card-top" style="margin-bottom:14px;">
+        <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                <span class="dept-badge {{ dc }}">{{ team.department.name }}</span>
+                <span style="font-size:0.8rem;color:var(--text-sec);">· {{ team.email }}</span>
+            </div>
+            <h1 class="page-title" style="margin-bottom:4px;">{{ team.name }}</h1>
+            <p class="page-desc" style="max-width:42rem;">{{ team.description }}</p>
+        </div>
+    </div>
+    <div class="form-actions" style="margin-top:8px;">
+        <a href="mailto:{{ team.email }}?subject=Re: {{ team.name }}" class="btn-outline">
+            <i class="bi bi-envelope"></i> Email team
+        </a>
+        <a href="#" class="btn-grad">
+            <i class="bi bi-calendar-event"></i> Schedule meeting
+        </a>
+    </div>
+</section>
+
+<div class="charts-row two-col">
+    <section class="profile-section-card">
+        <div class="profile-section-header">
+            <div class="profile-section-title">
+                <span class="profile-section-icon"><i class="bi bi-stars"></i></span>
+                Skills
+            </div>
+            <span class="chart-badge">{{ team.skills.count }}</span>
+        </div>
+        <div class="filter-tabs" style="margin-bottom:0;">
+            {% for s in team.skills.all %}
+            <span class="skill-tag">{{ s.name }}</span>
+            {% empty %}
+            <p class="page-desc">No skills listed.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <aside class="profile-section-card">
+        <div class="profile-section-header">
+            <div class="profile-section-title">
+                <span class="profile-section-icon"><i class="bi bi-person-badge"></i></span>
+                Team Leader
+            </div>
+        </div>
+        <div class="hero-card" style="margin-bottom:0;border:none;padding:0;">
+            <span class="hero-avatar" style="background:var(--grad-primary);">{{ team.leader_name|initials }}</span>
+            <div>
+                <div class="hero-name" style="font-size:1rem;">{{ team.leader_name }}</div>
+                <div class="hero-sub">{{ team.leader_role }}</div>
+                <a href="mailto:{{ team.leader_email }}" class="auth-link" style="font-size:0.8rem;">
+                    {{ team.leader_email }}
+                </a>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<section class="profile-section-card">
+    <div class="profile-section-header">
+        <div class="profile-section-title">
+            <span class="profile-section-icon"><i class="bi bi-people"></i></span>
+            Members
+        </div>
+        <span class="chart-badge">{{ team.members.count|add:"1" }}</span>
+    </div>
+    <ul class="team-list">
+        <li>
+            <div>
+                <span class="team-dot" style="background:var(--dept-xtv);"></span>
+                <strong>{{ team.leader_name }}</strong>
+            </div>
+            <span class="team-leader">{{ team.leader_role }} · Lead</span>
+        </li>
+        {% for m in team.members.all %}
+        <li>
+            <div>
+                <span class="team-dot" style="background:var(--dept-xtv);"></span>
+                {{ m.name }}
+            </div>
+            <span class="team-leader">{{ m.role }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+
+<header class="page-header" style="padding:20px 0 16px;">
+    <h2 class="page-title" style="font-size:1.4rem;">Dependencies</h2>
+    <p class="page-desc">How this team connects to others</p>
+</header>
+
+<div class="charts-row two-col">
+    <div class="chart-section">
+        <div class="chart-section-header">
+            <div>
+                <div class="chart-title"><i class="bi bi-arrow-up-circle"></i> Upstream</div>
+                <p class="chart-sub">Teams this team depends on.</p>
+            </div>
+            <span class="badge badge-upstream">{{ team.upstream.count }}</span>
+        </div>
+        <ul class="team-list">
+            {% for t in team.upstream.all %}
+            <li>
+                <a href="{% url 'team:team_detail' t.slug %}"
+                    style="display:flex;justify-content:space-between;width:100%;align-items:center;">
+                    <div>
+                        <div style="font-weight:600;">{{ t.name }}</div>
+                        <div class="team-leader">{{ t.leader_name }}</div>
+                    </div>
+                    <span class="dept-badge {{ t.department.color|dept_class }}">{{ t.department.name }}</span>
+                </a>
+            </li>
+            {% empty %}
+            <p class="page-desc">No upstream dependencies.</p>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="chart-section">
+        <div class="chart-section-header">
+            <div>
+                <div class="chart-title"><i class="bi bi-arrow-down-circle"></i> Downstream</div>
+                <p class="chart-sub">Teams that depend on this team.</p>
+            </div>
+            <span class="badge badge-downstream">{{ team.downstream.count }}</span>
+        </div>
+        <ul class="team-list">
+            {% for t in team.downstream.all %}
+            <li>
+                <a href="{% url 'team:team_detail' t.slug %}"
+                    style="display:flex;justify-content:space-between;width:100%;align-items:center;">
+                    <div>
+                        <div style="font-weight:600;">{{ t.name }}</div>
+                        <div class="team-leader">{{ t.leader_name }}</div>
+                    </div>
+                    <span class="dept-badge {{ t.department.color|dept_class }}">{{ t.department.name }}</span>
+                </a>
+            </li>
+            {% empty %}
+            <p class="page-desc">No downstream dependencies.</p>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endwith %}
+{% endblock %}
