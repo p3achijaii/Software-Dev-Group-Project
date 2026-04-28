@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'team',
     'organisation',
     'graphs',
+    'schedule'
 ]
 
 MIDDLEWARE = [
