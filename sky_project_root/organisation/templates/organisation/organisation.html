@@ -51,7 +51,8 @@
                 {% for dept in departments %}
                 <!--department node -->
                 <div class="org-level">
-                    <div class="org-node">
+                    <div
+                        class="org-node {% if dept.departmentName == 'Mobile' %}mobile{% elif dept.departmentName == 'xTV_Web' %}xtv{% elif dept.departmentName == 'Native TVs' %}native{% elif dept.departmentName == 'Reliability_Tool' %}reliability{% elif dept.departmentName == 'Arch' %}arch{% elif dept.departmentName == 'Programme' %}programme{% endif %}">
                         <div class="org-node-name">{{ dept.departmentName }}</div>
                         <div class="org-node-role">
                             <!-- show department head, fallback if missing-->
@@ -65,7 +66,8 @@
                 <div class="org-level">
 
                     {% for team in dept.teams.all %}
-                    <div class="org-node">
+                    <div
+                        class="org-node {% if dept.departmentName == 'Mobile' %}mobile{% elif dept.departmentName == 'xTV_Web' %}xtv{% elif dept.departmentName == 'Native TVs' %}native{% elif dept.departmentName == 'Reliability_Tool' %}reliability{% elif dept.departmentName == 'Arch' %}arch{% elif dept.departmentName == 'Programme' %}programme{% endif %}">
                         <!-- team name-->
                         <div class="org-node-name">{{ team.teamName }}</div>
                         <!-- team leader-->
@@ -106,7 +108,7 @@
             <button class="dept-tab active" data-filter="all">All</button>
             <!-- generate one button per department-->
             {% for dept in departments %}
-            <button class="dept-tab" data-filter="{{ dept.departmentName|lower }}">
+            <button class="dept-tab" data-filter="{{ dept.departmentName|lower|cut:'_'|cut:' ' }}">
                 {{ dept.departmentName }}
             </button>
             {% endfor %}
@@ -127,15 +129,22 @@
 
                 {% for team in dept.teams.all %}
                 <!-- individual team card-->
-                <div class="team-card" data-dept="{{ dept.departmentName|lower }}">
+                <div class="team-card" data-dept="{{ dept.departmentName|lower|cut:'_'|cut:' ' }}">
                     <!-- decorative top strip-->
-                    <div class="team-card-strip"></div>
+                    <div class="team-card-strip {{ dept.departmentName|lower|cut:'_'|cut:' ' }}"></div>
 
                     <div class="team-card-body">
                         <!-- team header-->
                         <div class="team-card-top">
                             <div class="team-name">{{ team.teamName }}</div>
-                            <div class="dept-badge">{{ dept.departmentName }}</div>
+                            <div class="dept-badge 
+                            {% if dept.departmentName == 'Mobile' %}mobile
+                            {% elif dept.departmentName == 'xTV_Web' %}xtv
+                            {% elif dept.departmentName == 'Native TVs' %}native
+                            {% elif dept.departmentName == 'Reliability_Tool' %}reliability
+                            {% elif dept.departmentName == 'Arch' %}arch
+                            {% elif dept.departmentName == 'Programme' %}programme
+                            {% endif %}">{{ dept.departmentName }}</div>
                         </div>
 
                         <!-- core team information -->

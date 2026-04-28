@@ -652,6 +652,15 @@ select {
 .team-card-strip.programme {
   background: var(--dept-programme);
 }
+.team-card-strip.reliabilitytool {
+  background: var(--dept-reliability);
+}
+.team-card-strip.xtvweb {
+  background: var(--dept-xtv);
+}
+.team-card-strip.nativetvs {
+  background: var(--dept-native);
+}
 
 .team-card-body {
   padding: 18px;
@@ -852,6 +861,22 @@ select {
   color: var(--text-sec);
   margin-bottom: 10px;
 }
+
+.org-node.xtvweb { border-top: 4px solid var(--dept-xtv) !important; }
+.org-node.xtv {
+    border-top: 4px solid var(--dept-xtv) !important;
+}
+.org-node.nativetvs { border-top: 4px solid var(--dept-native) !important; }
+.org-node.native {
+    border-top: 4px solid var(--dept-native) !important; 
+}
+.org-node.mobile { border-top: 4px solid var(--dept-mobile) !important; }
+.org-node.reliabilitytool { border-top: 4px solid var(--dept-reliability) !important; }
+.org-node.reliability {
+    border-top: 4px solid var(--dept-reliability) !important; 
+}
+.org-node.arch { border-top: 4px solid var(--dept-arch) !important; }
+.org-node.programme { border-top: 4px solid var(--dept-programme) !important; }
 
 /* ================================================
    MESSAGES
