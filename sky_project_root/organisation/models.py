@@ -30,7 +30,7 @@ class TeamDependency(models.Model):
 
     def __str__(self):
         return f"{self.team} depends on {self.depends_on}"
-    
+    #data models contain meta to ensure proper wording on the admin page
     class Meta:
         verbose_name = "Team Dependency"
         verbose_name_plural = "Team Dependencies"
