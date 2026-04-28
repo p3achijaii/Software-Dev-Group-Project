@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meetings | Sky Engineering Directory</title>
+
+    <!-- ✅ Load group CSS properly -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<header class="topbar">
+    <div class="topbar-inner">
+        <div class="logo">
+            <span class="logo-sky">sky</span>
+            <span class="logo-dir">Engineering</span>
+            <span class="logo-sub">Team Directory</span>
+        </div>
+
+        <a href="/accounts/logout/" class="btn-logout">Logout</a>
+    </div>
+
+    <nav class="main-nav">
+        <a href="/dashboard/" class="nav-link">Dashboard</a>
+        <a href="/organisation/" class="nav-link">Team Directory</a>
+        <a href="/meetings/" class="nav-link active">Meetings</a>
+        <a href="/graphs/" class="nav-link">Insights</a>
+    </nav>
+</header>
+
+<!-- ===== PAGE CONTENT ===== -->
+<div class="page-wrap">
+
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-eyebrow">Calendar</div>
+        <h1 class="page-title">Schedule Meetings</h1>
+        <p class="page-desc">
+            Plan and manage cross‑team meetings and syncs
+        </p>
+    </div>
+
+    <!-- Header row -->
+    <div class="meetings-header">
+        <div class="filter-row">
+            <span class="filter-pill active">All</span>
+            <span class="filter-pill">Upcoming</span>
+            <span class="filter-pill">Past</span>
+        </div>
+
+        <a href="{% url 'schedule_meeting' %}" class="btn-grad">
+            + Schedule Meeting
+        </a>
+    </div>
+
+    <!-- Meetings list -->
+    {% for meeting in meetings %}
+        <div class="meeting-item">
+            <div class="meeting-type-icon online">📹</div>
+
+            <div class="meeting-info">
+                <div class="meeting-title">
+                    {{ meeting.title }}
+                    <span class="meeting-badge upcoming">upcoming</span>
+                </div>
+
+                <div class="meeting-meta">
+                    <span>📅 {{ meeting.date_time|date:"D, j M Y" }}</span>
+                    <span>⏰ {{ meeting.date_time|date:"H:i" }}</span>
+                    <span>📍 {{ meeting.platform }}</span>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="meeting-item">
+            <div class="meeting-info">
+                <div class="meeting-title">No meetings scheduled</div>
+            </div>
+        </div>
+    {% endfor %}
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+    <strong>Sky Engineering Team Directory</strong> © 2026
+</footer>
+
+</body>
+</html>
+``
