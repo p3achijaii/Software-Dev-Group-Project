@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import TeamDependency, DependencyType
 
-
+#Registers dependency models for admin interface
 @admin.register(DependencyType)
 class DependencyTypeAdmin(admin.ModelAdmin):
     list_display = ("id", "name")
