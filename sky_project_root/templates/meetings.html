@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Meetings | Sky Engineering Directory</title>
 
-    <!-- ✅ Load group CSS properly -->
+    <!-- Group stylesheet -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
@@ -15,18 +15,21 @@
     <div class="topbar-inner">
         <div class="logo">
             <span class="logo-sky">sky</span>
-            <span class="logo-dir">Engineering</span>
-            <span class="logo-sub">Team Directory</span>
+            <span class="logo-dir">Directory</span>
         </div>
 
-        <a href="/accounts/logout/" class="btn-logout">Logout</a>
+        <a href="/accounts/logout/" class="btn-logout">Sign out</a>
     </div>
 
     <nav class="main-nav">
         <a href="/dashboard/" class="nav-link">Dashboard</a>
-        <a href="/organisation/" class="nav-link">Team Directory</a>
-        <a href="/meetings/" class="nav-link active">Meetings</a>
+        <a href="/teams/" class="nav-link">Team Directory</a>
+        <a href="/organisation/" class="nav-link">Org chart</a>
         <a href="/graphs/" class="nav-link">Insights</a>
+        <a href="/messages/" class="nav-link">Messages</a>
+        <a href="/meetings/" class="nav-link active">Meetings</a>
+        <a href="/calendar/" class="nav-link">Calendar</a>
+        <a href="/profile/" class="nav-link">My profile</a>
     </nav>
 </header>
 
@@ -35,22 +38,31 @@
 
     <!-- Page header -->
     <div class="page-header">
-        <div class="page-eyebrow">Calendar</div>
+        <div class="page-eyebrow">CALENDAR</div>
         <h1 class="page-title">Schedule Meetings</h1>
-        <p class="page-desc">
-            Plan and manage cross‑team meetings and syncs
-        </p>
+        <p class="page-desc">Plan and manage cross‑team meetings and syncs</p>
     </div>
 
-    <!-- Header row -->
+    <!-- Filters + CTA -->
     <div class="meetings-header">
         <div class="filter-row">
-            <span class="filter-pill active">All</span>
-            <span class="filter-pill">Upcoming</span>
-            <span class="filter-pill">Past</span>
+            <a href="/meetings/"
+               class="filter-pill {% if active_filter == 'all' %}active{% endif %}">
+                All
+            </a>
+
+            <a href="/meetings/?filter=upcoming"
+               class="filter-pill {% if active_filter == 'upcoming' %}active{% endif %}">
+                Upcoming
+            </a>
+
+            <a href="/meetings/?filter=past"
+               class="filter-pill {% if active_filter == 'past' %}active{% endif %}">
+                Past
+            </a>
         </div>
 
-        <a href="{% url 'schedule_meeting' %}" class="btn-grad">
+        <a href="/meetings/new/" class="btn-grad">
             + Schedule Meeting
         </a>
     </div>
@@ -63,7 +75,12 @@
             <div class="meeting-info">
                 <div class="meeting-title">
                     {{ meeting.title }}
-                    <span class="meeting-badge upcoming">upcoming</span>
+
+                    {% if meeting.date_time >= now %}
+                        <span class="meeting-badge upcoming">upcoming</span>
+                    {% else %}
+                        <span class="meeting-badge past">past</span>
+                    {% endif %}
                 </div>
 
                 <div class="meeting-meta">
@@ -76,18 +93,16 @@
     {% empty %}
         <div class="meeting-item">
             <div class="meeting-info">
-                <div class="meeting-title">No meetings scheduled</div>
+                <div class="meeting-title">No meetings found</div>
             </div>
         </div>
     {% endfor %}
 
 </div>
 
-<!-- ===== FOOTER ===== -->
 <footer class="site-footer">
-    <strong>Sky Engineering Team Directory</strong> © 2026
+    Sky Engineering Team Directory © 2026
 </footer>
 
 </body>
 </html>
-``
