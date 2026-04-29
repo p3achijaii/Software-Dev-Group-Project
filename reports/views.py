@@ -3,27 +3,20 @@ from django.http import HttpResponse
 import io, openpyxl
 from xhtml2pdf import pisa
 from datetime import datetime
+from team.models import Team
 
-# Temporary mini dataset (remove when connected to real Team model)
-class Team:
-    def __init__(self, teamName, manager, department):
-        self.teamName = teamName
-        self.manager = manager
-        self.department = department
 
-TEAM_DATA = [
-    Team("Engineering Core", "Maria-Tamara", "Backend"),
-    Team("UI Crew", None, "Frontend"),
-    Team("CloudOps", "Alexzander", "Infrastructure")
-]
 
 def report_summary(request):
-    total_teams = len(TEAM_DATA)
-    teams_without_manager = [t for t in TEAM_DATA if not t.manager]
+    teams = Team.objects.all()
+    total_teams = teams.count()
+    teams_without_manager = teams.filter(manager__isnull=True)
     return render(request, 'reports/report_summary.html', {
-        'teams': TEAM_DATA,
-        'total_teams': total_teams,
-        'teams_without_manager': teams_without_manager,
+        teams = Team.objects.all()
+        
+        'teams': teams,
+        'total_teams': teams.count(),
+        'teams_without_manager': teams.filter(manager__isnull=True),
         'generated_on': datetime.now(),
     })
 
@@ -45,8 +38,14 @@ def export_report_excel(request):
     sheet = workbook.active
     sheet.title = "Teams Summary"
     sheet.append(["Team", "Manager", "Department"])
-    for t in TEAM_DATA:
-        sheet.append([t.teamName, t.manager or "No Manager", t.department])
+    teams = Team.objects.all()
+
+for t in teams:
+    sheet.append([
+        getattr(t, 'teamName', str(t)),
+        getattr(t, 'manager', "No Manager") or "No Manager",
+        getattr(t, 'department', "")
+    ])
     output = io.BytesIO()
     workbook.save(output)
     output.seek(0)
