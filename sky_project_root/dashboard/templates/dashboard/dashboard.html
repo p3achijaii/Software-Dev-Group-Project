@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Sky Engineering - Dashboard</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=3">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=6">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 </head>
 <body>
 
@@ -33,9 +34,140 @@
 
 <div class="page-body">
     <div class="container">
-        <p class="section-label">HOME</p>
-        <h1 class="section-title">Welcome back, {{ user.first_name|default:user.username }}</h1>
-        <p class="section-sub">Sky Engineering Team Directory</p>
+        <p class="section-label">DASHBOARD</p>
+        <h1 class="section-title">Welcome back, <span class="grad-text">{{ user.first_name|default:user.username }}</span></h1>
+        <p class="section-sub">Here's what's happening across Sky engineering today</p>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div>
+                    <div class="metric-label">Total teams</div>
+                    <div class="metric-value">{{ total_teams }}</div>
+                    <div style="margin-top:8px;font-size:0.75rem;color:#10b981;font-weight:600;">
+                        ▲ {{ new_teams_count }} new this quarter
+                    </div>
+                </div>
+                <div class="metric-icon pink"><i class="bi bi-people-fill"></i></div>
+            </div>
+
+            <div class="metric-card">
+                <div>
+                    <div class="metric-label">Departments</div>
+                    <div class="metric-value">{{ total_departments }}</div>
+                    <div style="margin-top:8px;font-size:0.75rem;color:var(--text-sec);">— Stable</div>
+                </div>
+                <div class="metric-icon purple"><i class="bi bi-diagram-3-fill"></i></div>
+            </div>
+
+            <div class="metric-card">
+                <div>
+                    <div class="metric-label">Engineers</div>
+                    <div class="metric-value">{{ total_engineers }}</div>
+                    <div style="margin-top:8px;font-size:0.75rem;color:#10b981;font-weight:600;">
+                        ▲ {{ new_engineers_count }} joined recently
+                    </div>
+                </div>
+                <div class="metric-icon blue"><i class="bi bi-person-gear"></i></div>
+            </div>
+
+            <div class="metric-card">
+                <div>
+                    <div class="metric-label">Unread messages</div>
+                    <div class="metric-value">{{ unread_count }}</div>
+                    <div style="margin-top:8px;font-size:0.75rem;color:var(--text-sec);">
+                        {% if unread_count > 0 %}New alerts{% else %}All caught up{% endif %}
+                    </div>
+                </div>
+                <div class="metric-icon orange"><i class="bi bi-chat-left-dots-fill"></i></div>
+            </div>
+        </div>
+
+        <div class="profile-section-card" style="margin-bottom:28px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div style="font-weight:700;font-size:1rem;">Recent activity</div>
+                <a href="/dashboard/" style="font-size:0.82rem;font-weight:600;color:#ec4899;text-decoration:none;">Refresh</a>
+            </div>
+            <div style="margin-top:20px;">
+                {% for activity in activities %}
+                <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);">
+                    <div style="background:{{ activity.color }};width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:0.85rem;flex-shrink:0;">
+                        {{ activity.initials }}
+                    </div>
+                    <div>
+                        <p style="font-size:0.9rem; margin:0;"><strong>{{ activity.actor }}</strong> {{ activity.action|safe }}</p>
+                        <p style="font-size:0.78rem;color:var(--text-mute);margin:0;">{{ activity.time }}</p>
+                    </div>
+                </div>
+                {% empty %}
+                <div style="padding:40px 0; text-align:center; color:var(--text-mute); font-size:0.9rem;">No recent activity found.</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="profile-section-card" style="margin-bottom:28px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                <div style="font-weight:700;">Teams per department</div>
+                <div style="font-size:0.75rem; color:var(--text-sec); border:1px solid var(--border); padding:2px 8px; border-radius:12px;">Distribution</div>
+            </div>
+            <div style="position:relative; height:180px; padding-left:30px;">
+                <div style="position:absolute; left:0; top:0; bottom:24px; width:100%; display:flex; flex-direction:column; justify-content:space-between; color:var(--text-mute); font-size:0.7rem; pointer-events:none;">
+                    <div style="border-bottom:1px solid #f0f0f0; width:100%;">16</div>
+                    <div style="border-bottom:1px solid #f0f0f0; width:100%;">12</div>
+                    <div style="border-bottom:1px solid #f0f0f0; width:100%;">8</div>
+                    <div style="border-bottom:1px solid #f0f0f0; width:100%;">4</div>
+                    <div style="width:100%;">0</div>
+                </div>
+                <div style="position:relative; height:156px; display:flex; align-items:flex-end; gap:20px;">
+                    {% for dept in departments %}
+                    <div style="flex:1; display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end;">
+                        <div style="width:100%; max-width:60px; background:
+                            {% if 'Arch' in dept.departmentName %}#f43f5e
+                            {% elif 'Mobile' in dept.departmentName %}#8b5cf6
+                            {% elif 'Native' in dept.departmentName %}#3b82f6
+                            {% elif 'Prog' in dept.departmentName %}#f97316
+                            {% elif 'Reliability' in dept.departmentName %}#10b981
+                            {% else %}#6366f1{% endif %};
+                            border-radius:4px 4px 0 0;
+                            height:calc(({{ dept.teams.count }} / 16) * 100%);
+                            min-height:2px;">
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div style="display:flex; gap:20px; padding-left:30px; margin-top:8px;">
+                {% for dept in departments %}
+                <div style="flex:1; text-align:center; font-size:0.7rem; color:var(--text-sec); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ dept.departmentName }}</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="quick-actions">
+            <div class="quick-actions-title">Quick actions</div>
+            <div class="action-list">
+                <a href="/teams/" class="action-item" style="text-decoration:none; color:inherit;">
+                    <div class="action-icon">🔍</div>
+                    <div style="flex-grow:1;">
+                        <div class="action-label">Browse Team Directory</div>
+                        <div class="action-desc">Find teams and their information</div>
+                    </div>
+                    <div style="font-size: 1rem;">➡️</div>
+                </a>
+
+                <a href="/messages/" class="action-item" style="text-decoration:none; color:inherit;">
+                    <div class="action-icon" style="background:#dbeafe; color:#3b82f6;"><i class="bi bi-chat-left-dots"></i></div>
+                    <div style="flex-grow:1;">
+                        <div class="action-label">Check Messages</div>
+                        <div class="action-desc">View team communications</div>
+                    </div>
+                    {% if unread_count > 0 %}
+                    <span class="action-badge">{{ unread_count }}</span>
+                    {% else %}
+                    <div style="font-size: 1rem;">➡️</div>
+                    {% endif %}
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 

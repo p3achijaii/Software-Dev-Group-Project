@@ -5,6 +5,40 @@
 {% block content %}
 <script src="https://unpkg.com/htmx.org@1.9.12"></script>
 
+<style>
+    .filter-tabs .dept-tab:hover {
+        background: transparent !important;
+        color: inherit !important;
+        opacity: 0.8;
+    }
+
+    .filter-tabs .dept-tab.all.active,
+    .filter-tabs .dept-tab.all:hover {
+        background: var(--grad-primary) !important;
+        color: white !important;
+        border: none !important;
+        opacity: 1 !important;
+    }
+
+    {% for d in departments %}
+        {% with dc=d.departmentName|dept_class %}
+        
+        .filter-tabs .dept-tab.{{ dc }} {
+            color: var(--dept-{{ dc }}) !important;
+            border-color: var(--dept-{{ dc }}) !important;
+        }
+
+        .filter-tabs .dept-tab.{{ dc }}:hover,
+        .filter-tabs .dept-tab.{{ dc }}.active {
+            background-color: var(--dept-{{ dc }}) !important;
+            color: white !important;
+            border-color: var(--dept-{{ dc }}) !important;
+            opacity: 1 !important;
+        }
+        {% endwith %}
+    {% endfor %}
+</style>
+
 <div class="page-wrap">
     <header>
         <p class="page-eyebrow">DIRECTORY</p>
@@ -90,10 +124,7 @@
                                     👤 {{ team.teamLeader.firstName }} {{ team.teamLeader.lastName }}
                                 </div>
                             </div>
-                            
-                            <div style="margin-bottom: 2px; opacity: 0.8; font-size: 1.1rem;">
-                                ➡️
-                            </div>
+                            <div style="margin-bottom: 2px; opacity: 0.8; font-size: 1.1rem;">➡️</div>
                         </div>
                     </div>
                 </div>
@@ -102,12 +133,12 @@
             {% endfor %}
         </div>
 
-        {# ── Pagination Navigation ── #}
+        {# ── Pagination ── #}
         <div class="pagination-wrapper" style="margin-top: 40px; display: flex; justify-content: center; gap: 15px; align-items: center;">
             {% if teams.has_previous %}
                 <a href="?page={{ teams.previous_page_number }}{% if q %}&q={{ q }}{% endif %}{% if active_dept_id %}&dept={{ active_dept_id }}{% endif %}" 
                    class="btn-outline" style="padding: 10px 20px; border-radius: var(--r-md); font-weight: 600; text-decoration: none;">
-                   ⬅️ Previous
+                    ⬅️ Previous
                 </a>
             {% endif %}
 
@@ -118,11 +149,10 @@
             {% if teams.has_next %}
                 <a href="?page={{ teams.next_page_number }}{% if q %}&q={{ q }}{% endif %}{% if active_dept_id %}&dept={{ active_dept_id }}{% endif %}" 
                    class="btn-outline" style="padding: 10px 20px; border-radius: var(--r-md); font-weight: 600; text-decoration: none;">
-                   Next ➡️
+                    Next ➡️
                 </a>
             {% endif %}
         </div>
-
         {% else %}
         <div class="no-results" style="text-align:center; padding: 60px; border: 1px dashed var(--border); border-radius: 12px;">
             <div style="font-size: 2.5rem; margin-bottom: 10px;">🔍</div>
@@ -135,17 +165,7 @@
 
 <script>
     document.body.addEventListener('htmx:load', function(evt) {
-        console.log("HTMX Loaded and ready");
+        console.log("HTMX Loaded");
     });
-
-    if (typeof htmx === 'undefined') {
-        const input = document.getElementById('search-input');
-        const form = document.getElementById('search-form');
-        let timer;
-        input.addEventListener('input', () => {
-            clearTimeout(timer);
-            timer = setTimeout(() => form.submit(), 500);
-        });
-    }
 </script>
 {% endblock %}
