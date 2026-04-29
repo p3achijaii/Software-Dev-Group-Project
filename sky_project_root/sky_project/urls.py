@@ -33,4 +33,5 @@ urlpatterns = [
     path('profile/', profile_view, name='profile'),
     path('profile/update/', profile_update, name='profile_update'),
     path('accounts/register/', register_view, name='register'),
+    path('reports/', include('reports.urls'),
 ]
