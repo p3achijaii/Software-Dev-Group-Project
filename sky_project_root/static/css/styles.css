@@ -596,6 +596,17 @@ select {
   color: white;
 }
 
+.dept-tab:hover {
+    opacity: 0.7 ;
+    color: #debcff;
+    background:rgb(46, 1, 169);
+    transition: 0.2s;
+}
+.dept-tab.active {
+    background: #ec4899;
+    color:white;
+}
+
 .results-summary {
   font-size: 0.85rem;
   color: var(--text-sec);
