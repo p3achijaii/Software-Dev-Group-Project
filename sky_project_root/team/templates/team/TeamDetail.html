@@ -6,20 +6,20 @@
 {% block content %}
 {% with dc=team.department.departmentName|dept_class %}
 
-{# ── Back Button ── #}
+{# ── Back Button: Simple navigation to return to the filtered team list ── #}
 <a href="{% url 'team:team_list' %}" class="auth-back" style="margin-top:0; margin-bottom:16px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; color: var(--text-sec); font-weight: 1000; font-size: 1.05rem;">
     <span style="font-size: 1.3rem;">🔙</span>
     <i class="bi bi-arrow-left" style="font-size: 1.1rem;"></i> 
     <span>Back to Directory</span>
 </a>
 
-{# ── Header Card ── #}
+{# ── Header Card: The main profile section containing branding and leadership info ── #}
 <div class="profile-header-card" style="margin-bottom:20px; position: relative; overflow: hidden;">
     <div class="team-card-strip {{ dc }}" style="margin:-28px -28px 20px -28px; border-radius:var(--r-lg) var(--r-lg) 0 0; display:block; width:calc(100% + 56px);"></div>
     
     <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
         
-        {# Left Side: Information #}
+        {# Left Side: Information and focus areas #}
         <div style="flex: 1; min-width: 300px;">
             <span class="dept-badge {{ dc }}" style="margin-bottom:10px; display:inline-block;">{{ team.department.departmentName }}</span>
             <h1 class="page-title" style="font-size:1.8rem; margin-bottom:8px;">{{ team.teamName }}</h1>
@@ -34,14 +34,12 @@
             </p>
         </div>
         
-        {# Right Side: Action Buttons (Centered Text internally) #}
+        {# Right Side: Action Buttons for navigation to other modules #}
         <div style="display:flex; gap:12px; align-items:center; flex-shrink:0;">
-            {# Send Messages Button #}
             <a href="/messages/" class="btn-outline" style="display: flex; align-items: center; justify-content: center; width: 160px; height: 44px; text-decoration: none; padding: 0; border-radius: 50px;">
                 <span style="font-weight: 700;">Send Messages</span>
             </a>
 
-            {# Plan Schedule Button #}
             <a href="/meetings/" class="btn-grad" style="display: flex; align-items: center; justify-content: center; width: 160px; height: 44px; text-decoration: none; padding: 0; border: none; border-radius: 50px;">
                 <span style="font-weight: 700;">Plan Schedule</span>
             </a>
@@ -50,10 +48,10 @@
 </div>
 
 <div class="charts-row two-col">
-    {# ── Left Column ── #}
+    {# ── Left Column: Contact Details and Skills ── #}
     <div style="display: flex; flex-direction: column; gap: 16px;">
         
-        {# ── Primary Contact Card ── #}
+        {# Primary Contact Card: Pulls the lead's information #}
         <div class="chart-section" style="flex: 0;">
             <div class="profile-section-header">
                 <div class="profile-section-title"><i class="bi bi-person-badge"></i> Primary Contact</div>
@@ -72,7 +70,7 @@
             </div>
         </div>
 
-        {# ── Key Skills Card ── #}
+        {# Key Skills Card: Iterates through many-to-many relationship of focus areas #}
         <div class="chart-section" style="flex: 1;">
             <div class="profile-section-header" style="margin-bottom: 20px;">
                 <div class="profile-section-title">Key Skills</div>
@@ -96,13 +94,13 @@
         </div>
     </div>
 
-    {# ── Right Column: Connectivity ── #}
+    {# ── Right Column: Connectivity (Dependencies) ── #}
     <div class="chart-section">
         <div class="profile-section-header" style="margin-bottom: 20px;">
             <div class="profile-section-title"><i class="bi bi-diagram-3"></i> Team Connectivity</div>
         </div>
         
-        {# UPSTREAM #}
+        {# UPSTREAM: Logic to filter related dependencies where the direction is 'UPSTREAM' #}
         <div style="margin-bottom: 24px;">
             <p style="font-weight:700; font-size:0.75rem; margin-bottom:12px; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.05em;">
                 <i class="bi bi-box-arrow-in-down-right"></i> Upstream Dependencies
@@ -131,7 +129,7 @@
             </div>
         </div>
 
-        {# DOWNSTREAM #}
+        {# DOWNSTREAM: Logic to filter related dependencies where the direction is 'DOWNSTREAM' #}
         <div>
             <p style="font-weight:700; font-size:0.75rem; margin-bottom:12px; color: #f97316; text-transform: uppercase; letter-spacing: 0.05em;">
                 <i class="bi bi-box-arrow-up-right"></i> Downstream Consumers

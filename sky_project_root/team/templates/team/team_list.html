@@ -6,12 +6,14 @@
 <script src="https://unpkg.com/htmx.org@1.9.12"></script>
 
 <style>
+    /* ── Component Styling ── */
     .filter-tabs .dept-tab:hover {
         background: transparent !important;
         color: inherit !important;
         opacity: 0.8;
     }
 
+    /* Styling for the 'All' filter to match the app's primary gradient */
     .filter-tabs .dept-tab.all.active,
     .filter-tabs .dept-tab.all:hover {
         background: var(--grad-primary) !important;
@@ -20,6 +22,8 @@
         opacity: 1 !important;
     }
 
+    /* ── Dynamic Department CSS ── */
+    /* Generates unique hover/active colors for every department in the database */
     {% for d in departments %}
         {% with dc=d.departmentName|dept_class %}
         
@@ -133,7 +137,7 @@
             {% endfor %}
         </div>
 
-        {# ── Pagination ── #}
+        {# ── Pagination Logic ── #}
         <div class="pagination-wrapper" style="margin-top: 40px; display: flex; justify-content: center; gap: 15px; align-items: center;">
             {% if teams.has_previous %}
                 <a href="?page={{ teams.previous_page_number }}{% if q %}&q={{ q }}{% endif %}{% if active_dept_id %}&dept={{ active_dept_id }}{% endif %}" 
@@ -164,8 +168,9 @@
 </div>
 
 <script>
+    /* Simple debug logger to confirm HTMX is active after content swaps */
     document.body.addEventListener('htmx:load', function(evt) {
-        console.log("HTMX Loaded");
+        console.log("HTMX Content Region Loaded");
     });
 </script>
 {% endblock %}
