@@ -1,0 +1,55 @@
+{% extends "login_page/base.html" %}
+{% load static %}
+
+{% block body_class %}login-page-body user-home-page-body{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'login_page/dashboard/user_home.css' %}">
+{% endblock %}
+
+{% block body %}
+<header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 d-flex align-content-center justify-content-start">
+                <a href="{% url 'login_page:logout' %}" class="return_to_login">
+                    <img src="{% static 'login_page/images/sky-logo-2025.png' %}" alt="Logo Sky" class="logo-header">
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10 main-content">
+                <div class="container-fluid">
+                    <div class="row" id="Dashboard">
+                        {% include "login_page/includes/user_home/sidebar.html" %}
+                        <div class="col-10" id="Main-Dashboard">
+                            {% include "login_page/includes/user_home/top_row.html" %}
+                            {% include "login_page/includes/user_home/quick_tools.html" %}
+                            {% include "login_page/includes/user_home/recent_activity.html" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+
+    {{ user_home_quick_tool_slot_state|json_script:"user-home-quick-tool-slot-state" }}
+    {{ user_home_quick_tools_catalog|json_script:"user-home-quick-tools-catalog" }}
+    {{ user_home_quick_tool_url_map|json_script:"user-home-quick-tool-url-map" }}
+    {{ user_home_search_url|json_script:"user-home-search-url" }}
+    {{ user_home_quick_tools_url|json_script:"user-home-quick-tools-url" }}
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'login_page/shared/rolling_sidebar.js' %}"></script>
+<script src="{% static 'login_page/dashboard/user_home_dropdowns.js' %}"></script>
+<script src="{% static 'login_page/dashboard/user_home_quick_tools.js' %}"></script>
+<script src="{% static 'login_page/dashboard/user_home_search.js' %}"></script>
+{% endblock %}

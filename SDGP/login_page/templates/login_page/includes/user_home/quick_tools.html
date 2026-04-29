@@ -1,0 +1,98 @@
+<div class="row" id="Second-row">
+    <div class="col-12">
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-between">
+                <div class="col-3 RHS_Tools d-flex justify-content-start align-content-center">
+                    <p>Quick Tools</p>
+                </div>
+                <div id="quick-tools-trigger" class="col-2 LHS_Tools d-flex justify-content-center align-content-center"
+                    role="button" tabindex="0" aria-controls="quick-tools-inline-panel" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0
+                            1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5
+                            0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207
+                            2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5
+                            3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5
+                            0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528
+                            3.821 3.821-1.528.106-.106A.5.5 0 0 1 5
+                            12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0
+                            0 1-.468-.325" />
+                    </svg>
+                    <p>Edit those blocks</p>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-end">
+                <div id="quick-tools-inline-panel" class="col-3 quick-tools-inline-panel" aria-hidden="true">
+                    <div class="quick-tools-inline-header d-flex justify-content-between align-items-center">
+                        <p>Quick Tool List</p>
+                        <button id="quick-tools-inline-close" type="button" class="quick-tools-inline-close">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-x" viewBox="0 0 16 16">
+                                <path
+                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8
+                                    7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707
+                                    8l2.647 2.646a.5.5 0 0 1-.708.708L8
+                                    8.707l-2.646 2.647a.5.5 0 0
+                                    1-.708-.708L7.293 8 4.646 5.354a.5.5 0
+                                    0 1 0-.708" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="quick-tools-list" class="quick-tools-list" aria-live="polite"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="2.2_Blocks-row">
+    <div class="col-12">
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-evenly">
+                {% for slotIndex in "012"|make_list %}
+                <div class="col-3 Block d-flex align-content-center justify-content-center quick-slot slot-empty"
+                    data-quick-slot="{{ slotIndex }}">
+                    <div class="container-fluid">
+                        <a href="#" style="text-decoration: none;">
+                            <div class="row d-flex align-content-center">
+                                <div class="col-3 Block_image d-flex align-content-center justify-content-center">
+                                    <span data-slot-icon class="d-flex align-items-center justify-content-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0
+                                                1 0 1h-5v5a.5.5 0 0
+                                                1-1 0v-5h-5a.5.5 0 0
+                                                1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div class="col-9 Block_text">
+                                    <div class="quick-slot-header">
+                                        <p class="Block_Title" data-slot-title>Add something</p>
+                                        <button class="quick-slot-clear" type="button" aria-label="Clear slot {{ forloop.counter }}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8
+                                                    7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707
+                                                    8l2.647 2.646a.5.5 0 0 1-.708.708L8
+                                                    8.707l-2.646 2.647a.5.5 0 0
+                                                    1-.708-.708L7.293 8 4.646 5.354a.5.5 0
+                                                    0 1 0-.708" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <p class="Block_Description" data-slot-description>This is a template button for your quick tool</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

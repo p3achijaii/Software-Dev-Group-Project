@@ -1,0 +1,90 @@
+{% extends "login_page/base.html" %}
+{% load static %}
+
+{% block body_class %}login-page-body{% endblock %}
+
+{% block body %}
+<header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 d-flex align-items-center justify-content-start">
+                <a href="{% url 'login_page:login_page' %}" class="return_to_login">
+                    <img src="{% static 'login_page/images/sky-logo-2025.png' %}" alt="Logo Sky" class="logo-header">
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6 main-content">
+                <div class="container-fluid">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-8">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-6 logo-project d-flex justify-content-center">
+                                    <img src="{% static 'login_page/images/platform-logo.png' %}" alt="Logo Platform">
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-10">
+                                    <form class="row"
+                                        id="login-form"
+                                        action="{% url 'login_page:sign_in' %}"
+                                        method="post"
+                                        data-sign-up-url="{% url 'login_page:account' %}"
+                                        novalidate>
+                                        {% csrf_token %}
+                                        <div class="col-12 question_form_text" id="mail">
+                                            {{ login_form.email }}
+                                            <label>E-mail</label>
+                                        </div>
+                                        <div class="col-12 question_form_text" id="password">
+                                            {{ login_form.password }}
+                                            <label>Your Password</label>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-start">
+                                <div class="col-8">
+                                    <a class="Under_form_text"
+                                        id="forgot-password-link"
+                                        data-base-href="{% url 'login_page:password_reset' %}"
+                                        href="{% url 'login_page:password_reset' %}">Forgot your password?</a>
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-10">
+                                    <p id="login-feedback"
+                                        class="form-feedback {% if initial_login_feedback_type %}{{ initial_login_feedback_type }}{% endif %}"
+                                        role="alert"
+                                        aria-live="polite">{{ initial_login_feedback }}</p>
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-8 d-flex justify-content-center">
+                                    <button type="submit"
+                                        form="login-form"
+                                        class="sign-in-btn"
+                                        id="sign-in-btn"
+                                        data-sign-up-url="{% url 'login_page:account' %}">Sign In</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3"></div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'login_page/auth/login.js' %}"></script>
+<script src="{% static 'login_page/shared/password_toggle.js' %}"></script>
+{% endblock %}

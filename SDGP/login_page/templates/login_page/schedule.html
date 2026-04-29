@@ -1,0 +1,482 @@
+{% extends "login_page/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'login_page/schedule/schedule.css' %}">
+{% endblock %}
+
+{% block body %}
+<header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 d-flex align-content-center justify-content-start">
+                <a href="{% url 'login_page:logout' %}" class="return_to_login">
+                    <img src="{% static 'login_page/images/sky-logo-2025.png' %}" alt="Logo Sky" class="logo-header">
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10 main-content">
+                <div class="container-fluid">
+                    <div class="row" id="Dashboard">
+                        {% include "login_page/includes/user_home/sidebar.html" %}
+                        <div class="col-10" id="Main-Dashboard">
+                            <div class="container-fluid">
+                                <div class="row" id="Top-row">
+                                    <div class="col-6">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-9 question_form_text">
+                                                    <input type="date" id="schedule-main-date" name="Desirable_day"
+                                                        required value="{{ schedule_default_date }}">
+                                                    <label for="schedule-main-date">Choose your date</label>
+                                                </div>
+                                            </div>
+                                            <div class="row d-flex justify-content-start">
+                                                <div class="col-3 d-flex align-items-center">
+                                                    <p class="Type">Calendar Type:</p>
+                                                </div>
+                                                <div class="col-2">
+                                                    <button class="Option_selector Option_selector_active" type="button"
+                                                        data-template-target="daily" aria-pressed="true">Daily</button>
+                                                </div>
+                                                <div class="col-2">
+                                                    <button class="Option_selector" type="button"
+                                                        data-template-target="weekly" aria-pressed="false">Weekly</button>
+                                                </div>
+                                                <div class="col-2">
+                                                    <button class="Option_selector" type="button"
+                                                        data-template-target="monthly" aria-pressed="false">Monthly</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end" id="RHS_Section">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-12 d-flex justify-content-end">
+                                                    <p class="Naming">Schedule Page</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 d-flex justify-content-end">
+                                                    <a href="{{ dashboard_url }}" class="Link_back">Go back to the dashboard</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="Main-Sections">
+                                    <div class="container-fluid" id="Indication-Template">
+                                        <div class="container-fluid schedule_template_section"
+                                            data-schedule-template="daily">
+                                            <div class="row g-0 schedule_daily_layout">
+                                                <div class="col-1 day_axis">
+                                                    <p class="time_slot_label">07 A.M.</p>
+                                                    <p class="time_slot_label">08 A.M.</p>
+                                                    <p class="time_slot_label">09 A.M.</p>
+                                                    <p class="time_slot_label">10 A.M.</p>
+                                                    <p class="time_slot_label">11 A.M.</p>
+                                                    <p class="time_slot_label">12 P.M.</p>
+                                                    <p class="time_slot_label">01 P.M.</p>
+                                                    <p class="time_slot_label">02 P.M.</p>
+                                                    <p class="time_slot_label">03 P.M.</p>
+                                                    <p class="time_slot_label">04 P.M.</p>
+                                                    <p class="time_slot_label">05 P.M.</p>
+                                                    <p class="time_slot_label">06 P.M.</p>
+                                                    <p class="time_slot_label">07 P.M.</p>
+                                                    <p class="time_slot_label">08 P.M.</p>
+                                                    <p class="time_slot_label">09 P.M.</p>
+                                                    <p class="time_slot_label">10 P.M.</p>
+                                                </div>
+                                                <div class="col-11 day_track">
+                                                    <div class="time_slot"></div>
+                                                    <div class="time_slot"></div>
+                                                    <div class="time_slot"></div>
+                                                    <div class="time_slot"></div>
+                                                    <div class="time_slot"></div>
+                                                    <div class="time_slot"></div>
+                                                    <div class="time_slot"></div>
+                                                    <div class="time_slot"></div>
+                                                    <div class="time_slot"></div>
+                                                    <div class="time_slot"></div>
+                                                    <div class="time_slot"></div>
+                                                    <div class="time_slot"></div>
+                                                    <div class="time_slot"></div>
+                                                    <div class="time_slot"></div>
+                                                    <div class="time_slot"></div>
+                                                    <div class="time_slot"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="container-fluid schedule_template_section d-none"
+                                            data-schedule-template="weekly">
+                                            <div class="row d-flex justify-content-evenly">
+                                                <div class="col-2 Blocks" data-weekly-day-card>
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-12 d-flex justify-content-center">
+                                                                <p class="date_of_Month">Monday</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 d-flex justify-content-center">
+                                                                <p class="date">2/23/2026</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row d-flex justify-content-center weekly_events_row">
+                                                            <div class="col-11 weekly_events_container">
+                                                                <p class="Event_1">Event scheduled at 3 p.m.</p>
+                                                                <p class="Event_2">Event scheduled at 5 p.m.</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row weekly_action_row">
+                                                            <div class="col-12 d-flex justify-content-center">
+                                                                <button class="Option_selector weekly-display-day"
+                                                                    type="button">View this day</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-2 Blocks_used" data-weekly-day-card>
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-12 d-flex justify-content-center">
+                                                                <p class="date_of_Month">Tuesday</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 d-flex justify-content-center">
+                                                                <p class="date">2/24/2026</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row d-flex justify-content-center weekly_events_row">
+                                                            <div class="col-11 weekly_events_container">
+                                                                <p class="Event_1">Event scheduled at 3 p.m.</p>
+                                                                <p class="Event_2">Event scheduled at 5 p.m.</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row weekly_action_row">
+                                                            <div class="col-12 d-flex justify-content-center">
+                                                                <button class="Option_selector weekly-display-day"
+                                                                    type="button">View this day</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-2 Blocks" data-weekly-day-card>
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-12 d-flex justify-content-center">
+                                                                <p class="date_of_Month">Wednesday</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 d-flex justify-content-center">
+                                                                <p class="date">2/25/2026</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row d-flex justify-content-center weekly_events_row">
+                                                            <div class="col-11 weekly_events_container">
+                                                                <p class="Event_1">Event scheduled at 3 p.m.</p>
+                                                                <p class="Event_2">Event scheduled at 5 p.m.</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row weekly_action_row">
+                                                            <div class="col-12 d-flex justify-content-center">
+                                                                <button class="Option_selector weekly-display-day"
+                                                                    type="button">View this day</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-2 Blocks" data-weekly-day-card>
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-12 d-flex justify-content-center">
+                                                                <p class="date_of_Month">Thursday</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 d-flex justify-content-center">
+                                                                <p class="date">2/26/2026</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row d-flex justify-content-center weekly_events_row">
+                                                            <div class="col-11 weekly_events_container">
+                                                                <p class="Event_1">Event scheduled at 3 p.m.</p>
+                                                                <p class="Event_2">Event scheduled at 5 p.m.</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row weekly_action_row">
+                                                            <div class="col-12 d-flex justify-content-center">
+                                                                <button class="Option_selector weekly-display-day"
+                                                                    type="button">View this day</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-2 Blocks" data-weekly-day-card>
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-12 d-flex justify-content-center">
+                                                                <p class="date_of_Month">Friday</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 d-flex justify-content-center">
+                                                                <p class="date">2/27/2026</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row d-flex justify-content-center weekly_events_row">
+                                                            <div class="col-11 weekly_events_container">
+                                                                <p class="Event_1">Event scheduled at 3 p.m.</p>
+                                                                <p class="Event_2">Event scheduled at 5 p.m.</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row weekly_action_row">
+                                                            <div class="col-12 d-flex justify-content-center">
+                                                                <button class="Option_selector weekly-display-day"
+                                                                    type="button">View this day</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="container-fluid schedule_template_section d-none"
+                                            data-schedule-template="monthly">
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="col-2">
+                                                    <p class="Name_of_Month" id="schedule-month-label">February</p>
+                                                </div>
+                                            </div>
+                                            <div class="row row_calendar monthly_calendar_flex d-flex flex-wrap justify-content-evenly align-content-evenly align-items-center">
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">1</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">2</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">3</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">4</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">5</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">6</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">7</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">8</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">9</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">10</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">11</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">12</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">13</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">14</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">15</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">16</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">17</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">18</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">19</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">20</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">21</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">22</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">23</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">24</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">25</p></div>
+                                                <div class="col-1 Blocks_used d-flex justify-content-center"><p class="date_of_Month_selection">26</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">27</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">28</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">29</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">30</p></div>
+                                                <div class="col-1 Blocks d-flex justify-content-center"><p class="date_of_Month_selection">31</p></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="Quick_tool_popup" id="schedule-quick-tool-popup" role="dialog"
+                                    aria-hidden="true" aria-label="Schedule event quick tool panel">
+                                    <div class="container-fluid">
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="col-12 question_form_text quick_tool_date_field">
+                                                <input type="date" id="schedule-event-date"
+                                                    class="quick_tool_date_input" name="event_date" required>
+                                                <label for="schedule-event-date">Choose your date</label>
+                                            </div>
+                                        </div>
+                                        <div class="row d-flex justify-content-center quick_tool_time_row">
+                                            <div class="col-6 question_form_text quick_tool_time_field">
+                                                <input type="time" id="schedule-event-start-time"
+                                                    class="quick_tool_time_input" name="event_start_time" required>
+                                                <label for="schedule-event-start-time">Start time</label>
+                                            </div>
+                                            <div class="col-6 question_form_text quick_tool_time_field">
+                                                <input type="time" id="schedule-event-end-time"
+                                                    class="quick_tool_time_input" name="event_end_time" required>
+                                                <label for="schedule-event-end-time">End time</label>
+                                            </div>
+                                        </div>
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="col-12 question_form_text quick_tool_platform_field">
+                                                <input type="text" id="schedule-platform-input"
+                                                    class="quick_tool_platform_input" name="event_platform" required
+                                                    value="" aria-haspopup="dialog" aria-expanded="false"
+                                                    aria-controls="schedule-platform-popup">
+                                                <label for="schedule-platform-input">Choose your platform</label>
+                                                <div class="quick_tool_nested_popup" id="schedule-platform-popup"
+                                                    role="dialog" aria-hidden="true" aria-label="Choose platform popup">
+                                                    <div
+                                                        class="quick_tool_nested_header d-flex justify-content-between align-items-center">
+                                                        <p>Choose platform</p>
+                                                        <button type="button" id="schedule-platform-popup-close"
+                                                            class="quick_tool_nested_close"
+                                                            aria-label="Close platform popup">Close</button>
+                                                    </div>
+                                                    <div class="quick_tool_platform_list">
+                                                        <button type="button" class="quick_tool_platform_option"
+                                                            data-platform-option="Teams" aria-pressed="false">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                                class="bi bi-microsoft-teams" viewBox="0 0 16 16"
+                                                                aria-hidden="true">
+                                                                <path
+                                                                    d="M9.186 4.797a2.42 2.42 0 1 0-2.86-2.448h1.178c.929 0 1.682.753 1.682 1.682zm-4.295 7.738h2.613c.929 0 1.682-.753 1.682-1.682V5.58h2.783a.7.7 0 0 1 .682.716v4.294a4.197 4.197 0 0 1-4.093 4.293c-1.618-.04-3-.99-3.667-2.35Zm10.737-9.372a1.674 1.674 0 1 1-3.349 0 1.674 1.674 0 0 1 3.349 0m-2.238 9.488-.12-.002a5.2 5.2 0 0 0 .381-2.07V6.306a1.7 1.7 0 0 0-.15-.725h1.792c.39 0 .707.317.707.707v3.765a2.6 2.6 0 0 1-2.598 2.598z" />
+                                                                <path
+                                                                    d="M.682 3.349h6.822c.377 0 .682.305.682.682v6.822a.68.68 0 0 1-.682.682H.682A.68.68 0 0 1 0 10.853V4.03c0-.377.305-.682.682-.682Zm5.206 2.596v-.72h-3.59v.72h1.357V9.66h.87V5.945z" />
+                                                            </svg>
+                                                            <span>Teams</span>
+                                                        </button>
+                                                        <button type="button"
+                                                            class="quick_tool_platform_option quick_tool_platform_option_icon_only"
+                                                            data-platform-option="Zoom" aria-label="Zoom"
+                                                            aria-pressed="false">
+                                                            <img class="quick_tool_platform_icon quick_tool_platform_icon_zoom"
+                                                                src="{% static 'login_page/images/zoom.svg' %}"
+                                                                alt="" aria-hidden="true">
+                                                        </button>
+                                                        <button type="button"
+                                                            class="quick_tool_platform_option quick_tool_platform_option_icon_only"
+                                                            data-platform-option="Google Meet" aria-label="Google Meet"
+                                                            aria-pressed="false">
+                                                            <img class="quick_tool_platform_icon quick_tool_platform_icon_meet"
+                                                                src="{% static 'login_page/images/google-meet.svg' %}"
+                                                                alt="" aria-hidden="true">
+                                                        </button>
+                                                        <button type="button" class="quick_tool_platform_option"
+                                                            data-platform-option="Google Hangouts"
+                                                            aria-pressed="false">
+                                                            <img class="quick_tool_platform_icon"
+                                                                src="{% static 'login_page/images/google-hangouts.svg' %}"
+                                                                alt="" aria-hidden="true">
+                                                            <span>Google Hangouts</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="col-12 question_form_text">
+                                                <input type="text" id="schedule-invite-members"
+                                                    name="event_invite_members" required value="" autocomplete="off">
+                                                <label for="schedule-invite-members">Invite members</label>
+                                            </div>
+                                        </div>
+                                        <div class="row d-flex justify-content-center quick_tool_color_row">
+                                            <div class="col-12">
+                                                <div
+                                                    class="quick_tool_color_header d-flex justify-content-between align-items-center">
+                                                    <p class="quick_tool_color_title">Event color</p>
+                                                    <div class="quick_tool_color_preview_wrap d-flex align-items-center">
+                                                        <span class="quick_tool_color_preview_label">Preview</span>
+                                                        <span id="schedule-event-color-preview"
+                                                            class="quick_tool_color_preview"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="quick_tool_color_grid" role="listbox"
+                                                    aria-label="Choose event color">
+                                                    <button type="button" class="quick_tool_color_chip"
+                                                        data-event-color="rgba(239, 68, 68, 1)" aria-label="Red"
+                                                        aria-pressed="false"
+                                                        style="--event-color: rgba(239, 68, 68, 1)"></button>
+                                                    <button type="button" class="quick_tool_color_chip"
+                                                        data-event-color="rgba(249, 115, 22, 1)" aria-label="Orange"
+                                                        aria-pressed="false"
+                                                        style="--event-color: rgba(249, 115, 22, 1)"></button>
+                                                    <button type="button" class="quick_tool_color_chip"
+                                                        data-event-color="rgba(234, 179, 8, 1)" aria-label="Yellow"
+                                                        aria-pressed="false"
+                                                        style="--event-color: rgba(234, 179, 8, 1)"></button>
+                                                    <button type="button" class="quick_tool_color_chip"
+                                                        data-event-color="rgba(34, 197, 94, 1)" aria-label="Green"
+                                                        aria-pressed="false"
+                                                        style="--event-color: rgba(34, 197, 94, 1)"></button>
+                                                    <button type="button" class="quick_tool_color_chip"
+                                                        data-event-color="rgba(20, 184, 166, 1)" aria-label="Teal"
+                                                        aria-pressed="false"
+                                                        style="--event-color: rgba(20, 184, 166, 1)"></button>
+                                                    <button type="button" class="quick_tool_color_chip"
+                                                        data-event-color="rgba(14, 165, 233, 1)" aria-label="Sky blue"
+                                                        aria-pressed="false"
+                                                        style="--event-color: rgba(14, 165, 233, 1)"></button>
+                                                    <button type="button" class="quick_tool_color_chip"
+                                                        data-event-color="rgba(37, 99, 235, 1)" aria-label="Blue"
+                                                        aria-pressed="false"
+                                                        style="--event-color: rgba(37, 99, 235, 1)"></button>
+                                                    <button type="button" class="quick_tool_color_chip"
+                                                        data-event-color="rgba(99, 102, 241, 1)" aria-label="Indigo"
+                                                        aria-pressed="false"
+                                                        style="--event-color: rgba(99, 102, 241, 1)"></button>
+                                                    <button type="button" class="quick_tool_color_chip"
+                                                        data-event-color="rgba(168, 85, 247, 1)" aria-label="Violet"
+                                                        aria-pressed="false"
+                                                        style="--event-color: rgba(168, 85, 247, 1)"></button>
+                                                    <button type="button" class="quick_tool_color_chip"
+                                                        data-event-color="rgba(236, 72, 153, 1)" aria-label="Pink"
+                                                        aria-pressed="false"
+                                                        style="--event-color: rgba(236, 72, 153, 1)"></button>
+                                                </div>
+                                                <input type="hidden" id="schedule-event-color" name="event_color"
+                                                    value="rgba(239, 68, 68, 1)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="schedule_feedback_popup" id="schedule-event-feedback-popup"
+                                    role="status" aria-live="polite" aria-hidden="true">
+                                    <p>An event has been scheduled</p>
+                                </div>
+                                <div class="row d-flex justify-content-end" id="Schedular">
+                                    <div class="col-5 d-flex justify-content-end">
+                                        <button class="Quick_tool" id="schedule-quick-tool-trigger" type="button"
+                                            aria-controls="schedule-quick-tool-popup" aria-expanded="false">
+                                            Schedule an event</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+
+    {{ schedule_inbox_url|json_script:"schedule-inbox-url" }}
+    {{ schedule_event_create_url|json_script:"schedule-event-create-url" }}
+    {{ schedule_event_update_url_template|json_script:"schedule-event-update-url-template" }}
+    {{ schedule_event_delete_url_template|json_script:"schedule-event-delete-url-template" }}
+    {{ schedule_event_state|json_script:"schedule-event-state" }}
+    {{ schedule_csrf_token|json_script:"schedule-csrf-token" }}
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'login_page/shared/rolling_sidebar.js' %}"></script>
+<script src="{% static 'login_page/schedule/schedule_template_switching.js' %}"></script>
+<script src="{% static 'login_page/schedule/schedule_frame_height.js' %}"></script>
+<script src="{% static 'login_page/schedule/schedule_quick_tool.js' %}"></script>
+<script src="{% static 'login_page/schedule/schedule_calendar_sync.js' %}"></script>
+{% endblock %}

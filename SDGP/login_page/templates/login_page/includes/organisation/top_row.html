@@ -1,0 +1,90 @@
+<div class="row" id="Top-row">
+    <div class="col-8" id="LHS_section">
+        <div class="container-fluid p-0">
+            <div class="row g-2 align-items-center">
+                <div class="col-12">
+                    <p class="Welcome_text">Dependency graph</p>
+                </div>
+                <div class="col-12 d-flex flex-wrap align-items-center filters organisation_filters">
+                    <div class="top-menu-anchor filters-anchor">
+                        <span id="organisation-primary-department-label" class="filter-dropdown-label">Primary: All departments</span>
+                        <button id="organisation-primary-department-trigger" type="button" class="top-icon-trigger P_Dropdown"
+                            aria-controls="organisation-primary-department-panel" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M7.247 11.14l-4.796-5.481c-.566-.647-.106-1.659.753-1.659h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            </svg>
+                        </button>
+                        <div id="organisation-primary-department-panel"
+                            class="top-dropdown-panel profile-dropdown filters-dropdown organisation-filter-panel"
+                            aria-hidden="true"></div>
+                    </div>
+                    <div class="top-menu-anchor filters-anchor">
+                        <span id="organisation-department-filter-label" class="filter-dropdown-label">Departments: All</span>
+                        <button id="organisation-department-filter-trigger" type="button" class="top-icon-trigger P_Dropdown"
+                            aria-controls="organisation-department-filter-panel" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M7.247 11.14l-4.796-5.481c-.566-.647-.106-1.659.753-1.659h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            </svg>
+                        </button>
+                        <div id="organisation-department-filter-panel"
+                            class="top-dropdown-panel profile-dropdown filters-dropdown organisation-filter-panel"
+                            aria-hidden="true"></div>
+                    </div>
+                    <div class="top-menu-anchor filters-anchor">
+                        <span id="organisation-team-filter-label" class="filter-dropdown-label">Teams: All</span>
+                        <button id="organisation-team-filter-trigger" type="button" class="top-icon-trigger P_Dropdown"
+                            aria-controls="organisation-team-filter-panel" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M7.247 11.14l-4.796-5.481c-.566-.647-.106-1.659.753-1.659h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            </svg>
+                        </button>
+                        <div id="organisation-team-filter-panel"
+                            class="top-dropdown-panel profile-dropdown filters-dropdown organisation-filter-panel"
+                            aria-hidden="true"></div>
+                    </div>
+                    <div class="top-menu-anchor filters-anchor">
+                        <span id="organisation-project-filter-label" class="filter-dropdown-label">Projects: All</span>
+                        <button id="organisation-project-filter-trigger" type="button" class="top-icon-trigger P_Dropdown"
+                            aria-controls="organisation-project-filter-panel" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M7.247 11.14l-4.796-5.481c-.566-.647-.106-1.659.753-1.659h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            </svg>
+                        </button>
+                        <div id="organisation-project-filter-panel"
+                            class="top-dropdown-panel profile-dropdown filters-dropdown organisation-filter-panel"
+                            aria-hidden="true"></div>
+                    </div>
+                </div>
+                <div class="col-12 d-flex flex-wrap align-items-center organisation_view_controls">
+                    <button class="Option_selector" id="organisation-chain-toggle" type="button"
+                        aria-pressed="false">Direct dependencies</button>
+                    <button class="Option_selector" id="organisation-focus-selected" type="button">Focus</button>
+                    <button class="Option_selector" id="organisation-reset-view" type="button">Reset view</button>
+                    <p class="organisation_mode_badge" id="organisation-mode-badge">Team graph</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 d-flex justify-content-end" id="RHS_Section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-end">
+                    <p class="Naming">Organisation Page</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 d-flex justify-content-end">
+                    <a href="{{ dashboard_url }}" class="Link_back">Go back to the dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+{% extends "login_page/base.html" %}
+
+{% block body_class %}placeholder-page-body{% endblock %}
+
+{% block body %}
+<main class="placeholder-page-shell">
+    <section class="placeholder-card">
+        <p class="placeholder-eyebrow">User Dashboard</p>
+        <h1 class="placeholder-title">{{ tool_heading }}</h1>
+        <p class="placeholder-copy">{{ tool_description }}</p>
+        <div class="placeholder-meta">
+            <p><strong>Next step:</strong> this tool will be replaced with the full Django page in a later batch.</p>
+        </div>
+        <a class="placeholder-link" href="{{ dashboard_url }}">Go back to the dashboard</a>
+        <br>
+        <a class="placeholder-link" href="{% url 'login_page:profile' %}">Open profile page</a>
+        <br>
+        <a class="placeholder-link" href="{% url 'login_page:logout' %}">Log out</a>
+    </section>
+</main>
+{% endblock %}

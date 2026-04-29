@@ -1,0 +1,223 @@
+{% extends "login_page/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'login_page/teams/teams.css' %}">
+{% endblock %}
+
+{% block body %}
+<header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 d-flex align-content-center justify-content-start">
+                <a href="{% url 'login_page:logout' %}" class="return_to_login">
+                    <img src="{% static 'login_page/images/sky-logo-2025.png' %}" alt="Logo Sky" class="logo-header">
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10 main-content">
+                <div class="container-fluid">
+                    <div class="row" id="Dashboard">
+                        {% include "login_page/includes/user_home/sidebar.html" %}
+                        <div class="col-10" id="Main-Dashboard">
+                            <div class="container-fluid">
+                                <div class="row" id="Top-row">
+                                    <div class="col-12 d-flex justify-content-between">
+                                        <div class="col-6 LHS_Top_row">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <p class="Welcome_text">Teams page</p>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        <div class="col-5 question_form_text">
+                                                            <input id="teams-search-input" type="search"
+                                                                name="search text" required autocomplete="off">
+                                                            <label>Search teams, departments, or managers</label>
+                                                        </div>
+                                                        <div
+                                                            class="col-5 filters d-flex align-content-center justify-content-start">
+                                                            <div class="top-menu-anchor filters-anchor">
+                                                                <span id="teams-filter-label"
+                                                                    class="filter-dropdown-label">All teams</span>
+                                                                <button id="teams-filter-trigger" type="button"
+                                                                    class="top-icon-trigger P_Dropdown"
+                                                                    aria-controls="teams-filter-panel"
+                                                                    aria-expanded="false">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                        height="16" fill="currentColor"
+                                                                        class="bi bi-caret-down-fill"
+                                                                        viewBox="0 0 16 16">
+                                                                        <path
+                                                                        d="M7.247 11.14l-4.796-5.481c-.566-.647-.106-1.659.753-1.659h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                                                                    </svg>
+                                                                </button>
+                                                                <div id="teams-filter-panel"
+                                                                    class="top-dropdown-panel profile-dropdown filters-dropdown"
+                                                                    aria-hidden="true">
+                                                                    <button type="button"
+                                                                        class="top-dropdown-action is-selected"
+                                                                        data-filter-value="all">All teams</button>
+                                                                    <button type="button" class="top-dropdown-action"
+                                                                        data-filter-value="active">Active</button>
+                                                                    <button type="button" class="top-dropdown-action"
+                                                                        data-filter-value="review">On review</button>
+                                                                    <button type="button" class="top-dropdown-action"
+                                                                        data-filter-value="inactive">Inactive</button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="top-menu-anchor filters-anchor">
+                                                                <span id="teams-sort-label"
+                                                                    class="filter-dropdown-label">Sort by Name</span>
+                                                                <button id="teams-sort-trigger" type="button"
+                                                                    class="top-icon-trigger P_Dropdown"
+                                                                    aria-controls="teams-sort-panel"
+                                                                    aria-expanded="false">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                        height="16" fill="currentColor"
+                                                                        class="bi bi-caret-down-fill"
+                                                                        viewBox="0 0 16 16">
+                                                                        <path
+                                                                        d="M7.247 11.14l-4.796-5.481c-.566-.647-.106-1.659.753-1.659h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                                                                    </svg>
+                                                                </button>
+                                                                <div id="teams-sort-panel"
+                                                                    class="top-dropdown-panel profile-dropdown filters-dropdown"
+                                                                    aria-hidden="true">
+                                                                    <button type="button"
+                                                                        class="top-dropdown-action is-selected"
+                                                                        data-sort-value="name-asc">Name A-Z</button>
+                                                                    <button type="button" class="top-dropdown-action"
+                                                                        data-sort-value="name-desc">Name Z-A</button>
+                                                                    <button type="button" class="top-dropdown-action"
+                                                                        data-sort-value="members-desc">Members high-low</button>
+                                                                    <button type="button" class="top-dropdown-action"
+                                                                        data-sort-value="members-asc">Members low-high</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% include "login_page/includes/user_home/profile_menu.html" with profile_menu_column_class="col-6" %}
+                                    </div>
+                                </div>
+                                <div class="container-fluid Department_directory" id="teams-list">
+                                        {% for teamItem in teams %}
+                                        {% if forloop.counter0|divisibleby:4 %}
+                                    <div class="row Team_row d-flex justify-content-evenly" data-team-row>
+                                        {% endif %}
+                                        <div class="col-2 Block_Team"
+                                            data-team-name="{{ teamItem.name }}"
+                                            data-team-lead="{{ teamItem.team_lead }}"
+                                            data-team-department="{{ teamItem.department_name }}"
+                                            data-team-status="{{ teamItem.status }}"
+                                            data-team-members="{{ teamItem.member_count }}">
+                                            <a href="{{ teamItem.detail_url }}" class="Team_card_main">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <p class="Team_Name">{{ teamItem.name }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <p class="Team_head">{{ teamItem.team_lead }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 d-flex justify-content-start align-content-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                            height="16" fill="currentColor"
+                                                            class="bi bi-person-gear" viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2
+                                                                2 0 1 0 0-4 2 2 0 0 0 0 4m.256
+                                                                7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484
+                                                                10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844
+                                                                9.002 8 9c-5 0-6 3-6 4s1 1 1 1zm3.63-4.54c.18-.613
+                                                                1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306
+                                                                1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612
+                                                                1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309
+                                                                1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229
+                                                                0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64
+                                                                0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0
+                                                                0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14
+                                                                12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0" />
+                                                        </svg>
+                                                        <p class="Team_member">{{ teamItem.member_count_label }}</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <a href="{{ teamItem.github_link|default:'#' }}"
+                                                        class="d-flex justify-content-start align-content-center Block_Team_link"
+                                                        {% if teamItem.github_link %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                            height="16" fill="currentColor"
+                                                            class="bi bi-github" viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53
+                                                                5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01
+                                                                1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95
+                                                                0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18
+                                                                1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44
+                                                                1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87
+                                                                3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01
+                                                                2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8" />
+                                                        </svg>
+                                                        Git hub link
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 d-flex justify-content-center align-content-center">
+                                                    <p class="Team_status Team_status--{{ teamItem.status_class }}">{{ teamItem.status_display }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% if forloop.counter|divisibleby:4 or forloop.last %}
+                                    </div>
+                                        {% endif %}
+                                        {% empty %}
+                                    <div class="row Team_row d-flex justify-content-evenly" data-team-row>
+                                        <div class="col-12">
+                                            <p class="teams-empty-state">No teams are stored yet.</p>
+                                        </div>
+                                    </div>
+                                        {% endfor %}
+                                    <div class="row d-none" id="teams-empty-filter-row">
+                                        <div class="col-12">
+                                            <p class="teams-empty-state">No teams match the current filters.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+
+    {{ user_home_search_url|json_script:"user-home-search-url" }}
+    {{ user_home_search_config|json_script:"user-home-search-config" }}
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'login_page/shared/rolling_sidebar.js' %}"></script>
+<script src="{% static 'login_page/dashboard/user_home_dropdowns.js' %}"></script>
+<script src="{% static 'login_page/dashboard/user_home_search.js' %}"></script>
+<script src="{% static 'login_page/teams/teams_page.js' %}"></script>
+<script src="{% static 'login_page/shared/search_icon.js' %}"></script>
+{% endblock %}

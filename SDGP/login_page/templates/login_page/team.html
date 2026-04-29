@@ -1,0 +1,847 @@
+{% extends "login_page/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'login_page/teams/team.css' %}">
+{% endblock %}
+
+{% block body %}
+<header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 d-flex align-content-center justify-content-start">
+                <a href="{% url 'login_page:logout' %}" class="return_to_login">
+                    <img src="{% static 'login_page/images/sky-logo-2025.png' %}" alt="Logo Sky" class="logo-header">
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10 main-content">
+                <div class="container-fluid">
+                    <div class="row" id="Dashboard">
+                        {% include "login_page/includes/user_home/sidebar.html" %}
+                        <div class="col-10" id="Main-Dashboard">
+                            <div class="container-fluid">
+                                <div class="row" id="Top-row">
+                                    <div class="col-12 d-flex justify-content-between">
+                                        <div class="col-6 LHS_Top_row">
+                                            <div class="row">
+                                                <div class="col-12 d-flex align-content-center justify-content-start">
+                                                    <a href="{{ teams_url }}"
+                                                        class="SVG_back d-flex align-content-center justify-content-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                            height="16" fill="currentColor" class="bi bi-arrow-left"
+                                                            viewBox="0 0 16 16">
+                                                            <path fill-rule="evenodd"
+                                                                d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5
+                                                                0 1 0-.708-.708l-4 4a.5.5 0 0 0 0
+                                                                .708l4 4a.5.5 0 0 0 .708-.708L2.707
+                                                                8.5H14.5A.5.5 0 0 0 15 8" />
+                                                        </svg>
+                                                    </a>
+                                                    <p class="Welcome_text">{{ platform_team.name }} Team</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% include "login_page/includes/user_home/profile_menu.html" with profile_menu_column_class="col-6" %}
+                                    </div>
+                                </div>
+                                <div class="row" id="Main-content">
+                                    <div class="col-9" id="Main">
+                                        <div class="container-fluid" style="padding: 0%;">
+                                            <div class="row d-flex align-content-center justify-content-center"
+                                                style="padding: 0%;">
+                                                <div class="col-10 d-flex align-content-center justify-content-evenly">
+                                                    <button class="Option_selector Option_selector_active"
+                                                        type="button" data-template-target="overview">Overview</button>
+                                                    <button class="Option_selector" type="button"
+                                                        data-template-target="links">Links</button>
+                                                    <button class="Option_selector" type="button"
+                                                        data-template-target="members">Members</button>
+                                                    <button class="Option_selector" type="button"
+                                                        data-template-target="dependencies">Dependencies</button>
+                                                    <button class="Option_selector" type="button"
+                                                        data-template-target="settings">Settings</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="container-fluid team_template_section d-none"
+                                            data-team-template="overview">
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="col-10">
+                                                    <div class="About_block overview_criteria_block overview_about_block">
+                                                        <p class="Main_text">About team</p>
+                                                        <div class="overview_criteria_panel">
+                                                        <p class="Main_text_description">
+                                                            {{ platform_team.about_team|default:"No team overview has been stored yet." }}
+                                                        </p>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <a href="{{ platform_team.daily_standup_link|default:'#' }}"
+                                                                    class="quick_links d-flex align-content-center justify-content-start">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                        height="16" fill="currentColor"
+                                                                        class="bi bi-microsoft-teams"
+                                                                        viewBox="0 0 16 16">
+                                                                        <path
+                                                                        d="M9.186 4.797a2.42 2.42 0 1 0-2.86-2.448h1.178c.929 0 1.682.753 1.682 1.682zm-4.295 7.738h2.613c.929 0 1.682-.753 1.682-1.682V5.58h2.783a.7.7 0 0 1 .682.716v4.294a4.197 4.197 0 0 1-4.093 4.293c-1.618-.04-3-.99-3.667-2.35Zm10.737-9.372a1.674 1.674 0 1 1-3.349 0 1.674 1.674 0 0 1 3.349 0m-2.238 9.488-.12-.002a5.2 5.2 0 0 0 .381-2.07V6.306a1.7 1.7 0 0 0-.15-.725h1.792c.39 0 .707.317.707.707v3.765a2.6 2.6 0 0 1-2.598 2.598z" />
+                                                                        <path
+                                                                        d="M.682 3.349h6.822c.377 0 .682.305.682.682v6.822a.68.68 0 0 1-.682.682H.682A.68.68 0 0 1 0 10.853V4.03c0-.377.305-.682.682-.682Zm5.206 2.596v-.72h-3.59v.72h1.357V9.66h.87V5.945z" />
+                                                                    </svg>
+                                                                    Team's Standup meeting{% if team_standup_time_value %} at {{ team_standup_time_value }}{% endif %}
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row d-flex justify-content-evenly">
+                                                <div class="col-3 overview_criteria_block" id="Blocks_container">
+                                                    <p class="Main_text">Development Focus</p>
+                                                    <div class="overview_criteria_panel">
+                                                    {% for focusArea in team_focus_areas %}
+                                                    <p class="Main_text_description">{{ focusArea }}</p>
+                                                    {% empty %}
+                                                    <p class="Main_text_description">No focus areas stored.</p>
+                                                    {% endfor %}
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 overview_criteria_block" id="Blocks_container">
+                                                    <p class="Main_text">Key Skills & Technologies</p>
+                                                    <div class="overview_criteria_panel">
+                                                    {% for keySkill in team_key_skills %}
+                                                    <p class="Main_text_description">{{ keySkill }}</p>
+                                                    {% empty %}
+                                                    <p class="Main_text_description">No key skills stored.</p>
+                                                    {% endfor %}
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 overview_criteria_block" id="Blocks_container">
+                                                    <p class="Main_text">Team specific Dependency</p>
+                                                    <div class="overview_criteria_panel">
+                                                    {% if team_first_dependency %}
+                                                    <p class="Main_text_description">
+                                                        {{ team_first_dependency.direction_display }} Dependency: {{ team_first_dependency.name }}
+                                                    </p>
+                                                    <p class="Main_text_description">{{ team_first_dependency.status_display }}</p>
+                                                    {% else %}
+                                                    <p class="Main_text_description">No dependencies stored.</p>
+                                                    {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="container-fluid team_template_section d-none"
+                                            data-team-template="links">
+                                            <div class="row template_links_row d-flex justify-content-evenly"
+                                                style="padding: 0%;">
+                                                <div class="col-3">
+                                                    <div class="container-fluid Link_block">
+                                                        <div class="row">
+                                                            <div class="col-12 d-flex align-content-center justify-content-center Logo_row">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                    height="16" fill="currentColor"
+                                                                    class="bi bi-github" viewBox="0 0 16 16">
+                                                                    <path
+                                                                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29
+                                                                        6.53 5.47 7.59.4.07.55-.17.55-.38
+                                                                        0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01
+                                                                        1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95
+                                                                        0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12
+                                                                        0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09
+                                                                        2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16
+                                                                        1.92.08 2.12.51.56.82 1.27.82 2.15 0
+                                                                        3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48
+                                                                        0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01
+                                                                        8.01 0 0 0 16 8c0-4.42-3.58-8-8-8" />
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <p class="Link_Main_text">GitHub Repo</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <p class="Link_Main_text_description">{{ platform_team.git_project_name|default:"Team's GitHub Repository" }}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <p class="Link_time_stamp">Updated from database</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 d-flex align-content-center justify-content-center">
+                                                                <a href="{{ platform_team.github_link|default:'#' }}"
+                                                                    class="Message Link_redirect_button">Go to page</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="container-fluid Link_block">
+                                                        <div class="row">
+                                                            <div class="col-12 d-flex align-content-center justify-content-center Logo_row">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                    height="16" fill="currentColor"
+                                                                    class="bi bi-wikipedia" viewBox="0 0 16 16">
+                                                                    <path
+                                                                        d="M8.835 3.003c.828-.006 2.688 0 2.688 0l.033.03v.288q0
+                                                                        .12-.133.12c-.433.02-.522.063-.68.29-.087.126-.258.393-.435.694l-1.52
+                                                                        2.843-.043.089 1.858 3.801.113.031 2.926-6.946q.152-.42-.044-.595c-.132-.114-.224-.18-.563-.195l-.275-.014a.16.16
+                                                                        0 0 1-.096-.035.1.1 0 0 1-.046-.084v-.289l.042-.03h3.306l.034.03v.29q0
+                                                                        .117-.133.117-.65.03-.962.281a1.64 1.64 0 0 0-.488.704s-2.691 6.16-3.612
+                                                                        8.208c-.353.672-.7.61-1.004-.019A224 224 0 0 1 8.044 8.81c-.623
+                                                                        1.285-1.475 3.026-1.898 3.81-.411.715-.75.622-1.02.019-.45-1.065-1.131-2.519-1.817-3.982-.735-1.569-1.475-3.149-1.943-4.272-.167-.4-.293-.657-.412-.759q-.18-.15-.746-.18Q0
+                                                                        3.421 0 3.341v-.303l.034-.03c.615-.003 3.594 0 3.594 0l.034.03v.288q0
+                                                                        .119-.15.118l-.375.016q-.483.02-.483.288-.002.125.109.4c.72 1.753 3.207 6.998
+                                                                        3.207 6.998l.091.023 1.603-3.197-.32-.71L6.24 5.095s-.213-.433-.286-.577l-.098-.196c-.387-.77-.411-.82-.865-.88-.137-.017-.208-.035-.208-.102v-.304l.041-.03h2.853l.075.024v.303q0
+                                                                        .104-.15.104l-.206.03c-.523.04-.438.254-.09.946l1.057 2.163 1.17-2.332c.195-.427.155-.534.074-.633-.046-.055-.202-.144-.54-.158l-.133-.015a.16.16
+                                                                        0 0 1-.096-.034.1.1 0 0 1-.045-.085v-.288l.041-.03Z" />
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <p class="Link_Main_text">Wiki Page</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <p class="Link_Main_text_description">{{ platform_team.wiki_search_terms|default:"Wiki search terms" }}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <p class="Link_time_stamp">Updated from database</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 d-flex align-content-center justify-content-center">
+                                                                <a href="{{ platform_team.wiki_link|default:'#' }}"
+                                                                    class="Message Link_redirect_button">Go to page</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="container-fluid Link_block">
+                                                        <div class="row">
+                                                            <div class="col-12 d-flex align-content-center justify-content-center Logo_row">
+                                                                <img src="{% static 'login_page/images/jira.svg' %}" alt="Jira logo">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <p class="Link_Main_text">Jira Board</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <p class="Link_Main_text_description">{{ platform_team.jira_project_name|default:"Sprint planning and ticket tracking" }}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <p class="Link_time_stamp">Updated from database</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 d-flex align-content-center justify-content-center">
+                                                                <a href="{{ platform_team.jira_board_link|default:'#' }}"
+                                                                    class="Message Link_redirect_button">Go to page</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row template_links_row d-flex justify-content-evenly"
+                                                style="padding: 0%;">
+                                                <div class="col-3">
+                                                    <div class="container-fluid Link_block">
+                                                        <div class="row">
+                                                            <div class="col-12 d-flex align-content-center justify-content-center Logo_row">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                    height="16" fill="currentColor"
+                                                                    class="bi bi-slack" viewBox="0 0 16 16">
+                                                                    <path
+                                                                    d="M3.362 10.11c0 .926-.756 1.681-1.681 1.681S0 11.036 0 10.111.756 8.43 1.68 8.43h1.682zm.846 0c0-.924.756-1.68 1.681-1.68s1.681.756 1.681 1.68v4.21c0 .924-.756 1.68-1.68 1.68a1.685 1.685 0 0 1-1.682-1.68zM5.89 3.362c-.926 0-1.682-.756-1.682-1.681S4.964 0 5.89 0s1.68.756 1.68 1.68v1.682zm0 .846c.924 0 1.68.756 1.68 1.681S6.814 7.57 5.89 7.57H1.68C.757 7.57 0 6.814 0 5.89c0-.926.756-1.682 1.68-1.682zm6.749 1.682c0-.926.755-1.682 1.68-1.682S16 4.964 16 5.889s-.756 1.681-1.68 1.681h-1.681zm-.848 0c0 .924-.755 1.68-1.68 1.68A1.685 1.685 0 0 1 8.43 5.89V1.68C8.43.757 9.186 0 10.11 0c.926 0 1.681.756 1.681 1.68zm-1.681 6.748c.926 0 1.682.756 1.682 1.681S11.036 16 10.11 16s-1.681-.756-1.681-1.68v-1.682h1.68zm0-.847c-.924 0-1.68-.755-1.68-1.68s.756-1.681 1.68-1.681h4.21c.924 0 1.68.756 1.68 1.68 0 .926-.756 1.681-1.68 1.681z" />
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <p class="Link_Main_text">Slack Workspace</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <p class="Link_Main_text_description">Team channels and quick communication</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <p class="Link_Main_text_description">Channels: {{ platform_team.slack_channels|default:"No channels stored" }}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <p class="Link_time_stamp">Updated from database</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 d-flex align-content-center justify-content-center">
+                                                                <a href="{{ platform_team.slack_link|default:'#' }}"
+                                                                    class="Message Link_redirect_button">Go to page</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row d-flex align-content-center justify-content-evenly team_template_section d-none"
+                                            data-team-template="members" style="padding: 0%;">
+                                            {% for teamMember in team_members %}
+                                            <div class="col-4">
+                                                <div class="container-fluid" id="Blocks_container">
+                                                    <div class="row d-flex align-content-center justify-content-start Main_text_row">
+                                                        <div class="col-3 d-flex align-content-center" style="padding:0%;">
+                                                            {% if teamMember.avatar_url %}
+                                                            <img src="{{ teamMember.avatar_url }}" alt="Profile Picture"
+                                                                class="Profile_image">
+                                                            {% else %}
+                                                            <img src="{% static 'login_page/images/default-profile.jpeg' %}" alt="Profile Picture"
+                                                                class="Profile_image">
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="col-9" style="padding: 0%;">
+                                                            <p class="Profile_name">{{ teamMember.full_name }}</p>
+                                                            <p class="Profile_role">{{ teamMember.team_role }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <p class="Main_text_description">{{ teamMember.member_skills }}</p>
+                                                            <p class="Main_text_description">{{ teamMember.status }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12 d-flex align-content-center justify-content-center">
+                                                            <a href="{{ teamMember.message_url }}" class="Message">Send a message</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% empty %}
+                                            <div class="col-10">
+                                                <div class="container-fluid" id="Blocks_container">
+                                                    <p class="Main_text">No members allocated</p>
+                                                    <p class="Main_text_description">Profiles with this team name will appear here automatically.</p>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+
+                                        <div class="container-fluid team_template_section d-none"
+                                            data-team-template="dependencies">
+                                            <div class="row">
+                                                <div class="col-7 d-flex align-content-center justify-content-start"
+                                                    id="Selection_row">
+                                                    <p class="Type_depency">Dependency type:</p>
+                                                    <button class="dependency dependency_active" type="button"
+                                                        data-dependency-filter="all">All</button>
+                                                    <button class="dependency" type="button"
+                                                        data-dependency-filter="upstream">Upstream</button>
+                                                    <button class="dependency" type="button"
+                                                        data-dependency-filter="downstream">Downstream</button>
+                                                </div>
+                                            </div>
+                                            <div class="row dependency-headings d-none d-lg-flex">
+                                                <div class="col-12 dependency-row dependency-row--header">
+                                                    <p></p>
+                                                    <p>Dependency</p>
+                                                    <p>Direction</p>
+                                                    <p>Status</p>
+                                                    <p>Last update</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                {% for teamDependency in team_dependencies %}
+                                                <div class="col-12 Blocks" data-dependency-direction="{{ teamDependency.direction }}">
+                                                    <div class="dependency-row">
+                                                        <div class="Blocks_SVG d-flex align-content-center justify-content-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                height="16" fill="currentColor"
+                                                                class="bi bi-diagram-3-fill" viewBox="0 0 16 16">
+                                                                <path fill-rule="evenodd"
+                                                                d="M14 1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2v2h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2v1a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h1V6H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2h6V2a1 1 0 0 1 1-1zm-3 9v2h2v-2zM4 9v2h2v-2zM2 2v2h2V2zm10 0v2h2V2z" />
+                                                            </svg>
+                                                        </div>
+                                                        <p class="Block_main_text">{{ teamDependency.name }}</p>
+                                                        <p class="dependency-flow dependency-flow--{{ teamDependency.direction }}">
+                                                            {{ teamDependency.direction_display }}
+                                                        </p>
+                                                        <p class="dependency-status dependency-status--{{ teamDependency.status_class }}">
+                                                            {{ teamDependency.status_display }}
+                                                        </p>
+                                                        <p class="Time_stamp">{{ teamDependency.updated_label }}</p>
+                                                    </div>
+                                                </div>
+                                                {% empty %}
+                                                <div class="col-12 Blocks">
+                                                    <p class="Block_main_text">No dependencies stored.</p>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+
+                                        <form method="post" action="{{ team_settings_action_url }}"
+                                            enctype="multipart/form-data" novalidate
+                                            class="container-fluid team_template_section"
+                                            data-team-template="settings">
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <div class="col-3 Img_temp d-flex align-content-center justify-content-center">
+                                                    <label for="team-image-upload"
+                                                        class="profile-image d-flex align-content-center justify-content-center"
+                                                        aria-label="Upload team picture">
+                                                        {% if team_image_url %}
+                                                        <img src="{{ team_image_url }}" alt="Team picture"
+                                                            class="Profile_picture" id="team-picture-preview"
+                                                            data-image-upload-preview="team-image-upload">
+                                                        {% else %}
+                                                        <img src="{% static 'login_page/images/default-profile.jpeg' %}" alt="Team picture"
+                                                            class="Profile_picture" id="team-picture-preview"
+                                                            data-image-upload-preview="team-image-upload">
+                                                        {% endif %}
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="32"
+                                                            height="32" fill="currentColor"
+                                                            class="profile-edit-icon bi bi-pencil-fill"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.707l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                                                        </svg>
+                                                    </label>
+                                                    <input type="file" name="team_image" id="team-image-upload"
+                                                        class="profile-image-input d-none"
+                                                        accept="image/jpeg,image/png,image/gif,image/webp"
+                                                        data-image-upload-input>
+                                                </div>
+                                                <div class="col-9">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text team_single_picker_field"
+                                                                    data-team-single-field="department_name">
+                                                                    <input type="text" name="department_name" required
+                                                                        value="{{ platform_team.department_name }}" readonly autocomplete="off"
+                                                                        data-team-single-input="department_name"
+                                                                        aria-haspopup="dialog" aria-expanded="false">
+                                                                    <label>Department name</label>
+                                                                    <div class="member_skills_popup team_single_select_popup"
+                                                                        data-team-single-popup="department_name"
+                                                                        role="dialog" aria-hidden="true"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text team_single_picker_field"
+                                                                    data-team-single-field="department_head">
+                                                                    <input type="text" name="department_head" required
+                                                                        value="{{ platform_team.department_head }}" readonly autocomplete="off"
+                                                                        data-team-single-input="department_head"
+                                                                        aria-haspopup="dialog" aria-expanded="false">
+                                                                    <label>Department head</label>
+                                                                    <div class="member_skills_popup team_single_select_popup"
+                                                                        data-team-single-popup="department_head"
+                                                                        role="dialog" aria-hidden="true"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text team_single_picker_field"
+                                                                    data-team-single-field="team_name">
+                                                                    <input type="text" name="team_name" required
+                                                                        value="{{ platform_team.name }}" readonly autocomplete="off"
+                                                                        data-team-single-input="team_name"
+                                                                        aria-haspopup="dialog" aria-expanded="false">
+                                                                    <label>Team name</label>
+                                                                    <div class="member_skills_popup team_single_select_popup"
+                                                                        data-team-single-popup="team_name"
+                                                                        role="dialog" aria-hidden="true"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text team_single_picker_field"
+                                                                    data-team-single-field="team_lead">
+                                                                    <input type="text" name="team_lead" required
+                                                                        value="{{ platform_team.team_lead }}" readonly autocomplete="off"
+                                                                        data-team-single-input="team_lead"
+                                                                        aria-haspopup="dialog" aria-expanded="false">
+                                                                    <label>Team lead</label>
+                                                                    <div class="member_skills_popup team_single_select_popup"
+                                                                        data-team-single-popup="team_lead"
+                                                                        role="dialog" aria-hidden="true"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text">
+                                                                    <input type="text" name="key_contact_1" required
+                                                                        value="{{ platform_team.key_contact_1 }}">
+                                                                    <label>Key Contact 1</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text">
+                                                                    <input type="text" name="key_contact_2" required
+                                                                        value="{{ platform_team.key_contact_2 }}">
+                                                                    <label>Key Contact 2</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text">
+                                                                    <input type="text" name="jira_project_name" required
+                                                                        value="{{ platform_team.jira_project_name }}">
+                                                                    <label>Jira Project Name</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text">
+                                                                    <input type="text" name="jira_board_link" required
+                                                                        value="{{ platform_team.jira_board_link }}">
+                                                                    <label>Jira Board Link</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text">
+                                                                    <input type="text" name="git_project_name" required
+                                                                        value="{{ platform_team.git_project_name }}">
+                                                                    <label>Git Project Name</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text">
+                                                                    <input type="text" name="github_link" required
+                                                                        value="{{ platform_team.github_link }}">
+                                                                    <label>Github Link</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text">
+                                                                    <input type="text" name="dependency_name" required
+                                                                        value="{{ team_dependency_settings_name }}">
+                                                                    <label>Downstream Dependencies</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text">
+                                                                    <input type="text" name="dependency_type" required
+                                                                        value="{{ team_dependency_settings_type }}">
+                                                                    <label>Dependency type</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text">
+                                                                    <input type="text" name="software_owned" required
+                                                                        value="{{ platform_team.software_owned }}">
+                                                                    <label>Software owned & Evolved by team</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text">
+                                                                    <input type="text" name="versioning_approaches" required
+                                                                        value="{{ platform_team.versioning_approaches }}">
+                                                                    <label>Versioning Approaches</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text">
+                                                                    <input type="text" name="wiki_link" required
+                                                                        value="{{ platform_team.wiki_link }}">
+                                                                    <label>Wiki Link</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text">
+                                                                    <input type="text" name="wiki_search_terms" required
+                                                                        value="{{ platform_team.wiki_search_terms }}">
+                                                                    <label>Wiki Search Terms</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text">
+                                                                    <input type="text" name="slack_channels" required
+                                                                        value="{{ platform_team.slack_channels }}">
+                                                                    <label>Slack Channels</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text">
+                                                                    <input type="text" name="slack_link" required
+                                                                        value="{{ platform_team.slack_link }}">
+                                                                    <label>Slack link</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text">
+                                                                    <input type="time" name="daily_standup_time" required
+                                                                        value="{{ team_standup_time_value }}">
+                                                                    <label>Daily Standup Time</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6 d-flex justify-content-center">
+                                                                <div class="col-11 question_form_text">
+                                                                    <input type="text" name="daily_standup_link" required
+                                                                        value="{{ platform_team.daily_standup_link }}">
+                                                                    <label>Daily Standup Link</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row d-flex justify-content-center">
+                                                            <div class="col-11 question_form_text_long">
+                                                                <textarea name="about_team" required
+                                                                    rows="1">{{ platform_team.about_team }}</textarea>
+                                                                <label>About Team</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row d-flex justify-content-center">
+                                                            <div class="col-11 question_form_text_long team_picker_field"
+                                                                data-team-picker-field="key_skills">
+                                                                <textarea name="key_skills" required
+                                                                    id="team-key-skills-input" readonly
+                                                                    data-team-popup-input="key_skills"
+                                                                    aria-haspopup="dialog" aria-expanded="false"
+                                                                    rows="1">{{ platform_team.key_skills }}</textarea>
+                                                                <label>Key skills & Technologies</label>
+                                                                <div id="team-key-skills-popup"
+                                                                    data-team-popup="key_skills"
+                                                                    class="member_skills_popup" role="dialog"
+                                                                    aria-hidden="true"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row d-flex justify-content-center">
+                                                            <div class="col-11 question_form_text_long team_picker_field"
+                                                                data-team-picker-field="focus_areas">
+                                                                <textarea name="focus_areas" required
+                                                                    id="team-focus-areas-input" readonly
+                                                                    data-team-popup-input="focus_areas"
+                                                                    aria-haspopup="dialog" aria-expanded="false"
+                                                                    rows="1">{{ platform_team.focus_areas }}</textarea>
+                                                                <label>Development Focus Areas</label>
+                                                                <div id="team-focus-areas-popup"
+                                                                    data-team-popup="focus_areas"
+                                                                    class="member_skills_popup" role="dialog"
+                                                                    aria-hidden="true"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row d-flex justify-content-center template5_actions_row">
+                                                            <div class="col-11 d-flex justify-content-end">
+                                                                <button type="submit" class="btn_Save">Save Changes</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-3" id="Quick_blocks">
+                                        <div class="quick_blocks_stack">
+                                            <div class="container-fluid quick_block_card d-none"
+                                                id="Blocks_container" data-quick-block="1">
+                                                <p class="Main_text">Department</p>
+                                                <p class="Main_text_description">{{ platform_team.department_name|default:"Department Name" }}</p>
+                                                <div class="row d-flex align-content-center justify-content-start">
+                                                    <div class="col-3 d-flex align-content-center" style="padding-right: 0%;">
+                                                        <img src="{% static 'login_page/images/default-profile.jpeg' %}" alt="Profile Picture"
+                                                            class="Profile_image">
+                                                    </div>
+                                                    <div class="col-9" style="padding: 0%;">
+                                                        <p class="Profile_name">{{ team_department_head_contact.name|default:"Department Head name" }}</p>
+                                                        <p class="Profile_role">Department Head</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 d-flex align-content-center justify-content-center">
+                                                        <a href="{{ team_department_head_contact.message_url }}" class="Message">Send a message</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="container-fluid quick_block_card d-none"
+                                                id="Blocks_container" data-quick-block="2">
+                                                <p class="Main_text">Key Contacts</p>
+                                                <div class="row d-flex align-content-center justify-content-start"
+                                                    style="margin: 2.5% 0%;">
+                                                    <div class="col-3" style="padding: 0%;">
+                                                        <img src="{% static 'login_page/images/default-profile.jpeg' %}" alt="Profile Picture"
+                                                            class="Profile_image">
+                                                    </div>
+                                                    <div class="col-7" style="padding: 0%;">
+                                                        <p class="Profile_name">{{ team_key_contact_1.name|default:platform_team.team_lead }}</p>
+                                                        <p class="Profile_role">Key Contact</p>
+                                                    </div>
+                                                    <div class="col-2 d-flex align-content-center justify-content-center"
+                                                        style="padding: 0%;">
+                                                        <a href="{{ team_key_contact_1.message_url }}"
+                                                            class="message d-flex align-content-center justify-content-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                height="16" fill="currentColor"
+                                                                class="bi bi-envelope-plus" viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0
+                                                                    0 2 14h5.5a.5.5 0 0 0 0-1H2a1
+                                                                    1 0 0 1-.966-.741l5.64-3.471L8
+                                                                    9.583l7-4.2V8.5a.5.5 0 0 0
+                                                                    1 0V4a2 2 0 0 0-2-2zm3.708
+                                                                    6.208L1 11.105V5.383zM1 4.217V4a1
+                                                                    1 0 0 1 1-1h12a1 1 0 0
+                                                                    1 1 1v.217l-7 4.2z" />
+                                                                <path
+                                                                    d="M16 12.5a3.5 3.5 0 1 1-7
+                                                                    0 3.5 3.5 0 0 1 7 0m-3.5-2a.5.5
+                                                                    0 0 0-.5.5v1h-1a.5.5 0 0
+                                                                    0 0 1h1v1a.5.5 0 0 0 1
+                                                                    0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5
+                                                                    0 0 0-.5-.5" />
+                                                            </svg>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="row d-flex align-content-center justify-content-start"
+                                                    style="margin: 2.5% 0%;">
+                                                    <div class="col-3" style="padding: 0%;">
+                                                        <img src="{% static 'login_page/images/default-profile.jpeg' %}" alt="Profile Picture"
+                                                            class="Profile_image">
+                                                    </div>
+                                                    <div class="col-7" style="padding: 0%;">
+                                                        <p class="Profile_name">{{ team_key_contact_2.name|default:platform_team.department_head }}</p>
+                                                        <p class="Profile_role">Key Contact</p>
+                                                    </div>
+                                                    <div class="col-2 d-flex align-content-center justify-content-center"
+                                                        style="padding: 0%;">
+                                                        <a href="{{ team_key_contact_2.message_url }}"
+                                                            class="message d-flex align-content-center justify-content-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                height="16" fill="currentColor"
+                                                                class="bi bi-envelope-plus" viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0
+                                                                    0 2 14h5.5a.5.5 0 0 0 0-1H2a1
+                                                                    1 0 0 1-.966-.741l5.64-3.471L8
+                                                                    9.583l7-4.2V8.5a.5.5 0 0 0
+                                                                    1 0V4a2 2 0 0 0-2-2zm3.708
+                                                                    6.208L1 11.105V5.383zM1 4.217V4a1
+                                                                    1 0 0 1 1-1h12a1 1 0 0
+                                                                    1 1 1v.217l-7 4.2z" />
+                                                                <path
+                                                                    d="M16 12.5a3.5 3.5 0 1 1-7
+                                                                    0 3.5 3.5 0 0 1 7 0m-3.5-2a.5.5
+                                                                    0 0 0-.5.5v1h-1a.5.5 0 0
+                                                                    0 0 1h1v1a.5.5 0 0 0 1
+                                                                    0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5
+                                                                    0 0 0-.5-.5" />
+                                                            </svg>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="container-fluid quick_block_card d-none"
+                                                id="Blocks_container" data-quick-block="3">
+                                                <p class="Main_text">Quick Links</p>
+                                                <a href="{{ platform_team.github_link|default:'#' }}"
+                                                    class="quick_links d-flex align-content-center justify-content-start">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                        height="16" fill="currentColor" class="bi bi-github"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29
+                                                            6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01
+                                                            1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95
+                                                            0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12
+                                                            0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09
+                                                            2 .27c1.53-1.04 2.2-.82 2.2-.82.44
+                                                            1.1.16 1.92.08 2.12.51.56.82 1.27.82
+                                                            2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54
+                                                            1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01
+                                                            8.01 0 0 0 16 8c0-4.42-3.58-8-8-8" />
+                                                    </svg>
+                                                    Team's GitHub Repository
+                                                </a>
+                                                <a href="{{ platform_team.wiki_link|default:'#' }}"
+                                                    class="quick_links d-flex align-content-center justify-content-start">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                        height="16" fill="currentColor"
+                                                        class="bi bi-wikipedia" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M8.835 3.003c.828-.006 2.688 0 2.688 0l.033.03v.288q0
+                                                            .12-.133.12c-.433.02-.522.063-.68.29-.087.126-.258.393-.435.694l-1.52
+                                                            2.843-.043.089 1.858 3.801.113.031 2.926-6.946q.152-.42-.044-.595c-.132-.114-.224-.18-.563-.195l-.275-.014a.16.16
+                                                            0 0 1-.096-.035.1.1 0 0 1-.046-.084v-.289l.042-.03h3.306l.034.03v.29q0
+                                                            .117-.133.117-.65.03-.962.281a1.64 1.64 0 0 0-.488.704s-2.691 6.16-3.612
+                                                            8.208c-.353.672-.7.61-1.004-.019A224 224 0 0 1 8.044 8.81c-.623
+                                                            1.285-1.475 3.026-1.898 3.81-.411.715-.75.622-1.02.019-.45-1.065-1.131-2.519-1.817-3.982-.735-1.569-1.475-3.149-1.943-4.272-.167-.4-.293-.657-.412-.759q-.18-.15-.746-.18Q0
+                                                            3.421 0 3.341v-.303l.034-.03c.615-.003 3.594 0 3.594 0l.034.03v.288q0
+                                                            .119-.15.118l-.375.016q-.483.02-.483.288-.002.125.109.4c.72
+                                                            1.753 3.207 6.998 3.207 6.998l.091.023 1.603-3.197-.32-.71L6.24
+                                                            5.095s-.213-.433-.286-.577l-.098-.196c-.387-.77-.411-.82-.865-.88-.137-.017-.208-.035-.208-.102v-.304l.041-.03h2.853l.075.024v.303q0
+                                                            .104-.15.104l-.206.03c-.523.04-.438.254-.09.946l1.057 2.163 1.17-2.332c.195-.427.155-.534.074-.633-.046-.055-.202-.144-.54-.158l-.133-.015a.16.16
+                                                            0 0 1-.096-.034.1.1 0 0 1-.045-.085v-.288l.041-.03Z" />
+                                                    </svg>
+                                                    Team's Wiki Page
+                                                </a>
+                                                <a href="{{ platform_team.jira_board_link|default:'#' }}"
+                                                    class="quick_links d-flex align-content-center justify-content-start">
+                                                    <img src="{% static 'login_page/images/jira.svg' %}" alt="Jira logo">
+                                                    Team's Board Page
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'login_page/shared/rolling_sidebar.js' %}"></script>
+<script src="{% static 'login_page/dashboard/user_home_dropdowns.js' %}"></script>
+<script src="{% static 'login_page/teams/team_template_switching.js' %}"></script>
+<script src="{% static 'login_page/teams/team_settings_popup.js' %}"></script>
+<script src="{% static 'login_page/teams/team_textarea_autogrow.js' %}"></script>
+<script src="{% static 'login_page/profile/profile_image_upload.js' %}"></script>
+<script src="{% static 'login_page/shared/search_icon.js' %}"></script>
+{% endblock %}

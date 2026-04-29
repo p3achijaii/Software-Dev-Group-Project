@@ -1,0 +1,186 @@
+{% extends "login_page/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'login_page/inbox/inbox.css' %}">
+{% endblock %}
+
+{% block body %}
+<header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 d-flex align-content-center justify-content-start">
+                <a href="{% url 'login_page:logout' %}" class="return_to_login">
+                    <img src="{% static 'login_page/images/sky-logo-2025.png' %}" alt="Logo Sky" class="logo-header">
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10 main-content">
+                <div class="container-fluid">
+                    <div class="row" id="Dashboard">
+                        {% include "login_page/includes/user_home/sidebar.html" %}
+                        <div class="col-10" id="Main-Dashboard">
+                            <div class="container-fluid">
+                                <div class="row d-flex justify-content-between align-items-end" id="Top-row">
+                                    <div class="col-5 Selection_Buttons">
+                                        <button class="Button_option Button_option_active" data-mode="inbox" type="button">Inbox</button>
+                                        <button class="Button_option" data-mode="sent" type="button">Sent</button>
+                                        <button class="Button_option" data-mode="drafts" type="button">Drafts</button>
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-12 d-flex justify-content-end">
+                                                    <p class="Naming">Inbox page</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 d-flex justify-content-end">
+                                                    <a href="{{ dashboard_url }}" class="Link_back">Go back to the dashboard</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="Main-row">
+                                    <div class="col-3 Inbox_topics">
+                                        <div class="container-fluid" id="mail-list" style="padding: 0%;">
+                                            {% for inboxMessage in inbox_messages %}
+                                            <div class="row Inbox_row" data-message-id="{{ inboxMessage.id }}" data-mode="inbox">
+                                                <div class="col-10">
+                                                    <p class="e_mailsubject">{{ inboxMessage.email_subject }}</p>
+                                                </div>
+                                                <div class="col-2 Trash_icon d-flex justify-content-end">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-trash3"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            {% empty %}
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <p class="Inbox_empty_state">No messages found.</p>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="container-fluid" id="Template_one_of_2">
+                                            <div class="row justify-content-center Template_hidden Template_layout"
+                                                id="Template_1_New_message">
+                                                <div class="col-10 question_form_text">
+                                                    <input type="text" name="Recipient" required
+                                                        id="Template_1_Recipient">
+                                                    <label>Type in the recipient</label>
+                                                </div>
+                                                <div class="col-10 question_form_text">
+                                                    <input type="text" name="Subject of the e-mail" required
+                                                        id="Template_1_Subject">
+                                                    <label>Subject of the e-mail</label>
+                                                </div>
+                                                <div class="col-10 question_form_text_long">
+                                                    <textarea name="search text" required id="Template_1_Message"
+                                                        aria-haspopup="dialog" aria-expanded="false"
+                                                        rows="1"></textarea>
+                                                    <label>Type in your message</label>
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center Template_hidden Template_layout"
+                                                id="Template_2_ViewandReply">
+                                                <div class="col-10 question_form_text">
+                                                    <input type="text" name="Recipient" required readonly
+                                                        id="Template_2_Recipient">
+                                                    <label>Type in the recipient</label>
+                                                </div>
+                                                <div class="col-10 question_form_text">
+                                                    <input type="text" name="Subject of the e-mail" required
+                                                        readonly id="Template_2_Subject">
+                                                    <label>Subject of the e-mail</label>
+                                                </div>
+                                                <div class="col-12" style="padding: 0%;">
+                                                    <div class="container-fluid" style="padding: 0%;">
+                                                        <div class="row d-flex justify-content-evenly"
+                                                            style="padding: 0%;">
+                                                            <div class="col-6 question_form_text_long">
+                                                                <textarea name="search text" required
+                                                                    id="Template_2_Previous_Message"
+                                                                    aria-haspopup="dialog" aria-expanded="false"
+                                                                    rows="1" readonly></textarea>
+                                                                <label>Previous Message</label>
+                                                            </div>
+                                                            <div class="col-5 question_form_text_long">
+                                                                <textarea name="search text" required
+                                                                    id="Template_2_Reply_Message"
+                                                                    aria-haspopup="dialog" aria-expanded="false"
+                                                                    rows="1"></textarea>
+                                                                <label>Type in your reply</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="container-fluid">
+                                            <div class="row d-flex justify-content-end align-content-bottom"
+                                                id="Compose_btn_or_send">
+                                                <div class="col-3 d-flex justify-content-end">
+                                                    <div class="top-menu-anchor inbox-cancel-menu-anchor">
+                                                        <button id="cancel-menu-trigger" type="button"
+                                                            class="top-icon-trigger btn_cancel"
+                                                            aria-controls="cancel-menu-panel"
+                                                            aria-expanded="false">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                height="16" fill="currentColor"
+                                                                class="bi bi-three-dots-vertical"
+                                                                viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                                                            </svg>
+                                                        </button>
+                                                        <div id="cancel-menu-panel"
+                                                            class="top-dropdown-panel profile-dropdown inbox-cancel-menu-panel"
+                                                            aria-hidden="true">
+                                                            <button id="cancel-action" class="top-dropdown-action"
+                                                                type="button">Cancel</button>
+                                                            <button id="save-draft-action"
+                                                                class="top-dropdown-action" type="button">Save to
+                                                                drafts</button>
+                                                        </div>
+                                                    </div>
+                                                    <button class="btn_send_or_new" type="button">New E-mail</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+
+    {{ mailbox_state|json_script:"inbox-mailbox-state" }}
+    {{ inbox_action_url|json_script:"inbox-action-url" }}
+    {{ inbox_compose_prefill|json_script:"inbox-compose-prefill" }}
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'login_page/shared/rolling_sidebar.js' %}"></script>
+<script src="{% static 'login_page/inbox/inbox_row_trash.js' %}"></script>
+<script src="{% static 'login_page/inbox/inbox_template_switching.js' %}"></script>
+{% endblock %}

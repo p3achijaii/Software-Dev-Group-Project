@@ -1,0 +1,62 @@
+<div class="row d-flex justify-content-evenly">
+    <div class="col-11" id="Outer-frame">
+        <div class="container-fluid p-0 organisation_dependency_shell">
+            <div class="row g-3 organisation_dependency_row">
+                <div class="col-9 organisation_graph_col">
+                    <div id="Organisation_graph_frame">
+                        <div id="Organisation_graph_canvas"></div>
+                        <div id="Organisation_graph_mode_overlay" aria-live="polite"></div>
+                        <div id="Organisation_graph_empty_state" class="d-none">
+                            No teams match the current filters.
+                        </div>
+                    </div>
+                    <p class="organisation_graph_hint">
+                        Drag canvas to pan. Scroll or pinch to zoom. Drag nodes to reposition. Click empty space to
+                        clear selection.
+                    </p>
+                </div>
+                <div class="col-3 organisation_info_col">
+                    <aside id="Organisation_info_panel">
+                        <p class="organisation_panel_kicker">Selection details</p>
+                        <h2 id="organisation-info-title">No node selected</h2>
+                        <p id="organisation-info-subtitle">
+                            Select a team or department node to inspect dependency chains.
+                        </p>
+                        <div class="organisation_stat_grid">
+                            <div class="organisation_stat_block">
+                                <p class="organisation_stat_label">Mode</p>
+                                <p class="organisation_stat_value" id="organisation-info-mode">Team graph</p>
+                            </div>
+                            <div class="organisation_stat_block">
+                                <p class="organisation_stat_label">Visible nodes</p>
+                                <p class="organisation_stat_value" id="organisation-info-node-count">0</p>
+                            </div>
+                            <div class="organisation_stat_block">
+                                <p class="organisation_stat_label">Visible links</p>
+                                <p class="organisation_stat_value" id="organisation-info-link-count">0</p>
+                            </div>
+                        </div>
+                        <div class="organisation_panel_section">
+                            <p class="organisation_panel_section_title">Summary</p>
+                            <ul class="organisation_info_list" id="organisation-info-summary">
+                                <li>Use filters and zoom to explore the map.</li>
+                            </ul>
+                        </div>
+                        <div class="organisation_panel_section">
+                            <p class="organisation_panel_section_title">Connected nodes</p>
+                            <ul class="organisation_info_list" id="organisation-info-connections">
+                                <li>Choose a node to view related teams.</li>
+                            </ul>
+                        </div>
+                        <div class="organisation_panel_section">
+                            <p class="organisation_panel_section_title">Dependency direction</p>
+                            <ul class="organisation_info_list" id="organisation-info-directional">
+                                <li>Upstream and downstream details appear here.</li>
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

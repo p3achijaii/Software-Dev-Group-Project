@@ -1,0 +1,24 @@
+{% extends "login_page/base.html" %}
+
+{% block body_class %}placeholder-page-body{% endblock %}
+
+{% block body %}
+<main class="placeholder-page-shell">
+    <section class="placeholder-card">
+        <p class="placeholder-eyebrow">Admin Side</p>
+        <h1 class="placeholder-title">Admin placeholder page</h1>
+        <p class="placeholder-copy">
+            This is the current placeholder route for admin users until the full admin-side pages are converted into Django.
+        </p>
+        <div class="placeholder-meta">
+            <p><strong>Username:</strong> {{ request.user.username }}</p>
+            <p><strong>E-mail:</strong> {{ request.user.email }}</p>
+        </div>
+        <a class="placeholder-link" href="{% url 'login_page:profile' %}">Open profile page</a>
+        <br>
+        <a class="placeholder-link" href="{% url 'login_page:account' %}">Open account page</a>
+        <br>
+        <a class="placeholder-link" href="{% url 'login_page:logout' %}">Log out</a>
+    </section>
+</main>
+{% endblock %}

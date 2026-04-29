@@ -1,0 +1,107 @@
+{% load static %}
+<div class="row" id="Top-row">
+    <div class="col-12 d-flex justify-content-between">
+        <div class="col-6 LHS_Top_row">
+            <div class="row">
+                <div class="col-12">
+                    <p class="Welcome_text">
+                        {% if top_row_welcome_text %}
+                        {{ top_row_welcome_text }}
+                        {% else %}
+                        Welcome back,
+                        {% if platform_profile %}{{ platform_profile.full_name }}{% else %}{{ request.user.username }}{% endif %}!
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="col-12">
+                    <div class="col-10 question_form_text">
+                        <input id="{{ top_row_search_input_id|default:'user-home-search-input' }}"
+                            type="search" name="search text" required autocomplete="off">
+                        <label>{{ top_row_search_label|default:"Search teams, departments, or managers" }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 RHS_Top_row">
+            <div class="row d-flex align-content-center justify-content-end">
+                <div class="col-10 Profile d-flex align-content-center justify-content-end">
+                    <div class="top-menu-anchor">
+                        <button id="notifications-trigger" type="button" class="top-icon-trigger"
+                            data-has-unread-messages="{% if user_home_has_unread_messages %}true{% else %}false{% endif %}"
+                            aria-controls="notifications-panel" aria-expanded="false">
+                            <svg id="bell-icon-outline" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8
+                                    1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134
+                                    2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134
+                                    8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22
+                                    12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68
+                                    10.2 3 6.88 3 6c0-2.42 1.72-4.44
+                                    4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0
+                                    1 13 6c0 .88.32 4.2 1.22 6" />
+                            </svg>
+                            <svg id="bell-icon-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="currentColor" class="bi bi-bell-fill d-none" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2
+                                    2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0
+                                    0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7
+                                    0-2.42-1.72-4.44-4.005-4.901" />
+                            </svg>
+                            <span id="bell-notification-alert"
+                                class="bell-notification-alert {% if not user_home_has_unread_messages %}d-none{% endif %}"
+                                aria-hidden="true"></span>
+                        </button>
+                        <div id="notifications-panel" class="top-dropdown-panel notifications-dropdown" aria-hidden="true">
+                            <div class="container-fluid p-0">
+                                <div class="row g-0">
+                                    {% for notificationMessage in user_home_notification_messages %}
+                                    <a href="{% url 'login_page:user_home_tool_message' %}?message={{ notificationMessage.id }}"
+                                        class="col-12 notification-placeholder-item {% if not notificationMessage.is_read %}notification-placeholder-item-unread{% endif %}">
+                                        <strong>{{ notificationMessage.email_subject }}</strong>
+                                        <span>{{ notificationMessage.email_body|truncatechars:76 }}</span>
+                                    </a>
+                                    {% empty %}
+                                    <div class="col-12 notification-placeholder-item notification-placeholder-item-empty">
+                                        No inbox messages yet.
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                {% if user_home_notification_messages %}
+                                <div class="row g-0 mt-2">
+                                    <div class="col-12 d-flex justify-content-center">
+                                        <a href="{% url 'login_page:user_home_tool_message' %}" class="top-dropdown-action">Open inbox</a>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% if profile_avatar_url %}
+                    <img src="{{ profile_avatar_url }}" alt="Profile Picture">
+                    {% else %}
+                    <img src="{% static 'login_page/images/default-profile.jpeg' %}" alt="Profile Picture">
+                    {% endif %}
+                    <p class="P_Name">
+                        {% if platform_profile %}{{ platform_profile.full_name }}{% else %}{{ request.user.username }}{% endif %}
+                    </p>
+                    <div class="top-menu-anchor">
+                        <button id="profile-menu-trigger" type="button" class="top-icon-trigger P_Dropdown"
+                            aria-controls="profile-menu-panel" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                <path
+                                d="M7.247 11.14l-4.796-5.481c-.566-.647-.106-1.659.753-1.659h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            </svg>
+                        </button>
+                        <div id="profile-menu-panel" class="top-dropdown-panel profile-dropdown" aria-hidden="true">
+                            <a href="{% url 'login_page:profile' %}" class="top-dropdown-action">View and Edit the profile</a>
+                            <a href="{% url 'login_page:logout' %}" class="top-dropdown-action">Sign out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

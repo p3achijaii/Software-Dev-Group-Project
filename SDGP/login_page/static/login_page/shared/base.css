@@ -1,0 +1,336 @@
+body {
+    background: linear-gradient(-45deg, rgba(11, 89, 176, 1) 0%, rgba(119, 42, 142, 1) 100%);
+    animation: gradient 10s ease-in-out infinite;
+    background-size: 200% 200%;
+    font-family: "Ubuntu", sans-serif;
+    margin-bottom: 3%;
+}
+
+body.popup-open {
+    overflow: hidden;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.logo-header {
+    width: 50px;
+    height: auto;
+}
+
+.logo-project img {
+    width: 200px;
+    height: auto;
+}
+
+.main-content {
+    margin: 3% 0%;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(25px);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+}
+
+.logo-project {
+    margin: 2% auto;
+}
+
+.Under_form_text {
+    margin: 0px 15% 10% 15%;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    position: relative;
+}
+
+a.Under_form_text::after,
+a.placeholder-link::after {
+    content: "";
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: -4px;
+    width: 100%;
+    height: 2px;
+    background: white;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease-in-out;
+}
+
+a.Under_form_text:hover::after,
+a.Under_form_text:focus-visible::after,
+a.placeholder-link:hover::after,
+a.placeholder-link:focus-visible::after {
+    transform: scaleX(1);
+}
+
+.question_form_text {
+    margin-top: 3.5%;
+    margin-bottom: 3.5%;
+    position: relative;
+}
+
+.question_form_text input {
+    width: 100%;
+    height: 40px;
+    color: white;
+    border: 0;
+    border-bottom: 1px solid white;
+    background: transparent;
+}
+
+.question_form_text input:-webkit-autofill,
+.question_form_text input:-webkit-autofill:hover,
+.question_form_text input:-webkit-autofill:focus,
+.question_form_text input:-webkit-autofill:active {
+    -webkit-text-fill-color: #ffffff;
+    caret-color: #ffffff;
+    border-bottom: 1px solid #ffffff;
+    transition: background-color 9999s ease-in-out 0s;
+}
+
+.question_form_text input:-webkit-autofill ~ label {
+    top: -12px;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.question_form_text.has-password-toggle input {
+    padding-right: 36px;
+}
+
+.password-toggle-btn {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+}
+
+.password-toggle-btn svg {
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+}
+
+.password-toggle-btn:hover {
+    color: #e6e6e6;
+}
+
+.password-toggle-btn:focus-visible {
+    outline: 1px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 1px;
+}
+
+.question_form_text input:focus {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid white;
+}
+
+.question_form_text label {
+    position: absolute;
+    top: 13px;
+    left: 15px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #fff;
+    transition: all 0.5s ease-in-out;
+}
+
+.question_form_text input:focus ~ label,
+.question_form_text input:valid ~ label,
+.question_form_text.has-value label {
+    top: -12px;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.sign-in-btn {
+    margin: 10% 0%;
+    font-size: 16px;
+    color: white;
+    text-decoration: none;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    font-family: "Ubuntu", sans-serif;
+}
+
+.sign-in-btn:hover {
+    text-decoration: none;
+    color: grey;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    transition: all 0.3s ease-in-out;
+    filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #fff);
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff;
+}
+
+.form-feedback {
+    min-height: 24px;
+    margin: 0;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+}
+
+.form-feedback.is-error {
+    color: #ffd2d2;
+}
+
+.form-feedback.is-success {
+    color: #c7ffca;
+}
+
+.sign-up-popup-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 14, 32, 0.65);
+    z-index: 1040;
+}
+
+.sign-up-popup-panel {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+    padding: 24px;
+}
+
+.sign-up-popup-panel.is-open {
+    display: flex;
+}
+
+.sign-up-popup-card {
+    width: min(540px, 100%);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(25px);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+    padding: 28px 28px 18px;
+}
+
+.sign-up-title {
+    margin: 0;
+    color: white;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.popup-close-btn {
+    border: 0;
+    background: transparent;
+    color: white;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.popup-close-btn:hover {
+    color: #e6e6e6;
+}
+
+.sign-up-submit-btn {
+    margin-bottom: 0;
+}
+
+.placeholder-page-shell {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+}
+
+.placeholder-card {
+    width: min(700px, 100%);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(25px);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+    padding: 36px 32px;
+    color: white;
+}
+
+.placeholder-eyebrow {
+    margin-bottom: 8px;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+.placeholder-title {
+    margin-bottom: 16px;
+}
+
+.placeholder-copy {
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.placeholder-meta {
+    margin-bottom: 22px;
+}
+
+.placeholder-meta p {
+    margin-bottom: 8px;
+}
+
+.placeholder-link {
+    color: white;
+    text-decoration: none;
+    position: relative;
+}
+
+@media (max-width: 991px) {
+    .main-content {
+        margin: 10% 0%;
+    }
+}
+
+@media (max-width: 767px) {
+    .main-content {
+        margin: 12% 0%;
+    }
+
+    .logo-project img {
+        width: 150px;
+    }
+
+    .sign-up-popup-card {
+        padding: 24px 18px 16px;
+    }
+}

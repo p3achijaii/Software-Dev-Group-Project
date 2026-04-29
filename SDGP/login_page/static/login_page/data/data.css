@@ -1,0 +1,405 @@
+body {
+    background: linear-gradient(-45deg, rgba(11, 89, 176, 1) 0%, rgba(119, 42, 142, 1) 100%);
+    animation: gradient 10s ease-in-out infinite;
+    background-size: 200% 200%;
+    font-family: "Ubuntu", sans-serif;
+    margin-bottom: 3%;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.logo-header {
+    width: 50px;
+    height: auto;
+}
+
+.main-content {
+    margin: 1% 0% 0% 0%;
+    padding: 0%;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(25px);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+}
+
+.Side-Bar-collapsed {
+    border-right: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+}
+
+.Side-Bar-expanded {
+    border-right: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+}
+
+.Side-Bar-expanded,
+.Side-Bar-collapsed,
+#Main-Dashboard {
+    transition: width 0.5s cubic-bezier(.2, .8, .2, 1),
+        max-width 0.5s cubic-bezier(.2, .8, .2, 1),
+        flex-basis 0.5s cubic-bezier(.2, .8, .2, 1);
+}
+
+.Side-Bar-expanded,
+.Side-Bar-collapsed {
+    overflow: hidden;
+}
+
+.Menu_Options a {
+    gap: 8px;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.Side-Bar-collapsed .Menu_Options p {
+    opacity: 0;
+    width: 0;
+    margin: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transform: translateX(-6px);
+    transition: opacity 0.5s ease,
+        width 0.5s ease,
+        transform 0.5s ease;
+}
+
+.Side-Bar-expanded .Menu_Options p {
+    opacity: 1;
+    width: 160px;
+    transform: translateX(0);
+    transition: opacity 0.5s ease 0.1s,
+        width 0.5s ease,
+        transform 0.5s ease;
+}
+
+.Side-Bar-expanded .Menu_Options svg {
+    margin: 5% 0% 5% 5%;
+    transition: margin 0.5s ease;
+}
+
+.Side-Bar-collapsed .Menu_Options svg {
+    margin: 5% 0% 5% 5%;
+    transition: margin 0.5s ease;
+}
+
+.Menu_Options {
+    padding: 0%;
+}
+
+.Menu_Options svg {
+    width: 30px;
+    height: 30px;
+    color: white;
+    margin: 5% 1%;
+}
+
+.Menu_Options p {
+    color: white;
+    font-size: 13px;
+    font-weight: 300;
+    margin: auto 0%;
+}
+
+.Menu_Options img {
+    width: 50px;
+    height: auto;
+    color: white;
+    margin: 0%;
+}
+
+
+.Type{
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 14px;
+    font-weight: 400;
+    margin: auto 0%;
+}
+
+.Naming {
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 2% 0% 1% 0%;
+}
+
+.Link_back {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 300;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    border-radius: 25px;
+    padding: 1% 2%;
+    margin: 1% 0%;
+    text-decoration: none;
+    transition: border-color 0.25s ease;
+}
+
+.Link_back:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+:root {
+    --data-chart-padding: 14px;
+    --data-chart-radius: 16px;
+    --data-chart-alpha: 0.8;
+    --data-chart-grid-rgb: 255, 255, 255;
+    --data-chart-font-size: 12px;
+    --data-chart-rgb-1: 58, 132, 206;
+    --data-chart-rgb-2: 122, 37, 126;
+    --data-chart-rgb-3: 88, 126, 166;
+    --data-chart-rgb-4: 78, 110, 150;
+    --data-chart-rgb-5: 96, 130, 104;
+    --data-chart-rgb-6: 133, 101, 152;
+}
+
+#Top-row{
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    padding: 0% 0% 1% 0%;
+    margin: 0%;
+    row-gap: 10px;
+}
+
+.Option_selector{
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    padding: 5% 8%;
+    margin: 2% auto;
+    text-decoration: none;
+    transition: all 0.25s ease-in-out;
+}
+
+.Option_selector:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+.Option_selector_active{
+    background: rgba(255, 255, 255, 0.25);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 0%;
+}
+
+#RHS_Section{
+    margin: auto 0%;
+}
+
+#LHS_section{
+    margin: auto 0;
+    align-items: center;
+    align-content: center;
+}
+
+#Preview_document {
+    padding: 1.5%;
+}
+
+#Button_Save {
+    margin-top: 0.5%;
+}
+
+.Save_btn{
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 300;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    border-radius: 25px;
+    padding: 2% 4%;
+    margin: 1% 2% 8% 2%;
+    text-decoration: none;
+    transition: border-color 0.25s ease;
+}
+
+.Save_btn:hover{
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+.save-toast {
+    position: fixed;
+    right: 24px;
+    bottom: 15%;
+    z-index: 5;
+    max-width: min(90vw, 420px);
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    background: rgba(9, 30, 55, 0.67);
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.save-toast.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#Outer-frame {
+    border-radius: 20px;
+    padding: 2%;
+    min-height: clamp(460px, 62vh, 880px);
+    height: clamp(460px, 62vh, 880px);
+    background: rgba(0, 0, 0, 0.17);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.data_chart_caption {
+    margin: 0% 0% 1% 0%;
+    flex: 0 0 auto;
+}
+
+.data_chart_viewport {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: clamp(360px, 50vh, 720px);
+}
+
+.data_chart_panel {
+    position: absolute;
+    inset: 0%;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+}
+
+.data_chart_panel_active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0%);
+}
+
+.data_chart_canvas {
+    width: 100%;
+    height: 100%;
+    min-height: clamp(360px, 50vh, 720px);
+    padding: var(--data-chart-padding);
+    border-radius: var(--data-chart-radius);
+    border: 1px solid rgba(var(--data-chart-grid-rgb), 0.24);
+    background: rgba(255, 255, 255, 0.04);
+    position: relative;
+}
+
+.data_chart_canvas_chartjs canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+#Data_treemap_container svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.data_treemap_node_frame {
+    stroke: rgba(255, 255, 255, 0.45);
+    stroke-width: 1px;
+}
+
+.data_treemap_node_label {
+    fill: rgba(255, 255, 255, 0.92);
+    font-size: var(--data-chart-font-size);
+    font-weight: 500;
+    pointer-events: none;
+}
+
+.data_chart_empty_state {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 14px;
+    font-weight: 400;
+    margin: 2% 0%;
+}
+
+.data_chart_tooltip {
+    position: absolute;
+    min-width: 160px;
+    max-width: 260px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    background: rgba(0, 0, 0, 0.72);
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.35;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+    z-index: 2;
+}
+
+.data_chart_tooltip.data_chart_tooltip_visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0%);
+}
+
+@media (max-width: 992px) {
+    #Outer-frame {
+        min-height: 430px;
+    }
+
+    .data_chart_viewport,
+    .data_chart_canvas {
+        min-height: 340px;
+        height: 340px;
+    }
+}
+
+@media (max-width: 768px) {
+    #Outer-frame {
+        min-height: 395px;
+    }
+
+    .Option_selector {
+        width: 100%;
+        padding: 8px 10px;
+    }
+
+    .data_chart_viewport,
+    .data_chart_canvas {
+        min-height: 300px;
+        height: 300px;
+    }
+
+    .save-toast {
+        right: 12px;
+        bottom: 12px;
+        font-size: 12px;
+    }
+}

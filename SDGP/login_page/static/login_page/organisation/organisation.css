@@ -1,0 +1,762 @@
+body {
+    background: linear-gradient(-45deg, rgba(11, 89, 176, 1) 0%, rgba(119, 42, 142, 1) 100%);
+    animation: gradient 10s ease-in-out infinite;
+    background-size: 200% 200%;
+    font-family: "Ubuntu", sans-serif;
+    margin-bottom: 3%;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.logo-header {
+    width: 50px;
+    height: auto;
+}
+
+.main-content {
+    margin: 1% 0% 0% 0%;
+    padding: 0%;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(25px);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+}
+
+.Side-Bar-collapsed {
+    border-right: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+}
+
+.Side-Bar-expanded {
+    border-right: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+}
+
+.Side-Bar-expanded,
+.Side-Bar-collapsed,
+#Main-Dashboard {
+    transition: width 0.5s cubic-bezier(.2, .8, .2, 1),
+        max-width 0.5s cubic-bezier(.2, .8, .2, 1),
+        flex-basis 0.5s cubic-bezier(.2, .8, .2, 1);
+}
+
+.Side-Bar-expanded,
+.Side-Bar-collapsed {
+    overflow: hidden;
+}
+
+.Menu_Options a {
+    gap: 8px;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.Side-Bar-collapsed .Menu_Options p {
+    opacity: 0;
+    width: 0;
+    margin: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transform: translateX(-6px);
+    transition: opacity 0.5s ease,
+        width 0.5s ease,
+        transform 0.5s ease;
+}
+
+.Side-Bar-expanded .Menu_Options p {
+    opacity: 1;
+    width: 160px;
+    transform: translateX(0);
+    transition: opacity 0.5s ease 0.1s,
+        width 0.5s ease,
+        transform 0.5s ease;
+}
+
+.Side-Bar-expanded .Menu_Options svg {
+    margin: 5% 0% 5% 5%;
+    transition: margin 0.5s ease;
+}
+
+.Side-Bar-collapsed .Menu_Options svg {
+    margin: 5% 0% 5% 5%;
+    transition: margin 0.5s ease;
+}
+
+.Menu_Options {
+    padding: 0%;
+}
+
+.Menu_Options svg {
+    width: 30px;
+    height: 30px;
+    color: white;
+    margin: 5% 1%;
+}
+
+.Menu_Options p {
+    color: white;
+    font-size: 13px;
+    font-weight: 300;
+    margin: auto 0%;
+}
+
+.Menu_Options img {
+    width: 50px;
+    height: auto;
+    color: white;
+    margin: 0%;
+}
+
+:root {
+    --organisation-accent: rgba(255, 255, 255, 0.9);
+    --organisation-soft-accent: rgba(255, 255, 255, 0.22);
+    --organisation-panel-fill: rgba(3, 14, 31, 0.45);
+    --organisation-card-fill: rgba(255, 255, 255, 0.08);
+    --organisation-card-border: rgba(255, 255, 255, 0.38);
+    --organisation-text-soft: rgba(255, 255, 255, 0.72);
+    --organisation-text-muted: rgba(255, 255, 255, 0.58);
+    --organisation-node-shadow: rgba(7, 24, 47, 0.46);
+    --organisation-node-highlight: rgba(130, 198, 255, 0.95);
+    --organisation-node-dim: rgba(255, 255, 255, 0.22);
+    --organisation-link-default: rgba(206, 228, 255, 0.34);
+    --organisation-link-highlight: rgba(168, 221, 255, 0.94);
+}
+
+.Naming {
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 2% 0% 1% 0%;
+}
+
+.Link_back {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 300;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    border-radius: 25px;
+    padding: 1% 2%;
+    margin: 1% 0%;
+    text-decoration: none;
+    transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.Link_back:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+#Top-row {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    padding: 0% 0% 1% 0%;
+    margin: 0%;
+    row-gap: 10px;
+}
+
+#RHS_Section {
+    margin: auto 0%;
+}
+
+#LHS_section {
+    margin: auto 0;
+    align-items: center;
+    align-content: center;
+}
+
+.Welcome_text {
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 1.2% 0 0.6% 0;
+}
+
+.filters {
+    gap: 10px;
+}
+
+.filters .top-menu-anchor {
+    margin: auto 0;
+}
+
+.filters .filters-anchor+.filters-anchor {
+    margin-left: 6px;
+}
+
+.filter-dropdown-label {
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    margin: auto 6px auto 0;
+    white-space: nowrap;
+}
+
+.top-menu-anchor {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin: auto 0;
+}
+
+.top-icon-trigger {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.top-icon-trigger svg {
+    margin: 0;
+}
+
+.top-icon-trigger.P_Dropdown {
+    transition: transform 0.35s ease;
+    transform-origin: center;
+}
+
+.top-icon-trigger.P_Dropdown.is-active {
+    transform: rotate(180deg);
+}
+
+.top-icon-trigger:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.9);
+    outline-offset: 3px;
+    border-radius: 8px;
+}
+
+.top-dropdown-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 6;
+    background: rgba(0, 0, 0, 0.65);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.top-dropdown-panel.is-open {
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.profile-dropdown {
+    width: 230px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    display: grid;
+    gap: 8px;
+    padding: 0 12px;
+    pointer-events: none;
+    visibility: hidden;
+    transition: max-height 0.35s ease, opacity 0.25s ease, padding 0.35s ease, visibility 0s linear 0.35s;
+}
+
+.profile-dropdown.is-open {
+    max-height: 330px;
+    opacity: 1;
+    padding: 12px;
+    pointer-events: auto;
+    visibility: visible;
+    transition: max-height 0.35s ease, opacity 0.25s ease, padding 0.35s ease, visibility 0s;
+}
+
+.filters-dropdown {
+    width: 240px;
+    right: 0;
+}
+
+.filters-dropdown.is-open {
+    max-height: 330px;
+}
+
+.top-dropdown-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    padding: 7px 10px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.top-dropdown-action:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.9);
+}
+
+.filters-dropdown .top-dropdown-action {
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.filters-dropdown .top-dropdown-action.is-selected {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+}
+
+.organisation-filter-panel {
+    max-height: 0;
+    overflow-y: auto;
+}
+
+.organisation-filter-panel.is-open {
+    max-height: 360px;
+}
+
+.organisation-filter-group-title {
+    color: var(--organisation-text-soft);
+    font-size: 11px;
+    font-weight: 500;
+    margin: 2px 0 4px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.35px;
+}
+
+.organisation-filter-hint {
+    color: var(--organisation-text-muted);
+    font-size: 11px;
+    font-weight: 400;
+    margin: 2px 0 0 0;
+}
+
+.organisation-filter-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.22);
+    margin: 2px 0;
+}
+
+.organisation-filter-empty {
+    color: var(--organisation-text-soft);
+    font-size: 12px;
+    margin: 4px 0;
+}
+
+.organisation-team-option {
+    display: grid;
+    grid-template-columns: 3fr 9fr;
+    align-items: center;
+    justify-content: stretch;
+    gap: 0;
+    min-height: 58px;
+    padding: 7px 10px;
+}
+
+.organisation-team-option-icon-cell {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.organisation-team-option-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.82);
+    box-shadow: 0 0 0 1px rgba(6, 16, 34, 0.28);
+    color: rgba(255, 255, 255, 0.98);
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.organisation-team-swatch {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    box-shadow: 0 0 0 1px rgba(6, 16, 34, 0.25);
+    flex: 0 0 auto;
+}
+
+.organisation-team-option-text {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.15;
+    gap: 1px;
+    padding-right: 4px;
+}
+
+.organisation-team-option-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.organisation-team-option-meta {
+    font-size: 10px;
+    font-weight: 400;
+    color: rgba(233, 245, 255, 0.72);
+}
+
+.organisation-team-legend {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 6px;
+    margin-top: 2px;
+    display: grid;
+    gap: 4px;
+}
+
+.organisation-team-legend-title {
+    margin-bottom: 2px;
+}
+
+.organisation-team-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.organisation-team-legend-label {
+    font-size: 10px;
+    color: rgba(234, 245, 255, 0.82);
+}
+
+.Option_selector {
+    font-size: 13px;
+    font-weight: 500;
+    color: white;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    padding: 6px 10px;
+    margin: 2px 2px;
+    text-decoration: none;
+    transition: all 0.25s ease-in-out;
+}
+
+.Option_selector:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+.Option_selector_active {
+    background: rgba(255, 255, 255, 0.25);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 0%;
+}
+
+.Option_selector:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.Option_selector:disabled,
+.Option_selector:disabled:hover {
+    background: transparent;
+    border-bottom: 2px solid transparent;
+}
+
+.organisation_view_controls {
+    margin-top: 2px;
+    gap: 5px;
+}
+
+.organisation_mode_badge {
+    margin: auto 2px;
+    color: rgba(235, 246, 255, 0.95);
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    padding: 5px 10px;
+    background: rgba(255, 255, 255, 0.14);
+}
+
+#Outer-frame {
+    box-sizing: border-box;
+    height: clamp(500px, 67vh, 980px);
+    min-height: clamp(500px, 67vh, 980px);
+    max-height: 76vh;
+    margin: 1% 0;
+    border-radius: 20px;
+    padding: 1.25%;
+    background: rgba(0, 0, 0, 0.17);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    overflow: hidden;
+}
+
+.organisation_dependency_shell,
+.organisation_dependency_row {
+    height: 100%;
+    min-height: 0;
+}
+
+.organisation_dependency_row {
+    align-items: stretch;
+}
+
+.organisation_dependency_row>[class*="col-"] {
+    min-height: 0;
+    height: 100%;
+}
+
+.organisation_graph_col,
+.organisation_info_col {
+    min-height: 0;
+    height: 100%;
+}
+
+.organisation_graph_col {
+    display: flex;
+    flex-direction: column;
+}
+
+.organisation_info_col {
+    display: flex;
+}
+
+#Organisation_graph_frame {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex: 1 1 auto;
+    min-height: 0;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: inset 0 0 38px rgba(6, 17, 35, 0.38);
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 14% 16%, rgba(255, 255, 255, 0.12), transparent 48%),
+        radial-gradient(circle at 86% 10%, rgba(165, 214, 255, 0.14), transparent 40%),
+        linear-gradient(160deg, rgba(5, 27, 56, 0.44), rgba(16, 35, 74, 0.20));
+}
+
+#Organisation_graph_frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 34px 34px;
+    pointer-events: none;
+    opacity: 0.52;
+}
+
+#Organisation_graph_canvas {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    z-index: 1;
+    transition: opacity 0.2s ease;
+}
+
+#Organisation_graph_canvas.is-fading {
+    opacity: 0.2;
+}
+
+#Organisation_graph_mode_overlay {
+    position: absolute;
+    left: 14px;
+    bottom: 12px;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 14px;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 10px;
+    opacity: 0;
+    transform: translateY(6px);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+#Organisation_graph_mode_overlay.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#Organisation_graph_empty_state {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 14px;
+    font-weight: 500;
+    background: rgba(3, 10, 23, 0.44);
+    border-radius: 18px;
+}
+
+.organisation_graph_hint {
+    margin: 8px 2px 0 2px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#Organisation_info_panel {
+    height: 100%;
+    min-height: 0;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(7, 21, 43, 0.52);
+    box-shadow: 0 14px 30px rgba(3, 8, 18, 0.32);
+    padding: 16px 14px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+}
+
+.organisation_panel_kicker {
+    margin: 0;
+    color: var(--organisation-text-muted);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#organisation-info-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+#organisation-info-subtitle {
+    margin: 0;
+    color: var(--organisation-text-soft);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+.organisation_stat_grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.organisation_stat_block {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 8px 8px;
+    min-height: 56px;
+}
+
+.organisation_stat_label {
+    margin: 0;
+    color: var(--organisation-text-muted);
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.organisation_stat_value {
+    margin: 4px 0 0 0;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.organisation_panel_section {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+}
+
+.organisation_panel_section_title {
+    margin: 0 0 7px 0;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.organisation_info_list {
+    margin: 0;
+    padding-left: 16px;
+    color: var(--organisation-text-soft);
+    font-size: 12px;
+    font-weight: 400;
+    display: grid;
+    gap: 4px;
+}
+
+.organisation_info_list li {
+    line-height: 1.35;
+}
+
+@media (max-width: 1600px) {
+    .organisation_filters .filter-dropdown-label {
+        font-size: 11px;
+    }
+
+    .filters-dropdown {
+        width: 220px;
+    }
+}
+
+@media (max-width: 1400px) {
+    #Outer-frame {
+        height: auto;
+        max-height: none;
+        margin: 12px 0;
+        overflow-y: auto;
+    }
+
+    #Organisation_graph_frame,
+    #Organisation_graph_canvas,
+    #Organisation_info_panel {
+        min-height: 320px;
+    }
+
+    #Organisation_graph_frame,
+    #Organisation_graph_canvas,
+    #Organisation_info_panel {
+        height: 320px;
+    }
+}

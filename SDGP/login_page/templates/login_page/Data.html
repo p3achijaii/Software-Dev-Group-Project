@@ -1,0 +1,143 @@
+{% extends "login_page/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'login_page/data/data.css' %}">
+{% endblock %}
+
+{% block body %}
+<header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 d-flex align-content-center justify-content-start">
+                <a href="{% url 'login_page:logout' %}" class="return_to_login">
+                    <img src="{% static 'login_page/images/sky-logo-2025.png' %}" alt="Logo Sky" class="logo-header">
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10 main-content">
+                <div class="container-fluid">
+                    <div class="row" id="Dashboard">
+                        {% include "login_page/includes/user_home/sidebar.html" %}
+                        <div class="col-10" id="Main-Dashboard">
+                            <div class="container-fluid">
+                                <div class="row" id="Top-row">
+                                    <div class="col-9" id="LHS_section">
+                                        <div class="container-fluid">
+                                            <div class="row" role="tablist"
+                                                aria-label="Data visualisation chart type selector">
+                                                <div class="col-12 col-lg-2" id="LHS_section">
+                                                    <p class="Type">Chart Type:</p>
+                                                </div>
+                                                <div class="col-4 col-lg-2">
+                                                    <button
+                                                        class="Option_selector Option_selector_active data-chart-button"
+                                                        type="button" data-chart-target="treemap"
+                                                        aria-pressed="true" aria-selected="true" role="tab"
+                                                        aria-controls="data-chart-treemap">Treemap</button>
+                                                </div>
+                                                <div class="col-4 col-lg-2">
+                                                    <button class="Option_selector data-chart-button" type="button"
+                                                        data-chart-target="heatmap" aria-pressed="false"
+                                                        aria-selected="false" role="tab"
+                                                        aria-controls="data-chart-heatmap">Heatmap</button>
+                                                </div>
+                                                <div class="col-4 col-lg-2">
+                                                    <button class="Option_selector data-chart-button" type="button"
+                                                        data-chart-target="skills" aria-pressed="false"
+                                                        aria-selected="false" role="tab"
+                                                        aria-controls="data-chart-skills">Skills</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 d-flex justify-content-end" id="RHS_Section">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-12 d-flex justify-content-end">
+                                                    <p class="Naming">Data Visualisation Page</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 d-flex justify-content-end">
+                                                    <a href="{{ dashboard_url }}" class="Link_back">Go back to the dashboard</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row d-flex justify-content-evenly" id="Main-dashboard">
+                                    <div class="col-11" id="Preview_document">
+                                        <div class="container-fluid" id="Outer-frame">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <p class="Type data_chart_caption">Records grouped by
+                                                        department, project, and skill profile.</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="data_chart_viewport" id="Data-chart-viewport">
+                                                        <section class="data_chart_panel data_chart_panel_active"
+                                                            id="data-chart-treemap" data-chart-panel="treemap"
+                                                            aria-hidden="false" role="tabpanel">
+                                                            <div class="data_chart_canvas"
+                                                                id="Data_treemap_container"></div>
+                                                        </section>
+                                                        <section class="data_chart_panel" id="data-chart-heatmap"
+                                                            data-chart-panel="heatmap" aria-hidden="true"
+                                                            role="tabpanel">
+                                                            <div class="data_chart_canvas data_chart_canvas_chartjs">
+                                                                <canvas id="Data_heatmap_chart"
+                                                                    aria-label="Department and project heatmap"></canvas>
+                                                            </div>
+                                                        </section>
+                                                        <section class="data_chart_panel" id="data-chart-skills"
+                                                            data-chart-panel="skills" aria-hidden="true"
+                                                            role="tabpanel">
+                                                            <div class="data_chart_canvas data_chart_canvas_chartjs">
+                                                                <canvas id="Data_skills_chart"
+                                                                    aria-label="Top skills by department"></canvas>
+                                                            </div>
+                                                        </section>
+                                                        <div class="data_chart_tooltip" id="Data_chart_tooltip"
+                                                            aria-hidden="true"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row d-flex justify-content-end" id="Button_Save">
+                                    <div class="col-3 col-lg-2 d-flex justify-content-end">
+                                        <button class="Save_btn" type="button">Save chart as Xlsx</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+
+    {{ data_visualisation_records|json_script:"data-visualisation-records" }}
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@2.0.1/dist/chartjs-chart-matrix.min.js"></script>
+<script src="{% static 'login_page/data/data_chart_switching.js' %}"></script>
+<script src="{% static 'login_page/data/data_save_feedback.js' %}"></script>
+<script src="{% static 'login_page/shared/rolling_sidebar.js' %}"></script>
+{% endblock %}
