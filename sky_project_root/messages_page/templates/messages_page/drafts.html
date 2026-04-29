@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load message_extras %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
+
+<p class="section-label" id="page-label">Messages</p>
+<h1 class="section-title" id="page-title">Drafts</h1>
+<p class="section-sub">Unsent messages you have saved as drafts.</p>
+
+<div class="messages-layout">
+    <aside class="msg-sidebar">
+        <div class="msg-tabs">
+            <a href="{% url 'messages_page:inbox' %}" class="msg-tab {% if active_tab == 'inbox' %}active{% endif %}">Inbox ({{ inbox_count }})</a>
+            <a href="{% url 'messages_page:sent_messages' %}" class="msg-tab {% if active_tab == 'sent' %}active{% endif %}">Sent ({{ sent_count }})</a>
+            <a href="{% url 'messages_page:drafts' %}" class="msg-tab {% if active_tab == 'drafts' %}active{% endif %}">Drafts ({{ drafts_count }})</a>
+            <a href="{% url 'messages_page:compose' %}" class="msg-tab {% if active_tab == 'compose' %}active{% endif %}">+ Compose</a>
+        </div>
+        <div class="msg-search-wrap">
+            <form method="get">
+                <span class="material-symbols-outlined msg-search-icon">search</span>
+                <input class="msg-search-input" type="search" name="search" placeholder="Search" value="{{ search_query }}">
+            </form>
+        </div>
+        <div class="msg-list">
+            {% for message in message_list %}
+            <a href="{% url 'messages_page:compose_draft' message.pk %}" class="msg-item">
+                <div class="msg-avatar">{{ message.recipient.username|first|upper }}</div>
+                <div class="msg-info">
+                    <div class="msg-sender">To {{ message.recipient.get_full_name|default:message.recipient.username }}</div>
+                    <div class="msg-team">{{ message.recipient.email|default:message.recipient.username }}</div>
+                    <div class="draft-subject">{{ message.subject|default:'Untitled draft' }}</div>
+                    <div class="draft-preview">{{ message.body|truncatechars:80 }}</div>
+                    <div class="msg-footer">
+                        <div class="msg-time">{{ message.sent_at|message_time }}</div>
+                    </div>
+                </div>
+            </a>
+            {% empty %}
+            <div class="msg-detail-empty">
+                <div class="msg-detail-empty-icon">📝</div>
+                <h2>No drafts yet</h2>
+                <p>Save a draft while composing a new message.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </aside>
+
+    <section class="msg-detail-body">
+        <div class="msg-detail-empty">
+            <div class="msg-detail-empty-icon">📝</div>
+            <h2>Select a draft to edit, or start a new one</h2>
+            <p>Pick an existing draft on the left, or create a fresh message to continue later.</p>
+        </div>
+    </section>
+</div>
+{% endblock %}
