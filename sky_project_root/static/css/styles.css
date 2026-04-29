@@ -907,7 +907,7 @@ select {
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border);
   overflow: hidden;
-  min-height: 520px;
+  min-height: 500px;
 }
 
 .msg-sidebar {
@@ -917,53 +917,76 @@ select {
 }
 
 .msg-search-wrap {
+  position: relative;
   padding: 16px;
   border-bottom: 1px solid var(--border);
 }
 
+.msg-list {
+  overflow-y: scroll;
+  flex: 1;
+  max-height: 378px;
+}
+
 .msg-search-input {
   width: 100%;
-  padding: 8px 12px 8px 36px;
+  padding: 10px 14px 10px 40px;
   border: 1.5px solid var(--border);
   border-radius: var(--r-md);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   outline: none;
-  background: var(--bg);
+  transition: border-color 0.15s;
 }
 .msg-search-input:focus {
   border-color: #8b5cf6;
 }
 
+.msg-search-wrap .msg-search-icon {
+  position: absolute;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-sec);
+  font-size: 18px;
+  pointer-events: none;
+}
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 300,
+  'GRAD' 0,
+  'opsz' 24
+}
+
 .msg-tabs {
   display: flex;
   padding: 12px 16px;
-  gap: 8px;
   border-bottom: 1px solid var(--border);
+  flex-wrap: nowrap;
+  overflow-x: auto;
 }
 
 .msg-tab {
-  padding: 6px 14px;
+  padding: 5px 10px;
   border-radius: var(--r-pill);
-  font-size: 0.82rem;
+  font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
   border: none;
   background: transparent;
   color: var(--text-sec);
   transition: all 0.15s;
+  white-space: nowrap;
 }
 .msg-tab.active {
   background: var(--grad-primary);
   color: white;
 }
 
-.msg-list {
-  overflow-y: auto;
-  flex: 1;
-}
-
 .msg-item {
+  position: relative;
   display: flex;
+  align-items: flex-start;
   gap: 12px;
   padding: 14px 16px;
   border-bottom: 1px solid var(--border);
@@ -1013,11 +1036,6 @@ select {
   font-weight: 700;
   font-size: 0.85rem;
 }
-.msg-team {
-  font-size: 0.75rem;
-  color: var(--text-sec);
-  margin-bottom: 2px;
-}
 .msg-subject {
   font-weight: 600;
   font-size: 0.82rem;
@@ -1026,12 +1044,23 @@ select {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.msg-team {
+  font-size: 0.75rem;
+  color: var(--text-sec);
+  margin-bottom: 8px;
+}
 .msg-preview {
   font-size: 0.78rem;
   color: var(--text-sec);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.msg-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
 }
 .msg-time {
   font-size: 0.72rem;
@@ -1040,12 +1069,14 @@ select {
 }
 
 .msg-unread-dot {
+  position: absolute;
+  top: 14px;
+  right: 16px;
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: #ef4444;
   flex-shrink: 0;
-  margin-top: 4px;
 }
 
 /* Right detail panel */
@@ -1085,12 +1116,10 @@ select {
   line-height: 1.7;
   flex: 1;
 }
-
 .msg-reply-label {
   font-weight: 700;
   margin: 24px 0 10px;
 }
-
 .msg-reply-box {
   width: 100%;
   padding: 14px;
