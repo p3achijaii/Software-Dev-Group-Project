@@ -27,5 +27,6 @@ urlpatterns = [
     path('organisation/', include('organisation.urls')),
     path('dashboard/', visualization_dashboard, name='dashboard'),
     path('meetings/', include('schedule.urls')),
-    path('insights/', visualization_dashboard, name='insight')
+    path('insights/', visualization_dashboard, name='insight'),
+    path('messages/', include('messages_page.urls')),
 ]

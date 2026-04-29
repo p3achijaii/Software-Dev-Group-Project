@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'team',
     'organisation',
     'graphs',
-    'schedule'
+    'schedule',
+    'messages_page',
 ]
 
 MIDDLEWARE = [
