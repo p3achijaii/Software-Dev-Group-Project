@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Schedule Meeting | Sky Engineering Directory</title>
+
+    <!-- ✅ Load group CSS properly -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<header class="topbar">
+    <div class="topbar-inner">
+        <div class="logo">
+            <span class="logo-sky">sky</span>
+            <span class="logo-dir">Engineering</span>
+            <span class="logo-sub">Team Directory</span>
+        </div>
+
+        <a href="/accounts/logout/" class="btn-logout">Logout</a>
+    </div>
+
+     <div class="main-nav">
+            <a class="nav-link" href="/dashboard/"> 🛖 Dashboard</a>
+            <a class="nav-link" href="/teams/">👥 Team Directory</a>
+            <a class="nav-link" href="/organisation/"> 🌍 Org chart</a>
+            <a class="nav-link" href="/insights/">📊 Insights</a>
+            <a class="nav-link" href="/messages/">💌 Messages</a>
+            <a class="nav-link" href="/meetings/">🤝 Meetings</a>
+            <a class="nav-link" href="/calendar/">🗓️ Calendar</a>
+            <a class="nav-link" href="/profile/">⭐ My profile</a>
+        </div>
+</header>
+
+<!-- ===== PAGE CONTENT ===== -->
+<div class="page-wrap">
+
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-eyebrow">Calendar</div>
+        <h1 class="page-title">Schedule Meetings</h1>
+        <p class="page-desc">
+            Plan and manage cross‑team meetings and syncs
+        </p>
+    </div>
+
+    <!-- ===== MEETING FORM ===== -->
+    <div class="meeting-form-card">
+        <div class="meeting-form-title">New Meeting</div>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label class="form-label">
+                    Meeting Title <span class="req">*</span>
+                </label>
+                {{ form.title }}
+            </div>
+
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label class="form-label">
+                        Date & Time <span class="req">*</span>
+                    </label>
+                    {{ form.date_time }}
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        Meeting Type
+                    </label>
+                    {{ form.platform }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    Related Team <span class="req">*</span>
+                </label>
+                {{ form.team }}
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    Agenda
+                </label>
+                {{ form.message }}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-grad">
+                    Schedule Meeting
+                </button>
+
+                <a href="/meetings/" class="btn-outline">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+    <strong>Sky Engineering Team Directory</strong> © 2026
+</footer>
+
+</body>
+</html>

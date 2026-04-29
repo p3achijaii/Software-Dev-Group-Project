@@ -1,0 +1,298 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sky Engineering - My Profile</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=3">
+    <style>
+        /* Profile-only styles, self-contained */
+        .p-wrap      { max-width: 720px; margin: 0 auto; padding: 32px 24px 64px; }
+        .p-card      { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px;
+                       box-shadow: 0 1px 3px rgba(0,0,0,.07); padding: 28px; margin-bottom: 20px; }
+        .p-card-title{ font-size: 1rem; font-weight: 700; margin: 0 0 4px; color: #111827; }
+        .p-card-sub  { font-size: .83rem; color: #6b7280; margin: 0 0 20px; }
+
+        /* Hero */
+        .p-hero      { display: flex; align-items: center; gap: 20px; }
+        .p-avatar    { width: 68px; height: 68px; border-radius: 50%; flex-shrink: 0;
+                       background: linear-gradient(135deg,#ec4899,#8b5cf6);
+                       color: #fff; font-size: 1.5rem; font-weight: 800;
+                       display: flex; align-items: center; justify-content: center; }
+        .p-name      { font-size: 1.35rem; font-weight: 800; margin: 0 0 3px; color: #111827; }
+        .p-meta      { font-size: .85rem; color: #6b7280; margin: 0 0 8px; }
+        .p-badges    { display: flex; flex-wrap: wrap; gap: 6px; }
+        .p-badge     { font-size: .72rem; font-weight: 600; padding: 3px 10px;
+                       border-radius: 999px; }
+        .p-badge-g   { background: #d1fae5; color: #065f46; }
+        .p-badge-p   { background: #ede9fe; color: #6d28d9; }
+        .p-badge-gr  { background: #f3f4f6; color: #374151; }
+
+        /* Form */
+        .p-grid2     { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .p-field     { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+        .p-label     { font-size: .78rem; font-weight: 700; color: #6b7280;
+                       text-transform: uppercase; letter-spacing: .04em; }
+        .p-input     { padding: 10px 13px; border: 1.5px solid #e5e7eb; border-radius: 8px;
+                       font-size: .9rem; font-family: inherit; color: #111827;
+                       background: #fff; width: 100%; box-sizing: border-box;
+                       transition: border-color .15s; }
+        .p-input:focus { outline: none; border-color: #8b5cf6; }
+        .p-input:disabled { background: #f9fafb; color: #9ca3af; }
+        .p-hint      { font-size: .75rem; color: #9ca3af; }
+        .p-btn       { padding: 10px 26px; background: linear-gradient(135deg,#ec4899,#8b5cf6);
+                       color: #fff; border: none; border-radius: 999px; font-size: .9rem;
+                       font-weight: 700; cursor: pointer; transition: opacity .15s; }
+        .p-btn:hover { opacity: .88; }
+
+        /* Flash messages */
+        .p-flash     { padding: 11px 16px; border-radius: 8px; margin-bottom: 16px;
+                       font-size: .88rem; font-weight: 500; }
+        .p-flash-ok  { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+        .p-flash-err { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+
+        /* Stats */
+        .p-stats     { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+        .p-stat      { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px;
+                       padding: 16px; display: flex; flex-direction: column; gap: 3px; }
+        .p-stat-val  { font-size: 1.7rem; font-weight: 800; color: #111827; line-height: 1; }
+        .p-stat-val small { font-size: 1rem; font-weight: 600; color: #6b7280; }
+        .p-stat-key  { font-size: .68rem; font-weight: 700; color: #9ca3af;
+                       text-transform: uppercase; letter-spacing: .05em; }
+        .p-stat-sub  { font-size: .77rem; color: #6b7280; }
+
+        /* Meetings list */
+        .p-meeting   { display: flex; align-items: center; gap: 12px;
+                       padding: 11px 0; border-bottom: 1px solid #f3f4f6; }
+        .p-meeting:last-child { border-bottom: none; }
+        .p-dot       { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+        .p-m-title   { font-size: .9rem; font-weight: 600; color: #111827; }
+        .p-m-meta    { font-size: .78rem; color: #6b7280; }
+
+        /* Danger */
+        .p-card-danger { border-color: #fca5a5; background: #fff5f5; }
+        .p-danger-title { color: #b91c1c; }
+
+        /* Divider between form sections */
+        .p-divider   { border: none; border-top: 1px solid #f3f4f6; margin: 20px 0; }
+
+        @media (max-width: 600px) {
+            .p-grid2  { grid-template-columns: 1fr; }
+            .p-stats  { grid-template-columns: 1fr 1fr; }
+            .p-hero   { flex-direction: column; text-align: center; }
+            .p-badges { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────────────────── -->
+<header class="topbar">
+    <div class="topbar-inner">
+        <div class="logo">
+            <span class="logo-sky">sky</span>
+            <span class="logo-dir">Directory</span>
+        </div>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn-logout">Sign out</button>
+        </form>
+    </div>
+    <div class="main-nav">
+        <a class="nav-link" href="/dashboard/">🛖 Dashboard</a>
+        <a class="nav-link" href="/teams/">👥 Team Directory</a>
+        <a class="nav-link" href="/organisation/">🌍 Org chart</a>
+        <a class="nav-link" href="/insights/">📊 Insights</a>
+        <a class="nav-link" href="/messages/">💌 Messages</a>
+        <a class="nav-link" href="/meetings/">🤝 Meetings</a>
+        <a class="nav-link" href="/calendar/">🗓️ Calendar</a>
+        <a class="nav-link active" href="/profile/">⭐ My profile</a>
+    </div>
+</header>
+
+<!-- ── Page body ──────────────────────────────────────────── -->
+<div class="p-wrap">
+
+    <p style="font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#6b7280;margin:0 0 6px;">ACCOUNT</p>
+    <h1 style="font-size:2rem;font-weight:800;margin:0 0 4px;">My profile</h1>
+    <p style="font-size:.9rem;color:#6b7280;margin:0 0 24px;">Manage your account details and password</p>
+
+    <!-- Flash messages -->
+    {% if messages %}
+        {% for msg in messages %}
+        <div class="p-flash {% if msg.tags == 'success' %}p-flash-ok{% else %}p-flash-err{% endif %}">
+            {{ msg }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- ── Hero card ─────────────────────────────────────── -->
+    <div class="p-card">
+        <div class="p-hero">
+            <div class="p-avatar">{{ initials }}</div>
+            <div>
+                <p class="p-name">
+                    {% if user.first_name %}{{ user.first_name }} {{ user.last_name }}
+                    {% else %}{{ user.username }}{% endif %}
+                </p>
+                <p class="p-meta">
+                    {% if user.email %}{{ user.email }} &nbsp;·&nbsp; {% endif %}
+                    @{{ user.username }}
+                </p>
+                <div class="p-badges">
+                    <span class="p-badge p-badge-g">&#9679; Active</span>
+                    <span class="p-badge p-badge-p">Member</span>
+                    {% if staff %}
+                    <span class="p-badge p-badge-gr">{{ staff.department.departmentName }}</span>
+                    {% endif %}
+                    <span class="p-badge p-badge-gr">Joined {{ user.date_joined|date:"M Y" }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Account details ───────────────────────────────── -->
+    <div class="p-card">
+        <p class="p-card-title">Account details</p>
+        <p class="p-card-sub">Update your name, email, and department</p>
+
+        <form method="post" action="{% url 'profile_update' %}">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="update_details">
+
+            <div class="p-grid2">
+                <div class="p-field">
+                    <label class="p-label">First name</label>
+                    <input class="p-input" type="text" name="first_name"
+                           value="{{ user.first_name }}" placeholder="First name">
+                </div>
+                <div class="p-field">
+                    <label class="p-label">Last name</label>
+                    <input class="p-input" type="text" name="last_name"
+                           value="{{ user.last_name }}" placeholder="Last name">
+                </div>
+            </div>
+
+            <div class="p-field">
+                <label class="p-label">Email address</label>
+                <input class="p-input" type="email" name="email"
+                       value="{{ user.email }}" placeholder="you@sky.com">
+            </div>
+
+            <div class="p-grid2">
+                <div class="p-field">
+                    <label class="p-label">Username</label>
+                    <input class="p-input" type="text" value="{{ user.username }}" disabled>
+                    <span class="p-hint">Cannot be changed</span>
+                </div>
+                <div class="p-field">
+                    <label class="p-label">Department</label>
+                    <select class="p-input" name="department">
+                        <option value="">— no department —</option>
+                        {% for dept in departments %}
+                        <option value="{{ dept.departmentID }}"
+                            {% if staff and staff.department.departmentID == dept.departmentID %}selected{% endif %}>
+                            {{ dept.departmentName }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="p-btn">Save changes</button>
+        </form>
+    </div>
+
+    <!-- ── Change password ───────────────────────────────── -->
+    <div class="p-card">
+        <p class="p-card-title">Change password</p>
+        <p class="p-card-sub">Use a strong password you don't reuse elsewhere</p>
+
+        <form method="post" action="{% url 'profile_update' %}">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="change_password">
+
+            <div class="p-field">
+                <label class="p-label">Current password</label>
+                <input class="p-input" type="password" name="current_password"
+                       placeholder="Enter your current password">
+            </div>
+            <div class="p-grid2">
+                <div class="p-field">
+                    <label class="p-label">New password</label>
+                    <input class="p-input" type="password" name="new_password"
+                           placeholder="At least 8 characters">
+                </div>
+                <div class="p-field">
+                    <label class="p-label">Confirm new password</label>
+                    <input class="p-input" type="password" name="confirm_password"
+                           placeholder="Repeat new password">
+                </div>
+            </div>
+            <button type="submit" class="p-btn">Update password</button>
+        </form>
+    </div>
+
+    <!-- ── Activity stats ────────────────────────────────── -->
+    <div class="p-card">
+        <p class="p-card-title">Your activity</p>
+        <p class="p-card-sub">A quick snapshot</p>
+        <div class="p-stats">
+            <div class="p-stat">
+                <span class="p-stat-val">{{ meetings_count }}</span>
+                <span class="p-stat-key">Meetings</span>
+                <span class="p-stat-sub">Organised</span>
+            </div>
+            <div class="p-stat">
+                <span class="p-stat-val">{{ upcoming_count }}</span>
+                <span class="p-stat-key">Upcoming</span>
+                <span class="p-stat-sub">Scheduled</span>
+            </div>
+            <div class="p-stat">
+                <span class="p-stat-val">{{ dept_teams }}</span>
+                <span class="p-stat-key">Teams</span>
+                <span class="p-stat-sub">In your dept</span>
+            </div>
+            <div class="p-stat">
+                <span class="p-stat-val">{{ account_months }}<small>mo</small></span>
+                <span class="p-stat-key">Account age</span>
+                <span class="p-stat-sub">Since {{ user.date_joined|date:"M Y" }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Recent meetings ───────────────────────────────── -->
+    {% if recent_meetings %}
+    <div class="p-card">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+            <p class="p-card-title" style="margin:0;">Recent meetings</p>
+            <a href="/meetings/" style="font-size:.82rem;color:#8b5cf6;text-decoration:none;">View all &rarr;</a>
+        </div>
+        <p class="p-card-sub">Meetings you've organised</p>
+        {% for mtg in recent_meetings %}
+        <div class="p-meeting">
+            <div class="p-dot" style="background:linear-gradient(135deg,#ec4899,#8b5cf6);"></div>
+            <div style="flex:1;">
+                <p class="p-m-title">{{ mtg.title }}</p>
+                <p class="p-m-meta">{{ mtg.team.teamName }} &nbsp;·&nbsp; {{ mtg.date_time|date:"d M Y, H:i" }}</p>
+            </div>
+            <span class="p-badge p-badge-gr">{{ mtg.platform }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- ── Danger zone ───────────────────────────────────── -->
+    <div class="p-card p-card-danger">
+        <p class="p-card-title p-danger-title">&#9888; Danger zone</p>
+        <p class="p-card-sub" style="margin-bottom:0;">Permanently delete your account and all associated data. Contact an admin to proceed.</p>
+    </div>
+
+</div>
+
+<footer class="site-footer">
+    <strong>SKY</strong> Engineering Team Directory &copy; 2026
+</footer>
+
+</body>
+</html>

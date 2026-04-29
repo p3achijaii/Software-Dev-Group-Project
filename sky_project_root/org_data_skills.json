@@ -1,0 +1,2588 @@
+[
+  {
+    "model": "organisation.dependencytype",
+    "pk": 1,
+    "fields": {
+      "name": "Infrastructure Support"
+    }
+  },
+  {
+    "model": "organisation.dependencytype",
+    "pk": 2,
+    "fields": {
+      "name": "Security Fixes"
+    }
+  },
+  {
+    "model": "organisation.dependencytype",
+    "pk": 3,
+    "fields": {
+      "name": "Deployment Pipeline"
+    }
+  },
+  {
+    "model": "organisation.dependencytype",
+    "pk": 4,
+    "fields": {
+      "name": "Error Logging Services"
+    }
+  },
+  {
+    "model": "organisation.dependencytype",
+    "pk": 5,
+    "fields": {
+      "name": "Advanced Algorithm Support"
+    }
+  },
+  {
+    "model": "organisation.dependencytype",
+    "pk": 6,
+    "fields": {
+      "name": "Agile Coaching"
+    }
+  },
+  {
+    "model": "organisation.dependencytype",
+    "pk": 7,
+    "fields": {
+      "name": "Agile Process Coordination"
+    }
+  },
+  {
+    "model": "organisation.dependencytype",
+    "pk": 8,
+    "fields": {
+      "name": "Automated Testing"
+    }
+  },
+  {
+    "model": "organisation.teamdependency",
+    "pk": 1,
+    "fields": {
+      "team": 1,
+      "depends_on": 2,
+      "dependency_type": 1,
+      "direction": "UPSTREAM"
+    }
+  },
+  {
+    "model": "organisation.teamdependency",
+    "pk": 2,
+    "fields": {
+      "team": 8,
+      "depends_on": 1,
+      "dependency_type": 2,
+      "direction": "DOWNSTREAM"
+    }
+  },
+  {
+    "model": "organisation.teamdependency",
+    "pk": 3,
+    "fields": {
+      "team": 12,
+      "depends_on": 13,
+      "dependency_type": 3,
+      "direction": "DOWNSTREAM"
+    }
+  },
+  {
+    "model": "organisation.teamdependency",
+    "pk": 4,
+    "fields": {
+      "team": 14,
+      "depends_on": 5,
+      "dependency_type": 4,
+      "direction": "DOWNSTREAM"
+    }
+  },
+  {
+    "model": "organisation.teamdependency",
+    "pk": 5,
+    "fields": {
+      "team": 41,
+      "depends_on": 35,
+      "dependency_type": 5,
+      "direction": "UPSTREAM"
+    }
+  },
+  {
+    "model": "organisation.teamdependency",
+    "pk": 6,
+    "fields": {
+      "team": 33,
+      "depends_on": 8,
+      "dependency_type": 6,
+      "direction": "UPSTREAM"
+    }
+  },
+  {
+    "model": "organisation.teamdependency",
+    "pk": 7,
+    "fields": {
+      "team": 40,
+      "depends_on": 23,
+      "dependency_type": 7,
+      "direction": "DOWNSTREAM"
+    }
+  },
+  {
+    "model": "organisation.teamdependency",
+    "pk": 8,
+    "fields": {
+      "team": 29,
+      "depends_on": 13,
+      "dependency_type": 8,
+      "direction": "UPSTREAM"
+    }
+  },
+  {
+    "model": "organisation.teamdependency",
+    "pk": 9,
+    "fields": {
+      "team": 33,
+      "depends_on": 2,
+      "dependency_type": 3,
+      "direction": "UPSTREAM"
+    }
+  },
+  {
+    "model": "organisation.teamdependency",
+    "pk": 10,
+    "fields": {
+      "team": 13,
+      "depends_on": 1,
+      "dependency_type": 7,
+      "direction": "DOWNSTREAM"
+    }
+  },
+  {
+    "model": "organisation.teamdependency",
+    "pk": 11,
+    "fields": {
+      "team": 3,
+      "depends_on": 14,
+      "dependency_type": 8,
+      "direction": "UPSTREAM"
+    }
+  },
+  {
+    "model": "organisation.teamdependency",
+    "pk": 12,
+    "fields": {
+      "team": 23,
+      "depends_on": 5,
+      "dependency_type": 1,
+      "direction": "DOWNSTREAM"
+    }
+  },
+  {
+    "model": "organisation.teamdependency",
+    "pk": 13,
+    "fields": {
+      "team": 34,
+      "depends_on": 10,
+      "dependency_type": 3,
+      "direction": "DOWNSTREAM"
+    }
+  },
+  {
+    "model": "organisation.teamdependency",
+    "pk": 14,
+    "fields": {
+      "team": 21,
+      "depends_on": 20,
+      "dependency_type": 4,
+      "direction": "UPSTREAM"
+    }
+  },
+  {
+    "model": "organisation.teamdependency",
+    "pk": 15,
+    "fields": {
+      "team": 2,
+      "depends_on": 9,
+      "dependency_type": 8,
+      "direction": "DOWNSTREAM"
+    }
+  },
+  {
+    "model": "organisation.teamdependency",
+    "pk": 16,
+    "fields": {
+      "team": 2,
+      "depends_on": 5,
+      "dependency_type": 3,
+      "direction": "UPSTREAM"
+    }
+  },
+  {
+    "model": "team.department",
+    "pk": 3,
+    "fields": {
+      "departmentName": "xTV_Web",
+      "leader": 5
+    }
+  },
+  {
+    "model": "team.department",
+    "pk": 5,
+    "fields": {
+      "departmentName": "Native TVs",
+      "leader": 8
+    }
+  },
+  {
+    "model": "team.department",
+    "pk": 6,
+    "fields": {
+      "departmentName": "Mobile",
+      "leader": 9
+    }
+  },
+  {
+    "model": "team.department",
+    "pk": 7,
+    "fields": {
+      "departmentName": "Reliability_Tool",
+      "leader": 11
+    }
+  },
+  {
+    "model": "team.department",
+    "pk": 8,
+    "fields": {
+      "departmentName": "Arch",
+      "leader": 12
+    }
+  },
+  {
+    "model": "team.department",
+    "pk": 9,
+    "fields": {
+      "departmentName": "Programme",
+      "leader": 13
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 4,
+    "fields": {
+      "firstName": "Nora",
+      "lastName": "Chandler",
+      "emailAddress": null,
+      "department": 3
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 5,
+    "fields": {
+      "firstName": "Sebastian",
+      "lastName": "Holt",
+      "emailAddress": null,
+      "department": 3
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 6,
+    "fields": {
+      "firstName": "Olivia",
+      "lastName": "Carter",
+      "emailAddress": null,
+      "department": 3
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 7,
+    "fields": {
+      "firstName": "James",
+      "lastName": "Bennet",
+      "emailAddress": null,
+      "department": 3
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 8,
+    "fields": {
+      "firstName": "Mason",
+      "lastName": "Briggs",
+      "emailAddress": null,
+      "department": 5
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 9,
+    "fields": {
+      "firstName": "Violet",
+      "lastName": "Ramsey",
+      "emailAddress": null,
+      "department": 6
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 10,
+    "fields": {
+      "firstName": "Adam",
+      "lastName": "Sinclair",
+      "emailAddress": null,
+      "department": 6
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 11,
+    "fields": {
+      "firstName": "Lucy",
+      "lastName": "Vaughn",
+      "emailAddress": null,
+      "department": 7
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 12,
+    "fields": {
+      "firstName": "Theodore",
+      "lastName": "Knox",
+      "emailAddress": null,
+      "department": 8
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 13,
+    "fields": {
+      "firstName": "Bella",
+      "lastName": "Monroe",
+      "emailAddress": null,
+      "department": 9
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 14,
+    "fields": {
+      "firstName": "Emma",
+      "lastName": "Richardson",
+      "emailAddress": null,
+      "department": 3
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 15,
+    "fields": {
+      "firstName": "Benjamin",
+      "lastName": "Hayes",
+      "emailAddress": null,
+      "department": 3
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 16,
+    "fields": {
+      "firstName": "Sophia",
+      "lastName": "Mitchell",
+      "emailAddress": null,
+      "department": 3
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 17,
+    "fields": {
+      "firstName": "William",
+      "lastName": "Cooper",
+      "emailAddress": null,
+      "department": 3
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 18,
+    "fields": {
+      "firstName": "Isabella",
+      "lastName": "Ross",
+      "emailAddress": null,
+      "department": 3
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 19,
+    "fields": {
+      "firstName": "Elijah",
+      "lastName": "Parker",
+      "emailAddress": null,
+      "department": 3
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 20,
+    "fields": {
+      "firstName": "Ava",
+      "lastName": "Sullivan",
+      "emailAddress": null,
+      "department": 3
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 21,
+    "fields": {
+      "firstName": "Noah",
+      "lastName": "Campbell",
+      "emailAddress": null,
+      "department": 3
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 22,
+    "fields": {
+      "firstName": "Mia",
+      "lastName": "Henderson",
+      "emailAddress": null,
+      "department": 3
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 23,
+    "fields": {
+      "firstName": "Lucas",
+      "lastName": "Foster",
+      "emailAddress": null,
+      "department": 3
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 24,
+    "fields": {
+      "firstName": "Charlotte",
+      "lastName": "Murphy",
+      "emailAddress": null,
+      "department": 3
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 25,
+    "fields": {
+      "firstName": "Henry",
+      "lastName": "Ward",
+      "emailAddress": null,
+      "department": 3
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 26,
+    "fields": {
+      "firstName": "Amelia",
+      "lastName": "Brooks",
+      "emailAddress": null,
+      "department": 3
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 27,
+    "fields": {
+      "firstName": "Alexander",
+      "lastName": "Perry",
+      "emailAddress": null,
+      "department": 5
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 28,
+    "fields": {
+      "firstName": "Evelyn",
+      "lastName": "Hughes",
+      "emailAddress": null,
+      "department": 5
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 29,
+    "fields": {
+      "firstName": "Daniel",
+      "lastName": "Scott",
+      "emailAddress": null,
+      "department": 5
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 30,
+    "fields": {
+      "firstName": "Harper",
+      "lastName": "Lewis",
+      "emailAddress": null,
+      "department": 5
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 31,
+    "fields": {
+      "firstName": "Matthew",
+      "lastName": "Reed",
+      "emailAddress": null,
+      "department": 5
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 32,
+    "fields": {
+      "firstName": "Scarlett",
+      "lastName": "Edwards",
+      "emailAddress": null,
+      "department": 5
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 33,
+    "fields": {
+      "firstName": "Jack",
+      "lastName": "Turner",
+      "emailAddress": null,
+      "department": 5
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 34,
+    "fields": {
+      "firstName": "Lily",
+      "lastName": "Phillips",
+      "emailAddress": null,
+      "department": 5
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 35,
+    "fields": {
+      "firstName": "Samuel",
+      "lastName": "Morgan",
+      "emailAddress": null,
+      "department": 5
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 36,
+    "fields": {
+      "firstName": "Grace",
+      "lastName": "Patterson",
+      "emailAddress": null,
+      "department": 5
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 37,
+    "fields": {
+      "firstName": "Owen",
+      "lastName": "Barnes",
+      "emailAddress": null,
+      "department": 6
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 38,
+    "fields": {
+      "firstName": "Chloe",
+      "lastName": "Hall",
+      "emailAddress": null,
+      "department": 6
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 39,
+    "fields": {
+      "firstName": "Nathan",
+      "lastName": "Fisher",
+      "emailAddress": null,
+      "department": 6
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 40,
+    "fields": {
+      "firstName": "Zoey",
+      "lastName": "Stevens",
+      "emailAddress": null,
+      "department": 6
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 41,
+    "fields": {
+      "firstName": "Caleb",
+      "lastName": "Bryant",
+      "emailAddress": null,
+      "department": 6
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 42,
+    "fields": {
+      "firstName": "Hannah",
+      "lastName": "Simmons",
+      "emailAddress": null,
+      "department": 6
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 43,
+    "fields": {
+      "firstName": "Isaac",
+      "lastName": "Jenkins",
+      "emailAddress": null,
+      "department": 6
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 44,
+    "fields": {
+      "firstName": "Madison",
+      "lastName": "Clarke",
+      "emailAddress": null,
+      "department": 6
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 45,
+    "fields": {
+      "firstName": "Gabriel",
+      "lastName": "Coleman",
+      "emailAddress": null,
+      "department": 6
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 46,
+    "fields": {
+      "firstName": "Riley",
+      "lastName": "Sanders",
+      "emailAddress": null,
+      "department": 6
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 47,
+    "fields": {
+      "firstName": "Leo",
+      "lastName": "Watson",
+      "emailAddress": null,
+      "department": 6
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 48,
+    "fields": {
+      "firstName": "Victoria",
+      "lastName": "Price",
+      "emailAddress": null,
+      "department": 6
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 49,
+    "fields": {
+      "firstName": "Julian",
+      "lastName": "Bell",
+      "emailAddress": null,
+      "department": 6
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 50,
+    "fields": {
+      "firstName": "Layla",
+      "lastName": "Russel",
+      "emailAddress": null,
+      "department": 7
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 51,
+    "fields": {
+      "firstName": "Ethan",
+      "lastName": "Griffin",
+      "emailAddress": null,
+      "department": 7
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 52,
+    "fields": {
+      "firstName": "Aurora",
+      "lastName": "Cooper",
+      "emailAddress": null,
+      "department": 7
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 53,
+    "fields": {
+      "firstName": "Dylan",
+      "lastName": "Spencer",
+      "emailAddress": null,
+      "department": 7
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 54,
+    "fields": {
+      "firstName": "Stella",
+      "lastName": "Martinez",
+      "emailAddress": null,
+      "department": 7
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 55,
+    "fields": {
+      "firstName": "Levi",
+      "lastName": "Bishop",
+      "emailAddress": null,
+      "department": 8
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 56,
+    "fields": {
+      "firstName": "Eleanor",
+      "lastName": "Freeman",
+      "emailAddress": null,
+      "department": 8
+    }
+  },
+  {
+    "model": "team.staff",
+    "pk": 57,
+    "fields": {
+      "firstName": "Hudson",
+      "lastName": "Ford",
+      "emailAddress": null,
+      "department": 9
+    }
+  },
+  {
+    "model": "team.developmentfocus",
+    "pk": 1,
+    "fields": {
+      "name": "Big data engineering, real-time data streaming, database optimization"
+    }
+  },
+  {
+    "model": "team.developmentfocus",
+    "pk": 2,
+    "fields": {
+      "name": "Advanced debugging tools, automated error detection, root cause analysis"
+    }
+  },
+  {
+    "model": "team.developmentfocus",
+    "pk": 3,
+    "fields": {
+      "name": "Infrastructure scalability, CI/CD integration, platform resilience"
+    }
+  },
+  {
+    "model": "team.developmentfocus",
+    "pk": 4,
+    "fields": {
+      "name": "Security compliance, encryption techniques, data integrity"
+    }
+  },
+  {
+    "model": "team.developmentfocus",
+    "pk": 5,
+    "fields": {
+      "name": "Agile transformation, workflow optimization, lean process improvement"
+    }
+  },
+  {
+    "model": "team.developmentfocus",
+    "pk": 6,
+    "fields": {
+      "name": "Automated deployment pipelines, release management, rollback strategies"
+    }
+  },
+  {
+    "model": "team.developmentfocus",
+    "pk": 7,
+    "fields": {
+      "name": "Cryptographic security, authentication protocols, secure APIs"
+    }
+  },
+  {
+    "model": "team.developmentfocus",
+    "pk": 8,
+    "fields": {
+      "name": "DevOps best practices, Kubernetes orchestration, cloud automation"
+    }
+  },
+  {
+    "model": "team.developmentfocus",
+    "pk": 9,
+    "fields": {
+      "name": "Cloud infrastructure, API gateway development, serverless architecture"
+    }
+  },
+  {
+    "model": "team.developmentfocus",
+    "pk": 10,
+    "fields": {
+      "name": "Cloud-native applications, distributed systems, multi-region deployments"
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 1,
+    "fields": {
+      "teamName": "Code Warriors",
+      "department": 3,
+      "teamLeader": 6,
+      "developmentFocus": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 2,
+    "fields": {
+      "teamName": "The Debuggers",
+      "department": 3,
+      "teamLeader": 7,
+      "developmentFocus": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 3,
+    "fields": {
+      "teamName": "Data Wranglers",
+      "department": 5,
+      "teamLeader": 27,
+      "developmentFocus": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 4,
+    "fields": {
+      "teamName": "Bit Masters",
+      "department": 3,
+      "teamLeader": 14,
+      "developmentFocus": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 5,
+    "fields": {
+      "teamName": "Agile Avengers",
+      "department": 3,
+      "teamLeader": 15,
+      "developmentFocus": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 6,
+    "fields": {
+      "teamName": "Syntax Squad",
+      "department": 3,
+      "teamLeader": 16,
+      "developmentFocus": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 7,
+    "fields": {
+      "teamName": "The Codebreakers",
+      "department": 3,
+      "teamLeader": 17,
+      "developmentFocus": [
+        7
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 8,
+    "fields": {
+      "teamName": "DevOps Dynasty",
+      "department": 3,
+      "teamLeader": 18,
+      "developmentFocus": [
+        8
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 9,
+    "fields": {
+      "teamName": "Byte Force",
+      "department": 3,
+      "teamLeader": 19,
+      "developmentFocus": [
+        9
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 10,
+    "fields": {
+      "teamName": "The Cloud Architects",
+      "department": 3,
+      "teamLeader": 20,
+      "developmentFocus": [
+        10
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 11,
+    "fields": {
+      "teamName": "Full Stack Ninjas",
+      "department": 3,
+      "teamLeader": 21,
+      "developmentFocus": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 12,
+    "fields": {
+      "teamName": "The Error Handlers",
+      "department": 3,
+      "teamLeader": 22,
+      "developmentFocus": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 13,
+    "fields": {
+      "teamName": "Stack Overflow Survivors",
+      "department": 3,
+      "teamLeader": 23,
+      "developmentFocus": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 14,
+    "fields": {
+      "teamName": "The Binary Beasts",
+      "department": 3,
+      "teamLeader": 24,
+      "developmentFocus": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 15,
+    "fields": {
+      "teamName": "API Avengers",
+      "department": 3,
+      "teamLeader": 25,
+      "developmentFocus": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 16,
+    "fields": {
+      "teamName": "The Algorithm Alliance",
+      "department": 3,
+      "teamLeader": 26,
+      "developmentFocus": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 17,
+    "fields": {
+      "teamName": "The Sprint Kings",
+      "department": 5,
+      "teamLeader": 28,
+      "developmentFocus": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 18,
+    "fields": {
+      "teamName": "Exception Catchers",
+      "department": 5,
+      "teamLeader": 29,
+      "developmentFocus": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 19,
+    "fields": {
+      "teamName": "Code Monkeys",
+      "department": 5,
+      "teamLeader": 30,
+      "developmentFocus": [
+        7
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 20,
+    "fields": {
+      "teamName": "The Compile Crew",
+      "department": 5,
+      "teamLeader": 31,
+      "developmentFocus": [
+        8
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 21,
+    "fields": {
+      "teamName": "Git Good",
+      "department": 5,
+      "teamLeader": 32,
+      "developmentFocus": [
+        9
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 22,
+    "fields": {
+      "teamName": "The CI/CD Squad",
+      "department": 5,
+      "teamLeader": 33,
+      "developmentFocus": [
+        10
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 23,
+    "fields": {
+      "teamName": "Bug Exterminators",
+      "department": 5,
+      "teamLeader": 34,
+      "developmentFocus": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 24,
+    "fields": {
+      "teamName": "The Agile Alchemists",
+      "department": 5,
+      "teamLeader": 35,
+      "developmentFocus": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 25,
+    "fields": {
+      "teamName": "The Hotfix Heroes",
+      "department": 5,
+      "teamLeader": 36,
+      "developmentFocus": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 26,
+    "fields": {
+      "teamName": "Cache Me Outside",
+      "department": 6,
+      "teamLeader": 37,
+      "developmentFocus": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 27,
+    "fields": {
+      "teamName": "The Scrum Lords",
+      "department": 6,
+      "teamLeader": 38,
+      "developmentFocus": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 28,
+    "fields": {
+      "teamName": "The 404 Not Found",
+      "department": 6,
+      "teamLeader": 39,
+      "developmentFocus": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 29,
+    "fields": {
+      "teamName": "The Version Controllers",
+      "department": 6,
+      "teamLeader": 40,
+      "developmentFocus": [
+        7
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 30,
+    "fields": {
+      "teamName": "DevNull Pioneers",
+      "department": 6,
+      "teamLeader": 41,
+      "developmentFocus": [
+        8
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 31,
+    "fields": {
+      "teamName": "The Code Refractors",
+      "department": 6,
+      "teamLeader": 42,
+      "developmentFocus": [
+        10
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 32,
+    "fields": {
+      "teamName": "The Jenkins Juggernauts",
+      "department": 6,
+      "teamLeader": 43,
+      "developmentFocus": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 33,
+    "fields": {
+      "teamName": "Infinite Loopers",
+      "department": 6,
+      "teamLeader": 44,
+      "developmentFocus": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 34,
+    "fields": {
+      "teamName": "The Feature Crafters",
+      "department": 6,
+      "teamLeader": 45,
+      "developmentFocus": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 35,
+    "fields": {
+      "teamName": "The Bit Manipulators",
+      "department": 6,
+      "teamLeader": 46,
+      "developmentFocus": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 36,
+    "fields": {
+      "teamName": "Kernel Crushers",
+      "department": 6,
+      "teamLeader": 47,
+      "developmentFocus": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 37,
+    "fields": {
+      "teamName": "The Git Masters",
+      "department": 6,
+      "teamLeader": 48,
+      "developmentFocus": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 38,
+    "fields": {
+      "teamName": "The API Explorers",
+      "department": 6,
+      "teamLeader": 49,
+      "developmentFocus": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 39,
+    "fields": {
+      "teamName": "The Lambda Legends",
+      "department": 7,
+      "teamLeader": 50,
+      "developmentFocus": [
+        7
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 40,
+    "fields": {
+      "teamName": "The Encryption Squad",
+      "department": 7,
+      "teamLeader": 51,
+      "developmentFocus": [
+        8
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 41,
+    "fields": {
+      "teamName": "The UX Wizards",
+      "department": 7,
+      "teamLeader": 52,
+      "developmentFocus": [
+        9
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 42,
+    "fields": {
+      "teamName": "The Hackathon Hustlers",
+      "department": 7,
+      "teamLeader": 53,
+      "developmentFocus": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 43,
+    "fields": {
+      "teamName": "The Frontend Phantoms",
+      "department": 7,
+      "teamLeader": 54,
+      "developmentFocus": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 44,
+    "fields": {
+      "teamName": "The Dev Dragons",
+      "department": 8,
+      "teamLeader": 55,
+      "developmentFocus": [
+        8
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 45,
+    "fields": {
+      "teamName": "The Microservice Mavericks",
+      "department": 8,
+      "teamLeader": 56,
+      "developmentFocus": [
+        7
+      ]
+    }
+  },
+  {
+    "model": "team.team",
+    "pk": 46,
+    "fields": {
+      "teamName": "The Quantum Coders",
+      "department": 9,
+      "teamLeader": 57,
+      "developmentFocus": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 1,
+    "fields": {
+      "skillName": "A/B Testing",
+      "skillCategory": "Testing & QA"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 2,
+    "fields": {
+      "skillName": "Adobe XD",
+      "skillCategory": "Frontend & UI/UX"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 3,
+    "fields": {
+      "skillName": "Agile Coaching",
+      "skillCategory": "Agile & Project Management"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 4,
+    "fields": {
+      "skillName": "Agile frameworks (Scrum, SAFe, Kanban)",
+      "skillCategory": "Agile & Project Management"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 5,
+    "fields": {
+      "skillName": "Agile methodologies",
+      "skillCategory": "Agile & Project Management"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 6,
+    "fields": {
+      "skillName": "Agile Transformation",
+      "skillCategory": "Agile & Project Management"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 7,
+    "fields": {
+      "skillName": "AI Bots",
+      "skillCategory": "Innovation"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 8,
+    "fields": {
+      "skillName": "Ansible",
+      "skillCategory": "Cloud & Infrastructure"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 9,
+    "fields": {
+      "skillName": "API Development",
+      "skillCategory": "APIs & Integration"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 10,
+    "fields": {
+      "skillName": "API Gateway",
+      "skillCategory": "APIs & Integration"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 11,
+    "fields": {
+      "skillName": "API Gateway Management",
+      "skillCategory": "APIs & Integration"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 12,
+    "fields": {
+      "skillName": "API Security (OAuth, JWT)",
+      "skillCategory": "Security"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 13,
+    "fields": {
+      "skillName": "API Testing (Postman, Swagger)",
+      "skillCategory": "Testing & QA"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 14,
+    "fields": {
+      "skillName": "APM (Datadog, New Relic)",
+      "skillCategory": "Observability"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 15,
+    "fields": {
+      "skillName": "Assembly",
+      "skillCategory": "Backend & Languages"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 16,
+    "fields": {
+      "skillName": "AWS CodePipeline",
+      "skillCategory": "Cloud & Infrastructure"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 17,
+    "fields": {
+      "skillName": "AWS Lambda",
+      "skillCategory": "Cloud & Infrastructure"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 18,
+    "fields": {
+      "skillName": "AWS/GCP",
+      "skillCategory": "Cloud & Infrastructure"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 19,
+    "fields": {
+      "skillName": "AWS/GCP/Azure",
+      "skillCategory": "Cloud & Infrastructure"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 20,
+    "fields": {
+      "skillName": "Bash",
+      "skillCategory": "Backend & Languages"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 21,
+    "fields": {
+      "skillName": "Big Data (Hadoop, Spark, Kafka)",
+      "skillCategory": "Data & ML"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 22,
+    "fields": {
+      "skillName": "Bitwise Operations",
+      "skillCategory": "Performance & Systems"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 23,
+    "fields": {
+      "skillName": "Branching Models",
+      "skillCategory": "Version Control"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 24,
+    "fields": {
+      "skillName": "Build Systems (Bazel, CMake, Make)",
+      "skillCategory": "Performance & Systems"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 25,
+    "fields": {
+      "skillName": "C++",
+      "skillCategory": "Backend & Languages"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 26,
+    "fields": {
+      "skillName": "C/C++",
+      "skillCategory": "Backend & Languages"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 27,
+    "fields": {
+      "skillName": "Cache Invalidation Strategies",
+      "skillCategory": "Caching"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 28,
+    "fields": {
+      "skillName": "CDN Caching",
+      "skillCategory": "Caching"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 29,
+    "fields": {
+      "skillName": "Chaos Engineering",
+      "skillCategory": "Other"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 30,
+    "fields": {
+      "skillName": "CI/CD",
+      "skillCategory": "DevOps & CI/CD"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 31,
+    "fields": {
+      "skillName": "CI/CD Pipelines",
+      "skillCategory": "DevOps & CI/CD"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 32,
+    "fields": {
+      "skillName": "CI/CD Stress Testing",
+      "skillCategory": "DevOps & CI/CD"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 33,
+    "fields": {
+      "skillName": "Code Cleanup",
+      "skillCategory": "Other"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 34,
+    "fields": {
+      "skillName": "Compiler Optimization",
+      "skillCategory": "Performance & Systems"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 35,
+    "fields": {
+      "skillName": "Confluence",
+      "skillCategory": "Agile & Project Management"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 36,
+    "fields": {
+      "skillName": "Cryptography",
+      "skillCategory": "Security"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 37,
+    "fields": {
+      "skillName": "Cryptography (AES, RSA, SHA-256)",
+      "skillCategory": "Security"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 38,
+    "fields": {
+      "skillName": "CSS",
+      "skillCategory": "Frontend & UI/UX"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 39,
+    "fields": {
+      "skillName": "Cybersecurity",
+      "skillCategory": "Security"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 40,
+    "fields": {
+      "skillName": "Data Science (Pandas, NumPy, Scikit-learn)",
+      "skillCategory": "Data & ML"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 41,
+    "fields": {
+      "skillName": "Data Structures",
+      "skillCategory": "Other"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 42,
+    "fields": {
+      "skillName": "Debugging tools (GDB, LLDB)",
+      "skillCategory": "Debugging"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 43,
+    "fields": {
+      "skillName": "DevSecOps",
+      "skillCategory": "DevOps & CI/CD"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 44,
+    "fields": {
+      "skillName": "Django",
+      "skillCategory": "Backend & Languages"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 45,
+    "fields": {
+      "skillName": "Docker",
+      "skillCategory": "Cloud & Infrastructure"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 46,
+    "fields": {
+      "skillName": "Encryption (AES, RSA)",
+      "skillCategory": "Security"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 47,
+    "fields": {
+      "skillName": "Ethical Hacking",
+      "skillCategory": "Security"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 48,
+    "fields": {
+      "skillName": "ETL",
+      "skillCategory": "Data & ML"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 49,
+    "fields": {
+      "skillName": "Exception Handling",
+      "skillCategory": "Debugging"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 50,
+    "fields": {
+      "skillName": "Failover Strategies",
+      "skillCategory": "Reliability & SRE"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 51,
+    "fields": {
+      "skillName": "Fault Tolerance",
+      "skillCategory": "Reliability & SRE"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 52,
+    "fields": {
+      "skillName": "Feature Flagging",
+      "skillCategory": "Other"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 53,
+    "fields": {
+      "skillName": "Feature Flags",
+      "skillCategory": "Other"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 54,
+    "fields": {
+      "skillName": "Figma",
+      "skillCategory": "Frontend & UI/UX"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 55,
+    "fields": {
+      "skillName": "Frontend Frameworks",
+      "skillCategory": "Frontend & UI/UX"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 56,
+    "fields": {
+      "skillName": "Frontend Frameworks (React, Vue, Angular)",
+      "skillCategory": "Frontend & UI/UX"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 57,
+    "fields": {
+      "skillName": "Frontend Optimization",
+      "skillCategory": "Frontend & UI/UX"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 58,
+    "fields": {
+      "skillName": "Git",
+      "skillCategory": "Version Control"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 59,
+    "fields": {
+      "skillName": "Git Automation",
+      "skillCategory": "Version Control"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 60,
+    "fields": {
+      "skillName": "GitHub Actions",
+      "skillCategory": "DevOps & CI/CD"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 61,
+    "fields": {
+      "skillName": "GitLab CI/CD",
+      "skillCategory": "DevOps & CI/CD"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 62,
+    "fields": {
+      "skillName": "GitOps",
+      "skillCategory": "DevOps & CI/CD"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 63,
+    "fields": {
+      "skillName": "Go",
+      "skillCategory": "Backend & Languages"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 64,
+    "fields": {
+      "skillName": "GPU Programming",
+      "skillCategory": "Performance & Systems"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 65,
+    "fields": {
+      "skillName": "GraphQL",
+      "skillCategory": "Backend & Languages"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 66,
+    "fields": {
+      "skillName": "gRPC",
+      "skillCategory": "Backend & Languages"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 67,
+    "fields": {
+      "skillName": "Helm Charts",
+      "skillCategory": "Cloud & Infrastructure"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 68,
+    "fields": {
+      "skillName": "Hotfix Management",
+      "skillCategory": "Reliability & SRE"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 69,
+    "fields": {
+      "skillName": "HTTP Error Handling",
+      "skillCategory": "Other"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 70,
+    "fields": {
+      "skillName": "Incident Response",
+      "skillCategory": "Reliability & SRE"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 71,
+    "fields": {
+      "skillName": "Istio",
+      "skillCategory": "APIs & Integration"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 72,
+    "fields": {
+      "skillName": "Java",
+      "skillCategory": "Backend & Languages"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 73,
+    "fields": {
+      "skillName": "JavaScript",
+      "skillCategory": "Backend & Languages"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 74,
+    "fields": {
+      "skillName": "Jenkins",
+      "skillCategory": "DevOps & CI/CD"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 75,
+    "fields": {
+      "skillName": "Jenkins Scripting",
+      "skillCategory": "DevOps & CI/CD"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 76,
+    "fields": {
+      "skillName": "Jira",
+      "skillCategory": "Agile & Project Management"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 77,
+    "fields": {
+      "skillName": "Knowledge Sharing",
+      "skillCategory": "Security"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 78,
+    "fields": {
+      "skillName": "Kubernetes",
+      "skillCategory": "Cloud & Infrastructure"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 79,
+    "fields": {
+      "skillName": "Linux",
+      "skillCategory": "Other"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 80,
+    "fields": {
+      "skillName": "Linux Kernel Development",
+      "skillCategory": "Performance & Systems"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 81,
+    "fields": {
+      "skillName": "Load Balancing",
+      "skillCategory": "Cloud & Infrastructure"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 82,
+    "fields": {
+      "skillName": "Load Testing (JMeter)",
+      "skillCategory": "Testing & QA"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 83,
+    "fields": {
+      "skillName": "Log analysis",
+      "skillCategory": "Observability"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 84,
+    "fields": {
+      "skillName": "Logging (ELK, Splunk)",
+      "skillCategory": "Observability"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 85,
+    "fields": {
+      "skillName": "Logging Systems",
+      "skillCategory": "Observability"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 86,
+    "fields": {
+      "skillName": "Low-level Optimization",
+      "skillCategory": "Performance & Systems"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 87,
+    "fields": {
+      "skillName": "Machine Learning",
+      "skillCategory": "Data & ML"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 88,
+    "fields": {
+      "skillName": "Memcached",
+      "skillCategory": "Caching"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 89,
+    "fields": {
+      "skillName": "Merge Strategies",
+      "skillCategory": "Version Control"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 90,
+    "fields": {
+      "skillName": "Microservices",
+      "skillCategory": "APIs & Integration"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 91,
+    "fields": {
+      "skillName": "Miro",
+      "skillCategory": "Agile & Project Management"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 92,
+    "fields": {
+      "skillName": "MVP Development",
+      "skillCategory": "Innovation"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 93,
+    "fields": {
+      "skillName": "Next.js",
+      "skillCategory": "Frontend & UI/UX"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 94,
+    "fields": {
+      "skillName": "No-Code Tools",
+      "skillCategory": "Innovation"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 95,
+    "fields": {
+      "skillName": "Node.js",
+      "skillCategory": "Backend & Languages"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 96,
+    "fields": {
+      "skillName": "NoSQL",
+      "skillCategory": "Data & ML"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 97,
+    "fields": {
+      "skillName": "Observability",
+      "skillCategory": "Observability"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 98,
+    "fields": {
+      "skillName": "Observability (Grafana, Prometheus)",
+      "skillCategory": "Observability"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 99,
+    "fields": {
+      "skillName": "OpenAPI/Swagger",
+      "skillCategory": "APIs & Integration"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 100,
+    "fields": {
+      "skillName": "Parallel Computing",
+      "skillCategory": "Performance & Systems"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 101,
+    "fields": {
+      "skillName": "Patch Deployment",
+      "skillCategory": "Reliability & SRE"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 102,
+    "fields": {
+      "skillName": "Penetration Testing",
+      "skillCategory": "Security"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 103,
+    "fields": {
+      "skillName": "Performance Metrics",
+      "skillCategory": "Other"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 104,
+    "fields": {
+      "skillName": "Performance Optimization",
+      "skillCategory": "Other"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 105,
+    "fields": {
+      "skillName": "Plugin Architecture",
+      "skillCategory": "APIs & Integration"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 106,
+    "fields": {
+      "skillName": "Postman",
+      "skillCategory": "APIs & Integration"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 107,
+    "fields": {
+      "skillName": "Python",
+      "skillCategory": "Backend & Languages"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 108,
+    "fields": {
+      "skillName": "Qiskit",
+      "skillCategory": "Data & ML"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 109,
+    "fields": {
+      "skillName": "Quantum Computing",
+      "skillCategory": "Data & ML"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 110,
+    "fields": {
+      "skillName": "Rapid Prototyping",
+      "skillCategory": "APIs & Integration"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 111,
+    "fields": {
+      "skillName": "React",
+      "skillCategory": "Frontend & UI/UX"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 112,
+    "fields": {
+      "skillName": "Real-time Debugging",
+      "skillCategory": "Debugging"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 113,
+    "fields": {
+      "skillName": "Redis",
+      "skillCategory": "Caching"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 114,
+    "fields": {
+      "skillName": "Refactoring",
+      "skillCategory": "Other"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 115,
+    "fields": {
+      "skillName": "Repository Management",
+      "skillCategory": "Version Control"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 116,
+    "fields": {
+      "skillName": "Repository Scaling",
+      "skillCategory": "Version Control"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 117,
+    "fields": {
+      "skillName": "REST",
+      "skillCategory": "Backend & Languages"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 118,
+    "fields": {
+      "skillName": "REST APIs",
+      "skillCategory": "Backend & Languages"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 119,
+    "fields": {
+      "skillName": "Retrospective Analysis",
+      "skillCategory": "Agile & Project Management"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 120,
+    "fields": {
+      "skillName": "Rollback Automation",
+      "skillCategory": "Reliability & SRE"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 121,
+    "fields": {
+      "skillName": "Rust",
+      "skillCategory": "Backend & Languages"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 122,
+    "fields": {
+      "skillName": "SAFe",
+      "skillCategory": "Agile & Project Management"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 123,
+    "fields": {
+      "skillName": "Scrum Mastery",
+      "skillCategory": "Agile & Project Management"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 124,
+    "fields": {
+      "skillName": "SDK Development",
+      "skillCategory": "APIs & Integration"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 125,
+    "fields": {
+      "skillName": "Security Audits",
+      "skillCategory": "Security"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 126,
+    "fields": {
+      "skillName": "Security Compliance (ISO 27001)",
+      "skillCategory": "Security"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 127,
+    "fields": {
+      "skillName": "Serverless Computing",
+      "skillCategory": "Cloud & Infrastructure"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 128,
+    "fields": {
+      "skillName": "Service Mesh (Istio, Envoy)",
+      "skillCategory": "APIs & Integration"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 129,
+    "fields": {
+      "skillName": "SonarQube",
+      "skillCategory": "Other"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 130,
+    "fields": {
+      "skillName": "Sprint Planning",
+      "skillCategory": "Agile & Project Management"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 131,
+    "fields": {
+      "skillName": "SQL",
+      "skillCategory": "Data & ML"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 132,
+    "fields": {
+      "skillName": "SRE",
+      "skillCategory": "Reliability & SRE"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 133,
+    "fields": {
+      "skillName": "SSL/TLS",
+      "skillCategory": "Security"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 134,
+    "fields": {
+      "skillName": "Stack traces",
+      "skillCategory": "Debugging"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 135,
+    "fields": {
+      "skillName": "System Performance",
+      "skillCategory": "Performance & Systems"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 136,
+    "fields": {
+      "skillName": "Tech Debt Management",
+      "skillCategory": "Other"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 137,
+    "fields": {
+      "skillName": "Technical Documentation",
+      "skillCategory": "Other"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 138,
+    "fields": {
+      "skillName": "Terraform",
+      "skillCategory": "Cloud & Infrastructure"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 139,
+    "fields": {
+      "skillName": "Test Automation (Selenium, Cypress)",
+      "skillCategory": "Testing & QA"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 140,
+    "fields": {
+      "skillName": "TypeScript",
+      "skillCategory": "Backend & Languages"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 141,
+    "fields": {
+      "skillName": "UI/UX Design",
+      "skillCategory": "Frontend & UI/UX"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 142,
+    "fields": {
+      "skillName": "Usability Testing",
+      "skillCategory": "Frontend & UI/UX"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 143,
+    "fields": {
+      "skillName": "Value Stream Mapping",
+      "skillCategory": "Agile & Project Management"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 144,
+    "fields": {
+      "skillName": "Velocity Metrics",
+      "skillCategory": "Agile & Project Management"
+    }
+  },
+  {
+    "model": "team.skill",
+    "pk": 145,
+    "fields": {
+      "skillName": "YAML",
+      "skillCategory": "DevOps & CI/CD"
+    }
+  }
+]

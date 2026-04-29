@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sky Engineering - Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=3">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="topbar-inner">
+        <div class="logo">
+            <span class="logo-sky">sky</span>
+            <span class="logo-dir">Directory</span>
+        </div>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn-logout">Sign out</button>
+        </form>
+    </div>
+    <div class="main-nav">
+        <a class="nav-link active" href="/dashboard/">🛖 Dashboard</a>
+        <a class="nav-link" href="/teams/">👥 Team Directory</a>
+        <a class="nav-link" href="/organisation/">🌍 Org chart</a>
+        <a class="nav-link" href="/insights/">📊 Insights</a>
+        <a class="nav-link" href="/messages/">💌 Messages</a>
+        <a class="nav-link" href="/meetings/">🤝 Meetings</a>
+        <a class="nav-link" href="/calendar/">🗓️ Calendar</a>
+        <a class="nav-link" href="/profile/">⭐ My profile</a>
+    </div>
+</header>
+
+<div class="page-body">
+    <div class="container">
+        <p class="section-label">HOME</p>
+        <h1 class="section-title">Welcome back, {{ user.first_name|default:user.username }}</h1>
+        <p class="section-sub">Sky Engineering Team Directory</p>
+    </div>
+</div>
+
+<footer class="site-footer">
+    <strong>SKY</strong> Engineering Team Directory &copy; 2026
+</footer>
+
+</body>
+</html>

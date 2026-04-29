@@ -1,0 +1,16 @@
+# Ignore Python files
+*.py
+
+# Ignore migrations
+*/migrations/*
+
+# Ignore SQLite database
+*.sqlite3
+
+# Ignore virtual environment
+venv/
+.venv/
+
+# Ignore IDE/editor files
+.vscode/
+.idea/

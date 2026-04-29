@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign In — Sky Engineering</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=3">
+</head>
+<body class="auth-body">
+
+    <div class="auth-logo">
+        <span class="logo-sky" style="font-size:2rem;">sky</span>
+        <span class="logo-dir" style="font-size:1.2rem;">EngineeringDirectory</span>
+    </div>
+
+    <div class="auth-card">
+        <h1 class="auth-title">Welcome back</h1>
+        <p class="auth-subtitle">Sign in to your account to continue</p>
+
+        {% if form.errors %}
+        <div style="background:#fee2e2;color:#991b1b;border:1px solid #fca5a5;
+                    border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:.87rem;">
+            Incorrect email or password. Please try again.
+        </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
+
+            <div class="field-group">
+                <label class="field-label">Email address</label>
+                <div class="field-wrap">
+                    <span class="field-icon">&#9993;</span>
+                    <input class="field-input" type="text" name="username"
+                           placeholder="anne@sky.com" autofocus autocomplete="username">
+                </div>
+            </div>
+
+            <div class="field-group">
+                <label class="field-label">Password</label>
+                <div class="field-wrap">
+                    <span class="field-icon">&#128274;</span>
+                    <input class="field-input" type="password" name="password"
+                           id="pw" placeholder="Your password" autocomplete="current-password">
+                    <button type="button" class="field-eye" onclick="togglePw('pw',this)">&#128065;</button>
+                </div>
+            </div>
+
+            <div class="auth-row">
+                <label class="auth-remember">
+                    <input type="checkbox" name="remember"> Remember me
+                </label>
+                <a class="auth-link" href="{% url 'password_reset' %}">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn-primary">Sign In</button>
+        </form>
+
+        <p class="auth-alt">
+            Don't have an account?
+            <a class="auth-link" href="{% url 'register' %}"><strong>Register here</strong></a>
+        </p>
+    </div>
+
+    <script>
+        function togglePw(id, btn) {
+            const f = document.getElementById(id);
+            f.type = f.type === 'password' ? 'text' : 'password';
+        }
+    </script>
+</body>
+</html>

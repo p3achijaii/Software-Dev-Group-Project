@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% load team_extras %}
+
+{% block title %}{{ team.teamName }} — Team Directory{% endblock %}
+
+{% block content %}
+{% with dc=team.department.departmentName|dept_class %}
+
+{# ── Back Button ── #}
+<a href="{% url 'team:team_list' %}" class="auth-back" style="margin-top:0; margin-bottom:16px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; color: var(--text-sec); font-weight: 1000; font-size: 1.05rem;">
+    <span style="font-size: 1.3rem;">🔙</span>
+    <i class="bi bi-arrow-left" style="font-size: 1.1rem;"></i> 
+    <span>Back to Directory</span>
+</a>
+
+{# ── Header Card ── #}
+<div class="profile-header-card" style="margin-bottom:20px; position: relative; overflow: hidden;">
+    <div class="team-card-strip {{ dc }}" style="margin:-28px -28px 20px -28px; border-radius:var(--r-lg) var(--r-lg) 0 0; display:block; width:calc(100% + 56px);"></div>
+    
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
+        
+        {# Left Side: Information #}
+        <div style="flex: 1; min-width: 300px;">
+            <span class="dept-badge {{ dc }}" style="margin-bottom:10px; display:inline-block;">{{ team.department.departmentName }}</span>
+            <h1 class="page-title" style="font-size:1.8rem; margin-bottom:8px;">{{ team.teamName }}</h1>
+            
+            <div style="display:flex; gap:24px; flex-wrap:wrap; margin-bottom:16px;">
+                <span class="page-desc">Dept Head: <strong style="color:var(--text-pri);">{{ team.department.leader.firstName }} {{ team.department.leader.lastName }}</strong></span>
+                <span class="page-desc">Lead: <strong style="color:var(--text-pri);">{{ team.teamLeader.firstName }} {{ team.teamLeader.lastName }}</strong></span>
+            </div>
+
+            <p class="page-desc">
+                {{ team.developmentFocusAreas|default:"This team focuses on strategic growth and technical excellence." }}
+            </p>
+        </div>
+        
+        {# Right Side: Action Buttons (Centered Text internally) #}
+        <div style="display:flex; gap:12px; align-items:center; flex-shrink:0;">
+            {# Send Messages Button #}
+            <a href="/messages/" class="btn-outline" style="display: flex; align-items: center; justify-content: center; width: 160px; height: 44px; text-decoration: none; padding: 0; border-radius: 50px;">
+                <span style="font-weight: 700;">Send Messages</span>
+            </a>
+
+            {# Plan Schedule Button #}
+            <a href="/meetings/" class="btn-grad" style="display: flex; align-items: center; justify-content: center; width: 160px; height: 44px; text-decoration: none; padding: 0; border: none; border-radius: 50px;">
+                <span style="font-weight: 700;">Plan Schedule</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="charts-row two-col">
+    {# ── Left Column ── #}
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+        
+        {# ── Primary Contact Card ── #}
+        <div class="chart-section" style="flex: 0;">
+            <div class="profile-section-header">
+                <div class="profile-section-title"><i class="bi bi-person-badge"></i> Primary Contact</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:16px;">
+                <div style="width:55px; height:55px; border-radius:var(--r-md); background:var(--grad-primary); display:flex; align-items:center; justify-content:center; color:white; font-weight:800; font-size:1.1rem; flex-shrink:0;">
+                    {{ team.teamLeader.firstName|first }}{{ team.teamLeader.lastName|first }}
+                </div>
+                <div>
+                    <div style="font-weight:700; font-size:1rem; color:var(--text-pri);">{{ team.teamLeader.firstName }} {{ team.teamLeader.lastName }}</div>
+                    <div class="page-desc" style="font-size:0.85rem; margin-bottom: 4px;">{{ team.teamLeader.emailAddress }}</div>
+                    <a href="/messages/" style="display:inline-block; color:#6366f1; font-size:0.85rem; font-weight: 600; text-decoration: none;">
+                        <i class="bi bi-chat-dots"></i> Send Direct Message
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {# ── Key Skills Card ── #}
+        <div class="chart-section" style="flex: 1;">
+            <div class="profile-section-header" style="margin-bottom: 20px;">
+                <div class="profile-section-title">Key Skills</div>
+                <span class="chart-badge">{{ team.developmentFocus.all.count }}</span>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                {% for focus in team.developmentFocus.all %}
+                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(99, 102, 241, 0.03); border: 1px solid rgba(99, 102, 241, 0.08); border-radius: 10px;">
+                        <span style="font-size: 0.9rem;">✅</span>
+                        <div style="font-weight:600; color: var(--text-pri); font-size: 0.9rem;">
+                            {{ focus.name }}
+                        </div>
+                    </div>
+                {% empty %}
+                    <div style="text-align: center; padding: 20px; color: var(--text-sec); border: 1px dashed var(--border); border-radius: var(--r-md);">
+                        <p class="page-desc" style="font-style: italic;">No focus areas listed yet.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {# ── Right Column: Connectivity ── #}
+    <div class="chart-section">
+        <div class="profile-section-header" style="margin-bottom: 20px;">
+            <div class="profile-section-title"><i class="bi bi-diagram-3"></i> Team Connectivity</div>
+        </div>
+        
+        {# UPSTREAM #}
+        <div style="margin-bottom: 24px;">
+            <p style="font-weight:700; font-size:0.75rem; margin-bottom:12px; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.05em;">
+                <i class="bi bi-box-arrow-in-down-right"></i> Upstream Dependencies
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                {% for dep in team.dependencies.all %}
+                    {% if dep.direction == "UPSTREAM" %}
+                    <a href="{% url 'team:team_detail' dep.depends_on.slug %}" 
+                       style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: rgba(59, 130, 246, 0.03); border: 1px solid rgba(59, 130, 246, 0.08); border-radius: var(--r-md); text-decoration: none;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 0.8rem; opacity: 0.7;">➡️</span>
+                            <span style="font-weight: 600; color: var(--text-pri); font-size: 0.9rem;">{{ dep.depends_on.teamName }}</span>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span class="dept-badge {{ dep.depends_on.department.departmentName|dept_class }}" style="font-size: 0.62rem; padding: 2px 8px; opacity: 0.85;">
+                                {{ dep.depends_on.department.departmentName }}
+                            </span>
+                            <i class="bi bi-chevron-right" style="font-size: 0.8rem; color: var(--text-sec);"></i>
+                        </div>
+                    </a>
+                    {% endif %}
+                {% empty %}
+                     <p style="font-size: 0.8rem; color: var(--text-sec); font-style: italic;">No dependencies found.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        {# DOWNSTREAM #}
+        <div>
+            <p style="font-weight:700; font-size:0.75rem; margin-bottom:12px; color: #f97316; text-transform: uppercase; letter-spacing: 0.05em;">
+                <i class="bi bi-box-arrow-up-right"></i> Downstream Consumers
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                {% for dep in team.dependencies.all %}
+                    {% if dep.direction == "DOWNSTREAM" %}
+                    <a href="{% url 'team:team_detail' dep.depends_on.slug %}" 
+                       style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: rgba(249, 115, 22, 0.03); border: 1px solid rgba(249, 115, 22, 0.08); border-radius: var(--r-md); text-decoration: none;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 0.8rem; opacity: 0.7;">➡️</span>
+                            <span style="font-weight: 600; color: var(--text-pri); font-size: 0.9rem;">{{ dep.depends_on.teamName }}</span>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span class="dept-badge {{ dep.depends_on.department.departmentName|dept_class }}" style="font-size: 0.62rem; padding: 2px 8px; opacity: 0.85;">
+                                {{ dep.depends_on.department.departmentName }}
+                            </span>
+                            <i class="bi bi-chevron-right" style="font-size: 0.8rem; color: var(--text-sec);"></i>
+                        </div>
+                    </a>
+                    {% endif %}
+                {% empty %}
+                     <p style="font-size: 0.8rem; color: var(--text-sec); font-style: italic;">No consumers found.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endwith %}
+{% endblock %}
