@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load message_extras %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
+
+<p class="section-label" id="page-label">Messages</p>
+<h1 class="section-title" id="page-title">{{ page_title }}</h1>
+<p class="section-sub">{{ page_desc }}</p>
+
+<div class="messages-layout">
+    <aside class="msg-sidebar">
+        <div class="msg-tabs">
+            <a href="{% url 'messages_page:inbox' %}" class="msg-tab {% if active_tab == 'inbox' %}active{% endif %}">Inbox ({{ inbox_count }})</a>
+            <a href="{% url 'messages_page:sent_messages' %}" class="msg-tab {% if active_tab == 'sent' %}active{% endif %}">Sent ({{ sent_count }})</a>
+            <a href="{% url 'messages_page:drafts' %}" class="msg-tab {% if active_tab == 'drafts' %}active{% endif %}">Drafts ({{ drafts_count }})</a>
+            <a href="{% url 'messages_page:compose' %}" class="msg-tab {% if active_tab == 'compose' %}active{% endif %}">+ Compose</a>
+        </div>
+        <div class="msg-search-wrap">
+            <form method="get">
+                <span class="material-symbols-outlined msg-search-icon">search</span>
+                <input class="msg-search-input" type="search" name="search" placeholder="Search" value="{{ search_query }}">
+            </form>
+        </div>
+        <div class="msg-list">
+            {% for list_message in message_list %}
+                {% if active_tab == 'drafts' %}
+                    <a href="{% url 'messages_page:message_detail' list_message.pk %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}" class="draft-item">
+                        <div>
+                            <div class="msg-sender">To {{ list_message.recipient.get_full_name|default:list_message.recipient.username }}</div>
+                            <div class="msg-team">{{ list_message.recipient.email|default:list_message.recipient.username }}</div>
+                            <div class="draft-subject">{{ list_message.subject|default:'Untitled draft' }}</div>
+                            <div class="draft-preview">{{ list_message.body|truncatechars:80 }}</div>
+                            <div class="msg-footer">
+                                <div class="msg-time">{{ list_message.sent_at|message_time }}</div>
+                            </div>
+                        </div>
+                    </a>
+                {% else %}
+                    <a href="{% url 'messages_page:message_detail' list_message.pk %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}" class="msg-item {% if active_tab == 'inbox' and not list_message.is_read %}unread{% endif %}">
+                        <div class="msg-avatar">
+                            {% if active_tab == 'inbox' %}
+                                {{ list_message.sender.username|first|upper }}
+                            {% else %}
+                                {{ list_message.recipient.username|first|upper }}
+                            {% endif %}
+                        </div>
+                        <div class="msg-info">
+                            {% if active_tab == 'inbox' %}
+                                <div class="msg-sender">{{ list_message.sender.get_full_name|default:list_message.sender.username }}</div>
+                                <div class="msg-team">{{ list_message.sender.email|default:list_message.sender.username }}</div>
+                            {% else %}
+                                <div class="msg-sender">To {{ list_message.recipient.get_full_name|default:list_message.recipient.username }}</div>
+                                <div class="msg-team">{{ list_message.recipient.email|default:list_message.recipient.username }}</div>
+                            {% endif %}
+                            <div class="msg-subject">{{ list_message.subject }}</div>
+                            <div class="msg-preview">{{ list_message.body|truncatechars:72 }}</div>
+                            <div class="msg-footer">
+                                <div class="msg-time">{{ list_message.sent_at|message_time }}</div>
+                            </div>
+                        </div>
+                        {% if active_tab == 'inbox' and not list_message.is_read %}
+                            <div class="msg-unread-dot"></div>
+                        {% endif %}
+                    </a>
+                {% endif %}
+            {% empty %}
+                <div class="msg-detail-empty">
+                    <div class="msg-detail-empty-icon">📭</div>
+                    <h2>No messages found</h2>
+                    <p>There are no messages matching your current view.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </aside>
+
+    <section class="msg-detail-body">
+        <div class="msg-detail-subject">{{ message.subject|default:'No subject' }}</div>
+        <div class="msg-detail-meta">
+            <div><strong>From:</strong> {{ message.sender.get_full_name|default:message.sender.username }}</div>
+            <div><strong>To:</strong> {{ message.recipient.get_full_name|default:message.recipient.username }}</div>
+            <div>{{ message.sent_at|date:'M j, Y H:i' }}</div>
+        </div>
+        <div class="msg-detail-text">{{ message.body|linebreaks }}</div>
+    </section>
+</div>
+{% endblock %}
