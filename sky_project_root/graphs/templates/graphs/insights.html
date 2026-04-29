@@ -158,14 +158,14 @@
             <div class="dept-section" id="section-xtv">
 
                 <div class="hero-card">
-                    <div class="hero-avatar" style="background:var(--dept-xtv)">SH</div>
+                    <div class="hero-avatar" style="background:var(--dept-xtv)">{{ dept_details.xtv.initials }}</div>
                     <div>
                         <div class="hero-label">xTV_Web Department Head</div>
-                        <div class="hero-name">Sebastian Holt + Nora Chandler</div>
-                        <div class="hero-sub">xTV_Web · — teams · — engineers</div>
+                        <div class="hero-name">{{ dept_details.xtv.leader }}</div>
+                        <div class="hero-sub">xTV_Web · {{ dept_details.xtv.num_teams }} teams · {{ dept_details.xtv.num_staff }} engineers</div>
                     </div>
                     <div class="hero-count">
-                        <div class="hero-count-num">—</div>
+                        <div class="hero-count-num">{{ dept_details.xtv.num_teams }}</div>
                         <div class="hero-count-label">active teams</div>
                     </div>
                 </div>
@@ -174,19 +174,19 @@
                     <div class="stat-card">
                         <div>
                             <div class="stat-label">Teams</div>
-                            <div class="stat-value">—</div>
+                            <div class="stat-value">{{ dept_details.xtv.num_teams }}</div>
                         </div><span class="stat-icon">👥</span>
                     </div>
                     <div class="stat-card">
                         <div>
-                            <div class="stat-label">Skills tracked</div>
-                            <div class="stat-value">—</div>
+                            <div class="stat-label">Engineers</div>
+                            <div class="stat-value">{{ dept_details.xtv.num_staff }}</div>
                         </div><span class="stat-icon">⚡</span>
                     </div>
                     <div class="stat-card">
                         <div>
-                            <div class="stat-label">Jira projects</div>
-                            <div class="stat-value">—</div>
+                            <div class="stat-label">Upstream deps</div>
+                            <div class="stat-value">{{ dept_details.xtv.upstream }}</div>
                         </div><span class="stat-icon">📋</span>
                     </div>
                     <div class="stat-card">
@@ -247,14 +247,14 @@
             <div class="dept-section" id="section-native">
 
                 <div class="hero-card">
-                    <div class="hero-avatar" style="background:var(--dept-native)">MB</div>
+                    <div class="hero-avatar" style="background:var(--dept-native)">{{ dept_details.native.initials }}</div>
                     <div>
                         <div class="hero-label">Native TVs Department Head</div>
-                        <div class="hero-name">Mason Briggs</div>
-                        <div class="hero-sub">Native TVs · — teams · — engineers</div>
+                        <div class="hero-name">{{ dept_details.native.leader }}</div>
+                        <div class="hero-sub">Native TVs · {{ dept_details.native.num_teams }} teams · {{ dept_details.native.num_staff }} engineers</div>
                     </div>
                     <div class="hero-count">
-                        <div class="hero-count-num">—</div>
+                        <div class="hero-count-num">{{ dept_details.native.num_teams }}</div>
                         <div class="hero-count-label">active teams</div>
                     </div>
                 </div>
@@ -263,19 +263,19 @@
                     <div class="stat-card">
                         <div>
                             <div class="stat-label">Teams</div>
-                            <div class="stat-value">—</div>
+                            <div class="stat-value">{{ dept_details.native.num_teams }}</div>
                         </div><span class="stat-icon">👥</span>
                     </div>
                     <div class="stat-card">
                         <div>
-                            <div class="stat-label">Platforms</div>
-                            <div class="stat-value">—</div>
+                            <div class="stat-label">Engineers</div>
+                            <div class="stat-value">{{ dept_details.native.num_staff }}</div>
                         </div><span class="stat-icon">📺</span>
                     </div>
                     <div class="stat-card">
                         <div>
-                            <div class="stat-label">Agile teams</div>
-                            <div class="stat-value">—</div>
+                            <div class="stat-label">Upstream deps</div>
+                            <div class="stat-value">{{ dept_details.native.upstream }}</div>
                         </div><span class="stat-icon">📌</span>
                     </div>
                     <div class="stat-card">
@@ -336,14 +336,14 @@
             <div class="dept-section" id="section-mobile">
 
                 <div class="hero-card">
-                    <div class="hero-avatar" style="background:var(--dept-mobile)">VR</div>
+                    <div class="hero-avatar" style="background:var(--dept-mobile)">{{ dept_details.mobile.initials }}</div>
                     <div>
                         <div class="hero-label">Mobile Department Head</div>
-                        <div class="hero-name">Violet Ramsey + Adam Sinclair</div>
-                        <div class="hero-sub">Mobile · — teams · — engineers</div>
+                        <div class="hero-name">{{ dept_details.mobile.leader }}</div>
+                        <div class="hero-sub">Mobile · {{ dept_details.mobile.num_teams }} teams · {{ dept_details.mobile.num_staff }} engineers</div>
                     </div>
                     <div class="hero-count">
-                        <div class="hero-count-num">—</div>
+                        <div class="hero-count-num">{{ dept_details.mobile.num_teams }}</div>
                         <div class="hero-count-label">active teams</div>
                     </div>
                 </div>
@@ -352,13 +352,13 @@
                     <div class="stat-card">
                         <div>
                             <div class="stat-label">Teams</div>
-                            <div class="stat-value">—</div>
+                            <div class="stat-value">{{ dept_details.mobile.num_teams }}</div>
                         </div><span class="stat-icon">👥</span>
                     </div>
                     <div class="stat-card">
                         <div>
-                            <div class="stat-label">Heads</div>
-                            <div class="stat-value">2</div>
+                            <div class="stat-label">Engineers</div>
+                            <div class="stat-value">{{ dept_details.mobile.num_staff }}</div>
                         </div><span class="stat-icon">👤</span>
                     </div>
                     <div class="stat-card">
@@ -425,14 +425,14 @@
             <div class="dept-section" id="section-reliability">
 
                 <div class="hero-card">
-                    <div class="hero-avatar" style="background:var(--dept-reliability)">LV</div>
+                    <div class="hero-avatar" style="background:var(--dept-reliability)">{{ dept_details.reliability.initials }}</div>
                     <div>
                         <div class="hero-label">Reliability_Tool Department Head</div>
-                        <div class="hero-name">Lucy Vaughn</div>
-                        <div class="hero-sub">Reliability_Tool · — teams · — engineers</div>
+                        <div class="hero-name">{{ dept_details.reliability.leader }}</div>
+                        <div class="hero-sub">Reliability_Tool · {{ dept_details.reliability.num_teams }} teams · {{ dept_details.reliability.num_staff }} engineers</div>
                     </div>
                     <div class="hero-count">
-                        <div class="hero-count-num">—</div>
+                        <div class="hero-count-num">{{ dept_details.reliability.num_teams }}</div>
                         <div class="hero-count-label">active teams</div>
                     </div>
                 </div>
@@ -441,13 +441,13 @@
                     <div class="stat-card">
                         <div>
                             <div class="stat-label">Teams</div>
-                            <div class="stat-value">—</div>
+                            <div class="stat-value">{{ dept_details.reliability.num_teams }}</div>
                         </div><span class="stat-icon">👥</span>
                     </div>
                     <div class="stat-card">
                         <div>
-                            <div class="stat-label">Jira projects</div>
-                            <div class="stat-value">—</div>
+                            <div class="stat-label">Engineers</div>
+                            <div class="stat-value">{{ dept_details.reliability.num_staff }}</div>
                         </div><span class="stat-icon">📋</span>
                     </div>
                     <div class="stat-card">
@@ -514,14 +514,14 @@
             <div class="dept-section" id="section-arch">
 
                 <div class="hero-card">
-                    <div class="hero-avatar" style="background:var(--dept-arch)">TK</div>
+                    <div class="hero-avatar" style="background:var(--dept-arch)">{{ dept_details.arch.initials }}</div>
                     <div>
                         <div class="hero-label">Arch Department Head</div>
-                        <div class="hero-name">Theodore Knox</div>
-                        <div class="hero-sub">Arch · — teams · — engineers</div>
+                        <div class="hero-name">{{ dept_details.arch.leader }}</div>
+                        <div class="hero-sub">Arch · {{ dept_details.arch.num_teams }} teams · {{ dept_details.arch.num_staff }} engineers</div>
                     </div>
                     <div class="hero-count">
-                        <div class="hero-count-num">—</div>
+                        <div class="hero-count-num">{{ dept_details.arch.num_teams }}</div>
                         <div class="hero-count-label">active teams</div>
                     </div>
                 </div>
@@ -530,13 +530,13 @@
                     <div class="stat-card">
                         <div>
                             <div class="stat-label">Teams</div>
-                            <div class="stat-value">—</div>
+                            <div class="stat-value">{{ dept_details.arch.num_teams }}</div>
                         </div><span class="stat-icon">👥</span>
                     </div>
                     <div class="stat-card">
                         <div>
                             <div class="stat-label">Engineers</div>
-                            <div class="stat-value">—</div>
+                            <div class="stat-value">{{ dept_details.arch.num_staff }}</div>
                         </div><span class="stat-icon">⚙️</span>
                     </div>
                     <div class="stat-card">
@@ -610,15 +610,15 @@
             <div class="dept-section" id="section-programme">
 
                 <div class="hero-card">
-                    <div class="hero-avatar" style="background:var(--dept-programme)">BM</div>
+                    <div class="hero-avatar" style="background:var(--dept-programme)">{{ dept_details.programme.initials }}</div>
                     <div>
                         <div class="hero-label">Programme Department Head</div>
-                        <div class="hero-name">Bella Monroe</div>
-                        <div class="hero-sub">Programme · — teams · — engineers</div>
+                        <div class="hero-name">{{ dept_details.programme.leader }}</div>
+                        <div class="hero-sub">Programme · {{ dept_details.programme.num_teams }} teams · {{ dept_details.programme.num_staff }} engineers</div>
                     </div>
                     <div class="hero-count">
-                        <div class="hero-count-num">—</div>
-                        <div class="hero-count-label">active team</div>
+                        <div class="hero-count-num">{{ dept_details.programme.num_teams }}</div>
+                        <div class="hero-count-label">active teams</div>
                     </div>
                 </div>
 
@@ -626,13 +626,13 @@
                     <div class="stat-card">
                         <div>
                             <div class="stat-label">Teams</div>
-                            <div class="stat-value">—</div>
+                            <div class="stat-value">{{ dept_details.programme.num_teams }}</div>
                         </div><span class="stat-icon">🚀</span>
                     </div>
                     <div class="stat-card">
                         <div>
-                            <div class="stat-label">Skills</div>
-                            <div class="stat-value">—</div>
+                            <div class="stat-label">Engineers</div>
+                            <div class="stat-value">{{ dept_details.programme.num_staff }}</div>
                         </div><span class="stat-icon">🔧</span>
                     </div>
                     <div class="stat-card">
@@ -643,8 +643,8 @@
                     </div>
                     <div class="stat-card">
                         <div>
-                            <div class="stat-label">Concurrent</div>
-                            <div class="stat-value">—</div>
+                            <div class="stat-label">Upstream deps</div>
+                            <div class="stat-value">{{ dept_details.programme.upstream }}</div>
                         </div><span class="stat-icon">📋</span>
                     </div>
                 </div>
@@ -830,9 +830,10 @@
         donut('allDepTypesChart', db.depTypeLabels, db.depTypeCounts, deptColors);
 
         // ── xTV_Web ───────────────────────────────────────────────────
-        hbar('xtvSkillsChart',
-            ['Kubernetes', 'Docker', 'CI/CD', 'Python', 'AWS', 'React', 'Node.js', 'Terraform', 'API Security'],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0], C.xtv);
+        const skillLabels = JSON.parse(document.getElementById('db-skill-cat-labels').textContent);
+        const skillCounts = JSON.parse(document.getElementById('db-skill-cat-counts').textContent);
+
+        hbar('xtvSkillsChart', skillLabels, skillCounts, C.xtv);
 
         donut('xtvJiraChart',
             ['Client Lightning Xtv', 'Client Web', 'Other'],
@@ -852,9 +853,7 @@
             ['Client Roku TV', 'Client Apple TV'],
             [1, 1], [C.native, C.fade(C.native, 0.4)]);
 
-        hbar('nativeSkillsChart',
-            ['Git', 'CI/CD', 'Jenkins', 'Jira', 'SQL', 'Python', 'Selenium'],
-            [0, 0, 0, 0, 0, 0, 0], C.native);
+        hbar('nativeSkillsChart', skillLabels, skillCounts, C.native);
 
         donut('nativeDepChart',
             ['Patch Management', 'Critical Fixes', 'Sprint Planning', 'Deployment', 'Performance', 'Coaching'],
@@ -871,9 +870,7 @@
             ['Violet Ramsey', 'Adam Sinclair'],
             [1, 1], [C.mobile, C.fade(C.mobile, 0.35)]);
 
-        hbar('mobileSkillsChart',
-            ['Git', 'CI/CD', 'JavaScript', 'Frontend', 'API', 'Redis', 'Logging'],
-            [0, 0, 0, 0, 0, 0, 0], C.mobile);
+        hbar('mobileSkillsChart', skillLabels, skillCounts, C.mobile);
 
         donut('mobileFocusChart',
             ['Frontend/UI', 'Caching', 'Versioning', 'Logging', 'Features', 'Performance', 'Refactoring'],
@@ -892,9 +889,7 @@
             [1, 1, 1, 1, 1],
             [C.reliability, C.fade(C.reliability, 0.75), C.fade(C.reliability, 0.55), C.fade(C.reliability, 0.35), C.fade(C.reliability, 0.2)]);
 
-        hbar('relSkillsChart',
-            ['Cryptography', 'UI/UX', 'Frontend', 'Serverless', 'Prototyping', 'React', 'AWS Lambda'],
-            [0, 0, 0, 0, 0, 0, 0], C.reliability);
+        hbar('relSkillsChart', skillLabels, skillCounts, C.reliability);
 
         donut('relDepChart',
             ['Serverless', 'Crypto Security', 'UI Components', 'Prototyping', 'UI Enhancements'],
@@ -907,9 +902,7 @@
             [C.reliability, C.fade(C.reliability, 0.65), C.fade(C.reliability, 0.4), C.fade(C.reliability, 0.2)]);
 
         // ── Arch ──────────────────────────────────────────────────────
-        hbar('archSkillsChart',
-            ['API Development', 'SDK Development', 'Plugin Architecture', 'Service Mesh', 'API Gateway', 'gRPC'],
-            [0, 0, 0, 0, 0, 0], C.arch);
+        hbar('archSkillsChart', skillLabels, skillCounts, C.arch);
 
         donut('archDepChart',
             ['API Integration', 'Service Scaling'],
@@ -920,7 +913,7 @@
             [1, 1, 1], [C.arch, C.fade(C.arch, 0.55), C.fade(C.arch, 0.3)]);
 
         // ── Programme ─────────────────────────────────────────────────
-        hbar('progDepChart', ['Kernel Crushers (Mobile)'], [0], C.programme);
+        hbar('progDepChart', skillLabels, skillCounts, C.programme);
     </script>
 
 </body>

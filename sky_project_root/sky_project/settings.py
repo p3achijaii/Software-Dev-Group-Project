@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'graphs',
     'schedule',
     'dashboard',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +126,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/dashboard/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+AUTHENTICATION_BACKENDS = [
+    'graphs.auth_backends.EmailOrUsernameBackend',
+]

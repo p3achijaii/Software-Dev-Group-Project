@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register — Sky Engineering</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=3">
+</head>
+<body class="auth-body">
+
+    <div class="auth-logo">
+        <span class="logo-sky" style="font-size:2rem;">sky</span>
+        <span class="logo-dir" style="font-size:1.2rem;">EngineeringDirectory</span>
+    </div>
+
+    <div class="auth-card">
+        <h1 class="auth-title">Create account</h1>
+        <p class="auth-subtitle">Fill in your details to get started</p>
+
+        {% if error %}
+        <div style="background:#fee2e2;color:#991b1b;border:1px solid #fca5a5;
+                    border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:.87rem;">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="field-group">
+                <label class="field-label">Full Name</label>
+                <div class="field-wrap">
+                    <span class="field-icon">&#128100;</span>
+                    <input class="field-input" type="text" name="full_name"
+                           placeholder="Anne Marie" autofocus
+                           value="{{ request.POST.full_name }}">
+                </div>
+            </div>
+
+            <div class="field-group">
+                <label class="field-label">Username</label>
+                <div class="field-wrap">
+                    <span class="field-icon">&#64;</span>
+                    <input class="field-input" type="text" name="username"
+                           placeholder="annemarie" autocomplete="username"
+                           value="{{ request.POST.username }}">
+                </div>
+            </div>
+
+            <div class="field-group">
+                <label class="field-label">Email address</label>
+                <div class="field-wrap">
+                    <span class="field-icon">&#9993;</span>
+                    <input class="field-input" type="email" name="email"
+                           placeholder="anne@sky.com" autocomplete="email"
+                           value="{{ request.POST.email }}">
+                </div>
+            </div>
+
+            <div class="field-group">
+                <label class="field-label">Password</label>
+                <div class="field-wrap">
+                    <span class="field-icon">&#128274;</span>
+                    <input class="field-input" type="password" name="password1"
+                           id="pw1" placeholder="At least 8 characters"
+                           autocomplete="new-password">
+                    <button type="button" class="field-eye" onclick="togglePw('pw1',this)">&#128065;</button>
+                </div>
+            </div>
+
+            <div class="field-group">
+                <label class="field-label">Confirm Password</label>
+                <div class="field-wrap">
+                    <span class="field-icon">&#128274;</span>
+                    <input class="field-input" type="password" name="password2"
+                           id="pw2" placeholder="Repeat your password"
+                           autocomplete="new-password">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary">Create Account</button>
+        </form>
+
+        <p class="auth-alt">
+            Already have an account?
+            <a class="auth-link" href="{% url 'login' %}"><strong>Sign in</strong></a>
+        </p>
+    </div>
+
+    <script>
+        function togglePw(id, btn) {
+            const f = document.getElementById(id);
+            f.type = f.type === 'password' ? 'text' : 'password';
+        }
+    </script>
+</body>
+</html>

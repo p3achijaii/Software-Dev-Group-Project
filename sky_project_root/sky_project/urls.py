@@ -18,15 +18,19 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
 from graphs.views import visualization_dashboard
-from dashboard.views import dashboard
+from dashboard.views import dashboard 
+from users.views import profile_view, profile_update, register_view 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", RedirectView.as_view(url="/dashboard/", permanent=False)),
+    path("", RedirectView.as_view(url="/teams/", permanent=False)),
     path("teams/", include("team.urls")),
     path('accounts/', include('django.contrib.auth.urls')),
     path('organisation/', include('organisation.urls')),
-    path('dashboard/', dashboard, name='dashboard'),  
+    path('dashboard/', visualization_dashboard, name='dashboard'),
     path('meetings/', include('schedule.urls')),
-    path('insights/', visualization_dashboard, name='insights'), 
+    path('insights/', visualization_dashboard, name='insight'),
+    path('profile/', profile_view, name='profile'),
+    path('profile/update/', profile_update, name='profile_update'),
+    path('accounts/register/', register_view, name='register'),
 ]

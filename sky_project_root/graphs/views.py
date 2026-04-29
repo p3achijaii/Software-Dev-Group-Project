@@ -1,4 +1,4 @@
-# Student 6: Data Visualization - Dashboard View Logic
+# Student 6: Data Visualization - Insights View
 from django.shortcuts import render
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
@@ -17,8 +17,8 @@ DEPT_KEY = {
 
 @login_required
 def visualization_dashboard(request):
-    total_teams       = Team.objects.count()
-    total_engineers   = Staff.objects.count()
+    total_teams        = Team.objects.count()
+    total_engineers    = Staff.objects.count()
     total_dependencies = TeamDependency.objects.count()
     teams_without_manager = Team.objects.filter(teamLeader__isnull=True).count()
 
@@ -53,12 +53,12 @@ def visualization_dashboard(request):
 
         leader = dept.leader
         dept_details[DEPT_KEY.get(name, name)] = {
-            'name':      name,
-            'leader':    f"{leader.firstName} {leader.lastName}" if leader else 'Unassigned',
-            'initials':  f"{leader.firstName[0]}{leader.lastName[0]}" if leader else '?',
-            'num_teams': dept.num_teams,
-            'num_staff': dept.num_staff,
-            'upstream':  up,
+            'name':       name,
+            'leader':     f"{leader.firstName} {leader.lastName}" if leader else 'Unassigned',
+            'initials':   f"{leader.firstName[0]}{leader.lastName[0]}" if leader else '?',
+            'num_teams':  dept.num_teams,
+            'num_staff':  dept.num_staff,
+            'upstream':   up,
             'downstream': down,
         }
 
@@ -83,22 +83,21 @@ def visualization_dashboard(request):
     dep_type_counts = [d['count'] for d in dep_types]
 
     context = {
-        'total_teams':            total_teams,
-        'total_engineers':        total_engineers,
-        'total_dependencies':     total_dependencies,
-        'teams_without_manager':  teams_without_manager,
-        'has_manager_count':      total_teams - teams_without_manager,
-        # chart data (passed via json_script in template)
-        'dept_names':        dept_names,
-        'dept_team_counts':  dept_team_counts,
-        'dept_staff_counts': dept_staff_counts,
-        'dept_upstream':     dept_upstream,
-        'dept_downstream':   dept_downstream,
-        'dep_type_labels':   dep_type_labels,
-        'dep_type_counts':   dep_type_counts,
-        'dept_details':      dept_details,
-        'skill_cat_labels':  skill_cat_labels,
-        'skill_cat_counts':  skill_cat_counts,
+        'total_teams':           total_teams,
+        'total_engineers':       total_engineers,
+        'total_dependencies':    total_dependencies,
+        'teams_without_manager': teams_without_manager,
+        'has_manager_count':     total_teams - teams_without_manager,
+        'dept_names':            dept_names,
+        'dept_team_counts':      dept_team_counts,
+        'dept_staff_counts':     dept_staff_counts,
+        'dept_upstream':         dept_upstream,
+        'dept_downstream':       dept_downstream,
+        'dep_type_labels':       dep_type_labels,
+        'dep_type_counts':       dep_type_counts,
+        'dept_details':          dept_details,
+        'skill_cat_labels':      skill_cat_labels,
+        'skill_cat_counts':      skill_cat_counts,
     }
 
     return render(request, 'graphs/insights.html', context)
