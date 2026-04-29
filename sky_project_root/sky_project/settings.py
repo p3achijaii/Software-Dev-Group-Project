@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'graphs',
     'schedule',
     'dashboard',
-    'users'
+    'users',
     'reports',
 ]
 
