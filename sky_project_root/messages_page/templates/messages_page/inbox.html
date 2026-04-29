@@ -26,7 +26,7 @@
         <div class="msg-list">
             {% for message in message_list %}
             <a href="{% url 'messages_page:message_detail' message.pk %}" class="msg-item {% if not message.is_read %}unread{% endif %}">
-                <div class="msg-avatar">{{ message.sender.username|first|upper }}</div>
+                <div class="p-avatar p-avatar--msg">{% if message.sender.first_name and message.sender.last_name %}{{ message.sender.first_name|first|upper }}{{ message.sender.last_name|first|upper }}{% else %}{{ message.sender.username|first|upper }}{% endif %}</div>
                 <div class="msg-info">
                     <div class="msg-sender">{{ message.sender.get_full_name|default:message.sender.username }}</div>
                     <div class="msg-team">{{ message.sender.email|default:message.sender.username }}</div>

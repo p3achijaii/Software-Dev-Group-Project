@@ -26,7 +26,7 @@
         <div class="msg-list">
             {% for message in message_list %}
             <a href="{% url 'messages_page:message_detail' message.pk %}" class="msg-item">
-                <div class="msg-avatar">{{ message.recipient.username|first|upper }}</div>
+                <div class="p-avatar p-avatar--msg">{% if message.recipient.first_name and message.recipient.last_name %}{{ message.recipient.first_name|first|upper }}{{ message.recipient.last_name|first|upper }}{% else %}{{ message.recipient.username|first|upper }}{% endif %}</div>
                 <div class="msg-info">
                     <div class="msg-sender">To {{ message.recipient.get_full_name|default:message.recipient.username }}</div>
                     <div class="msg-team">{{ message.recipient.email|default:message.recipient.username }}</div>
