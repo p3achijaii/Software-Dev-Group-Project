@@ -2,34 +2,21 @@ from django import template
 
 register = template.Library()
 
-_COLOR_TO_DEPT = {
-    "pink": "xtv",
-    "indigo": "native",
-    "blue": "mobile",
-    "orange": "web",
-    "green": "data",
-    "purple": "platform",
-}
-
-
-@register.filter(name="color_to_dept")
-def color_to_dept(value):
-    return _COLOR_TO_DEPT.get(value, "xtv")
-
-
-@register.filter(name="initials")
-def initials(value):
-    if not value:
-        return ""
-    parts = str(value).split()
-    if len(parts) >= 2:
-        return (parts[0][0] + parts[1][0]).upper()
-    return value[:2].upper()
-
-
-@register.filter(name="dept_class")
+@register.filter(name='dept_class')
 def dept_class(value):
+    if not value: return ""
+    val = str(value).lower()
+    if 'xtv' in val: return 'xtv'
+    if 'native' in val: return 'native'
+    if 'mobile' in val: return 'mobile'
+    if 'reliability' in val: return 'reliability'
+    if 'arch' in val: return 'arch'
+    if 'programme' in val: return 'programme'
+    return ""
+
+@register.filter(name='initials')
+def initials(value):
+    """Returns the first letter of a name"""
     if not value:
-        return "dept-default"
-    slug = str(value).lower().replace(" ", "-").replace("&", "and")
-    return f"dept-{slug}"
+        return "?"
+    return str(value)[0].upper()

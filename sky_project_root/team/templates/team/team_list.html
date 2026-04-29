@@ -3,66 +3,149 @@
 {% block title %}Team Directory{% endblock %}
 
 {% block content %}
-<p class="section-label">DIRECTORY</p>
-<h1 class="section-title">Team Directory</h1>
-<p class="section-sub">
-    Search for engineering teams, departments, and managers. View skills,
-    dependencies, and start a conversation.
+<script src="https://unpkg.com/htmx.org@1.9.12"></script>
 
-<form method="get" action="{% url 'team:team_list' %}" class="dept-pills"
-    style="flex-direction:column;align-items:stretch;gap:14px;">
-    <div class="search-bar" style="margin-bottom:0;">
-        <i class="bi bi-search search-icon"></i>
-        <input type="search" name="q" value="{{ q }}" placeholder="Search teams, managers, technologies..."
-            class="search-input">
-        {% if active_dept_id %}<input type="hidden" name="dept" value="{{ active_dept_id }}">{% endif %}
-    </div>
+<div class="page-wrap">
+    <header>
+        <p class="page-eyebrow">DIRECTORY</p>
+        <h1 class="page-title">Team Directory</h1>
+        <p class="page-desc">Search for engineering teams and departments.</p>
+    </header>
 
-    <div class="filter-tabs" style="margin-bottom:0;">
-        <a href="?{% if q %}q={{ q }}{% endif %}"
-            class="dept-tab xtv {% if not active_dept_id %}active{% endif %}">All</a>
-        {% for d in departments %}
-        <a href="?dept={{ d.id }}{% if q %}&q={{ q }}{% endif %}"
-            class="dept-tab {{ d.color|dept_class }} {% if active_dept_id == d.id %}active{% endif %}">
-            {{ d.name }}
-        </a>
-        {% endfor %}
-    </div>
-</form>
-
-
-<p class="results-summary">
-    Showing <strong>{{ teams|length }}</strong> of <strong>{{ total }}</strong> teams
-</p>
-
-{% if teams %}
-<div class="teams-grid">
-    {% for team in teams %}
-    {% with dc=team.department.color|dept_class %}
-    <a href="{% url 'team:team_detail' team.slug %}" class="team-card">
-        <div class="team-card-strip {{ dc }}"></div>
-        <div class="team-card-body">
-            <div class="team-card-top">
-                <div class="team-name">{{ team.name }}</div>
-                <span class="dept-badge {{ dc }}">{{ team.department.name }}</span>
-            </div>
-            <p class="team-desc">{{ team.description }}</p>
-            <div class="team-card-footer">
-                <div>
-                    <div class="team-leader-label">Team Leader</div>
-                    <div class="team-leader-name">{{ team.leader_name }}</div>
-                </div>
-                <span class="team-members"><i class="bi bi-people"></i> {{ team.members.count }}</span>
-            </div>
+    <form method="get" action="{% url 'team:team_list' %}" class="search-section" id="search-form">
+        <div class="search-bar">
+            <i class="bi bi-search search-icon"></i>
+            <input type="search" 
+                   name="q" 
+                   id="search-input"
+                   value="{{ q|default:'' }}" 
+                   placeholder="Start typing to search..." 
+                   class="search-input"
+                   autocomplete="off"
+                   hx-get="{% url 'team:team_list' %}"
+                   hx-trigger="keyup changed delay:300ms, search"
+                   hx-target="#team-results-container"
+                   hx-select="#team-results-container"
+                   hx-swap="outerHTML">
+            
+            {% if active_dept_id %}
+                <input type="hidden" name="dept" value="{{ active_dept_id }}">
+            {% endif %}
         </div>
-    </a>
-    {% endwith %}
-    {% endfor %}
+
+        <div class="filter-tabs">
+            <a href="?{% if q %}q={{ q }}{% endif %}" 
+               class="dept-tab all {% if not active_dept_id %}active{% endif %}">
+                All Teams
+            </a>
+            {% for d in departments %}
+                {% with dc=d.departmentName|dept_class %}
+                <a href="?dept={{ d.departmentID }}{% if q %}&q={{ q }}{% endif %}"
+                   class="dept-tab {{ dc }} {% if active_dept_id == d.departmentID %}active{% endif %}">
+                    {{ d.departmentName }}
+                </a>
+                {% endwith %}
+            {% endfor %}
+        </div>
+    </form>
+
+    <p class="results-summary">
+        Showing <strong>{{ total }}</strong> matching teams
+    </p>
+
+    <div id="team-results-container">
+        {% if teams %}
+        <div class="teams-grid">
+            {% for team in teams %}
+            {% with dc=team.department.departmentName|dept_class %}
+            
+            <a href="{% if team.slug %}{% url 'team:team_detail' team.slug %}{% else %}#{% endif %}" class="team-card">
+                <div class="team-card-strip {{ dc }}"></div>
+
+                <div class="team-card-body">
+                    <div class="team-card-top">
+                        <div class="team-name">{{ team.teamName }}</div>
+                        <span class="dept-badge {{ dc }}">
+                            {{ team.department.departmentName }}
+                        </span>
+                    </div>
+
+                    <div class="team-desc" style="color: var(--text-sec); font-size: 0.85rem; margin: 12px 0; line-height: 1.5; height: 3.8em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+                        {% if team.keySkills %}
+                            {{ team.keySkills }}
+                        {% elif team.developmentFocusAreas %}
+                            {{ team.developmentFocusAreas }}
+                        {% elif team.developmentFocus.all %}
+                            {% for focus in team.developmentFocus.all %}{{ focus.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                        {% else %}
+                            No description available for this team.
+                        {% endif %}
+                    </div>
+
+                    <div class="team-card-footer">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end; width: 100%;">
+                            <div style="flex: 1;">
+                                <div class="team-leader-label">Team Leader</div>
+                                <div class="team-leader-name">
+                                    👤 {{ team.teamLeader.firstName }} {{ team.teamLeader.lastName }}
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 2px; opacity: 0.8; font-size: 1.1rem;">
+                                ➡️
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endwith %}
+            {% endfor %}
+        </div>
+
+        {# ── Pagination Navigation ── #}
+        <div class="pagination-wrapper" style="margin-top: 40px; display: flex; justify-content: center; gap: 15px; align-items: center;">
+            {% if teams.has_previous %}
+                <a href="?page={{ teams.previous_page_number }}{% if q %}&q={{ q }}{% endif %}{% if active_dept_id %}&dept={{ active_dept_id }}{% endif %}" 
+                   class="btn-outline" style="padding: 10px 20px; border-radius: var(--r-md); font-weight: 600; text-decoration: none;">
+                   ⬅️ Previous
+                </a>
+            {% endif %}
+
+            <span class="page-desc" style="font-weight: 700; color: var(--text-pri); background: var(--bg-sec); padding: 8px 16px; border-radius: var(--r-md);">
+                Page {{ teams.number }} of {{ teams.paginator.num_pages }}
+            </span>
+
+            {% if teams.has_next %}
+                <a href="?page={{ teams.next_page_number }}{% if q %}&q={{ q }}{% endif %}{% if active_dept_id %}&dept={{ active_dept_id }}{% endif %}" 
+                   class="btn-outline" style="padding: 10px 20px; border-radius: var(--r-md); font-weight: 600; text-decoration: none;">
+                   Next ➡️
+                </a>
+            {% endif %}
+        </div>
+
+        {% else %}
+        <div class="no-results" style="text-align:center; padding: 60px; border: 1px dashed var(--border); border-radius: 12px;">
+            <div style="font-size: 2.5rem; margin-bottom: 10px;">🔍</div>
+            <p style="margin-bottom: 10px;">No teams found matching your search.</p>
+            <a href="{% url 'team:team_list' %}" style="color: var(--accent); font-weight: 600;">Clear all filters</a>
+        </div>
+        {% endif %}
+    </div>
 </div>
-{% else %}
-<div class="quick-actions" style="text-align:center;">
-    <p class="action-label">No teams match your search.</p>
-    <p class="action-desc">Try a different keyword or clear the department filter.</p>
-</div>
-{% endif %}
+
+<script>
+    document.body.addEventListener('htmx:load', function(evt) {
+        console.log("HTMX Loaded and ready");
+    });
+
+    if (typeof htmx === 'undefined') {
+        const input = document.getElementById('search-input');
+        const form = document.getElementById('search-form');
+        let timer;
+        input.addEventListener('input', () => {
+            clearTimeout(timer);
+            timer = setTimeout(() => form.submit(), 500);
+        });
+    }
+</script>
 {% endblock %}
