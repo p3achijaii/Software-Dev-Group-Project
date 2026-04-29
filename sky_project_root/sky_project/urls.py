@@ -23,11 +23,11 @@ from users.views import profile_view, profile_update, register_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", RedirectView.as_view(url="/teams/", permanent=False)),
+    path("", RedirectView.as_view(url="/dashboard/", permanent=False)),
     path("teams/", include("team.urls")),
     path('accounts/', include('django.contrib.auth.urls')),
     path('organisation/', include('organisation.urls')),
-    path('dashboard/', visualization_dashboard, name='dashboard'),
+    path('dashboard/', dashboard, name='dashboard'),  
     path('meetings/', include('schedule.urls')),
     path('insights/', visualization_dashboard, name='insight'),
     path('profile/', profile_view, name='profile'),
