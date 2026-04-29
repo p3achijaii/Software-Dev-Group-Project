@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(python manage.py loaddata sky_project_root/../org_data_skills.json)",
-      "Bash(python manage.py loaddata \"c:/Users/gradi/Software-Dev-Group-Project/sky_project_root/org_data_skills.json\")",
-      "Bash(python manage.py migrate)"
-    ]
-  }
-}
