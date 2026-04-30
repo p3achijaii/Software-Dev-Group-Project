@@ -29,6 +29,7 @@ urlpatterns = [
     path('organisation/', include('organisation.urls')),
     path('dashboard/', dashboard, name='dashboard'),  
     path('meetings/', include('schedule.urls')),
+    path('calendar/', include('schedule.urls')),
     path('insights/', visualization_dashboard, name='insight'),
     path('profile/', profile_view, name='profile'),
     path('profile/update/', profile_update, name='profile_update'),
