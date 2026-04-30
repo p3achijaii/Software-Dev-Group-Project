@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Calendar | Sky Engineering Directory{% endblock %}
+
+{% block content %}
+
+<div class="page-wrap reports-wrapper">
+
+  <div class="page-header">
+    <div class="page-eyebrow">Schedule</div>
+    <h1 class="page-title grad-text">Team Calendar</h1>
+    <p class="page-desc">Schedule and manage engineering team meetings. Switch between upcoming, weekly, and monthly views.</p>
+  </div>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div>
+        <div class="metric-label">Upcoming Meetings</div>
+        <div class="metric-value">{{ summary.upcoming_count|default:"0" }}</div>
+      </div>
+      <div class="metric-icon purple">📅</div>
+    </div>
+    <div class="metric-card">
+      <div>
+        <div class="metric-label">This Week</div>
+        <div class="metric-value">{{ summary.this_week_count|default:"0" }}</div>
+      </div>
+      <div class="metric-icon blue">📆</div>
+    </div>
+    <div class="metric-card">
+      <div>
+        <div class="metric-label">This Month</div>
+        <div class="metric-value">{{ summary.this_month_count|default:"0" }}</div>
+      </div>
+      <div class="metric-icon pink">🗓️</div>
+    </div>
+    <div class="metric-card">
+      <div>
+        <div class="metric-label">Teams Involved</div>
+        <div class="metric-value">{{ summary.teams_involved|default:"0" }}</div>
+      </div>
+      <div class="metric-icon orange">👥</div>
+    </div>
+    <div class="metric-card">
+      <div>
+        <div class="metric-label">Today</div>
+        <div class="metric-value" style="font-size:1rem;">{% now "j M Y" %}</div>
+      </div>
+      <div class="metric-icon purple">⏰</div>
+    </div>
+  </div>
+
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
+    <div style="display:flex; gap:8px;">
+      <a href="{% url 'meetings_home' %}" class="{% if request.resolver_match.url_name == 'meetings_home' %}btn-grad{% else %}btn-outline{% endif %}">📋 Upcoming</a>
+      <a href="{% url 'weekly_view' %}" class="{% if request.resolver_match.url_name == 'weekly_view' %}btn-grad{% else %}btn-outline{% endif %}">📆 Weekly</a>
+      <a href="{% url 'monthly_view' %}" class="{% if request.resolver_match.url_name == 'monthly_view' %}btn-grad{% else %}btn-outline{% endif %}">📅 Monthly</a>
+    </div>
+    <a href="{% url 'schedule_meeting' %}" class="btn-grad">+ Schedule Meeting</a>
+  </div>
+
+  {% if request.resolver_match.url_name == 'meetings_home' %}
+
+  <div class="table-card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
+      <div>
+        <h3 class="chart-title" style="margin:0;">Meetings</h3>
+        <p class="chart-sub" style="margin:4px 0 0;">All scheduled engineering team meetings.</p>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <a href="?filter=all" class="{% if active_filter == 'all' or not active_filter %}btn-grad{% else %}btn-outline{% endif %}" style="padding:6px 14px; font-size:0.82rem;">All</a>
+        <a href="?filter=upcoming" class="{% if active_filter == 'upcoming' %}btn-grad{% else %}btn-outline{% endif %}" style="padding:6px 14px; font-size:0.82rem;">Upcoming</a>
+        <a href="?filter=past" class="{% if active_filter == 'past' %}btn-grad{% else %}btn-outline{% endif %}" style="padding:6px 14px; font-size:0.82rem;">Past</a>
+      </div>
+    </div>
+    {% if meetings %}
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Date &amp; Time</th>
+          <th>Platform</th>
+          <th>Team</th>
+          <th>Organised By</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for meeting in meetings %}
+        <tr>
+          <td class="name">{{ meeting.title }}</td>
+          <td>{{ meeting.date_time|date:"j M Y" }} at {{ meeting.date_time|time:"H:i" }}</td>
+          <td>
+            {% if meeting.date_time >= now %}
+              <span class="badge" style="background:linear-gradient(90deg,#ec4899,#8b5cf6);color:white;border:none;">{{ meeting.platform|default:"—" }}</span>
+            {% else %}
+              <span class="badge badge-unclassified">{{ meeting.platform|default:"—" }}</span>
+            {% endif %}
+          </td>
+          <td>{{ meeting.team.teamName|default:"—" }}</td>
+          <td>{{ meeting.organiser.get_full_name|default:meeting.organiser.username|default:"—" }}</td>
+          <td style="white-space:nowrap;">
+            <a href="{% url 'edit_meeting' meeting.id %}" class="btn-outline" style="padding:4px 10px;font-size:0.78rem;">Edit</a>
+            <a href="{% url 'delete_meeting' meeting.id %}" class="btn-outline" style="padding:4px 10px;font-size:0.78rem;color:#ef4444;border-color:#ef4444;margin-left:4px;" onclick="return confirm('Delete this meeting?')">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p style="color:var(--text-sec);font-size:0.9rem;padding:12px 0;">📭 No meetings found.</p>
+    {% endif %}
+  </div>
+
+  {% elif request.resolver_match.url_name == 'weekly_view' %}
+
+  <div class="table-card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+      <h3 class="chart-title" style="margin:0;">Week: {{ week_start_label }} – {{ week_end_label }}</h3>
+      <div style="display:flex; gap:8px;">
+        <a href="?week_offset={{ prev_week_offset }}" class="btn-outline" style="padding:6px 14px;font-size:0.85rem;">‹ Prev</a>
+        <a href="{% url 'weekly_view' %}" class="btn-outline" style="padding:6px 14px;font-size:0.85rem;">This Week</a>
+        <a href="?week_offset={{ next_week_offset }}" class="btn-outline" style="padding:6px 14px;font-size:0.85rem;">Next ›</a>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(7,1fr); gap:8px;">
+      {% for day in week_days %}
+      <div style="border:1px solid {% if day.is_today %}#ec4899{% else %}#e5e7eb{% endif %}; border-radius:10px; padding:10px 8px; min-height:140px; background:{% if day.is_today %}linear-gradient(135deg,#fdf4ff,#f5f3ff){% else %}white{% endif %};">
+        <div style="font-size:0.72rem;font-weight:700;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:3px;">{{ day.name }}</div>
+        <div style="font-size:1.1rem;font-weight:800;margin-bottom:8px;{% if day.is_today %}background:linear-gradient(90deg,#ec4899,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;{% else %}color:var(--text-main);{% endif %}">{{ day.date }}</div>
+        {% for meeting in day.meetings %}
+        <div style="padding:3px 6px;border-radius:6px;font-size:0.68rem;font-weight:600;background:linear-gradient(90deg,#ec4899,#8b5cf6);color:white;margin-bottom:4px;line-height:1.4;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="{{ meeting.title }}">
+          {{ meeting.date_time|time:"H:i" }} {{ meeting.title|truncatechars:15 }}{% if meeting.platform %} · {{ meeting.platform }}{% endif %}
+        </div>
+        {% empty %}
+        <div style="font-size:0.72rem;color:#cbd5e1;margin-top:6px;">No meetings</div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% elif request.resolver_match.url_name == 'monthly_view' %}
+
+  <div class="table-card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+      <h3 class="chart-title" style="margin:0;">{{ month_name }} {{ current_year }}</h3>
+      <div style="display:flex;gap:8px;">
+        <a href="?month={{ prev_month }}&year={{ prev_year }}" class="btn-outline" style="padding:6px 14px;font-size:0.85rem;">‹ Prev</a>
+        <a href="?month={{ today_month }}&year={{ today_year }}" class="btn-outline" style="padding:6px 14px;font-size:0.85rem;">Today</a>
+        <a href="?month={{ next_month }}&year={{ next_year }}" class="btn-outline" style="padding:6px 14px;font-size:0.85rem;">Next ›</a>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px;">
+      {% for header in day_headers %}
+      <div style="text-align:center;font-size:0.75rem;font-weight:700;color:var(--text-sec);padding:6px 0;text-transform:uppercase;letter-spacing:0.05em;">{{ header }}</div>
+      {% endfor %}
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;">
+      {% for blank in leading_blanks %}
+      <div style="min-height:88px;border:1px solid #f1f5f9;border-radius:8px;padding:6px;background:#fafafa;"></div>
+      {% endfor %}
+      {% for day in calendar_days %}
+      <div style="min-height:88px;border:1px solid {% if day.is_today %}#ec4899{% else %}#e5e7eb{% endif %};border-radius:8px;padding:6px;background:{% if day.is_today %}linear-gradient(135deg,#fdf4ff,#f5f3ff){% else %}white{% endif %};">
+        <span style="display:inline-block;font-size:0.82rem;font-weight:{% if day.is_today %}800{% else %}600{% endif %};margin-bottom:4px;{% if day.is_today %}background:linear-gradient(90deg,#ec4899,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;{% else %}color:var(--text-main);{% endif %}">{{ day.day }}</span>
+        {% for meeting in day.meetings %}
+        <div style="padding:2px 5px;border-radius:4px;font-size:0.67rem;font-weight:600;background:linear-gradient(90deg,#ec4899,#8b5cf6);color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;cursor:pointer;" title="{{ meeting.title }} — {{ meeting.date_time|time:'H:i' }}">
+          {{ meeting.date_time|time:"H:i" }} {{ meeting.title|truncatechars:13 }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% endif %}
+
+  <div class="quick-actions">
+    <div class="quick-actions-title">Quick Actions</div>
+    <div class="action-item" onclick="window.location.href='{% url 'schedule_meeting' %}';" style="cursor:pointer;">
+      <div class="action-icon">➕</div>
+      <div>
+        <div class="action-label">Schedule a Meeting</div>
+        <div class="action-desc">Set up a new team meeting with date, time, and platform.</div>
+      </div>
+    </div>
+    <div class="action-item" onclick="window.location.href='/teams/';" style="cursor:pointer;">
+      <div class="action-icon">👥</div>
+      <div>
+        <div class="action-label">View All Teams</div>
+        <div class="action-desc">Browse engineering teams to invite to meetings.</div>
+      </div>
+      <span class="action-badge">→</span>
+    </div>
+    <div class="action-item" onclick="window.location.href='{% url 'monthly_view' %}';" style="cursor:pointer;">
+      <div class="action-icon">📅</div>
+      <div>
+        <div class="action-label">Monthly View</div>
+        <div class="action-desc">See all meetings laid out on a full month grid.</div>
+      </div>
+      <span class="action-badge">→</span>
+    </div>
+    <div class="action-item" onclick="window.location.href='{% url 'weekly_view' %}';" style="cursor:pointer;">
+      <div class="action-icon">📆</div>
+      <div>
+        <div class="action-label">Weekly View</div>
+        <div class="action-desc">See this week's meetings day by day.</div>
+      </div>
+      <span class="action-badge">→</span>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

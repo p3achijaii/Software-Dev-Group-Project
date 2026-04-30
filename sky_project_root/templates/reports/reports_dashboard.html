@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Reports | Sky Engineering Directory{% endblock %}
+
+{% block content %}
+<div class="page-wrap reports-wrapper">
+
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="page-eyebrow">Reports</div>
+    <h1 class="page-title grad-text">Engineering Overview</h1>
+    <p class="page-desc">
+      Central analytics on team structure, department coverage, and key dependency metrics.
+    </p>
+  </div>
+
+  <!-- === METRIC CARDS === -->
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div>
+        <div class="metric-label">Total Teams</div>
+        <div class="metric-value">{{ summary.total_teams }}</div>
+      </div>
+      <div class="metric-icon purple">👥</div>
+    </div>
+    <div class="metric-card">
+      <div>
+        <div class="metric-label">Departments</div>
+        <div class="metric-value">{{ summary.total_departments }}</div>
+      </div>
+      <div class="metric-icon blue">🏢</div>
+    </div>
+    <div class="metric-card">
+      <div>
+        <div class="metric-label">Teams Without Leaders</div>
+        <div class="metric-value {% if summary.unmanaged_count > 0 %}alert{% endif %}">
+          {{ summary.unmanaged_count }}
+        </div>
+      </div>
+      <div class="metric-icon orange">⚠️</div>
+    </div>
+    <div class="metric-card">
+      <div>
+        <div class="metric-label">Incomplete Profiles</div>
+        <div class="metric-value {% if summary.incomplete_count > 0 %}alert{% endif %}">
+          {{ summary.incomplete_count }}
+        </div>
+      </div>
+      <div class="metric-icon orange">📋</div>
+    </div>
+    <div class="metric-card">
+      <div>
+        <div class="metric-label">Last Updated</div>
+        <div class="metric-value" style="font-size:1rem;">{% now "j M Y" %}</div>
+      </div>
+      <div class="metric-icon pink">📅</div>
+    </div>
+  </div>
+
+  <!-- === DEPARTMENT CHART === -->
+  <div class="table-card">
+    <h3 class="chart-title">Teams per Department</h3>
+    <p class="chart-sub">Visual breakdown of how many teams exist in each department.</p>
+    <div style="margin-top: 24px;">
+      {% for dept in departments %}
+      <div style="margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+          <span style="font-size: 0.88rem; font-weight: 600; color: var(--text-main);">
+            {{ dept.departmentName }}
+          </span>
+          <span style="font-size: 0.88rem; font-weight: 700; color: #ec4899;">
+            {{ dept.team_count }} team{{ dept.team_count|pluralize }}
+          </span>
+        </div>
+        <div style="background: #e5e7eb; border-radius: 999px; height: 10px; width: 100%;">
+          <div style="
+            height: 10px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #ec4899, #8b5cf6);
+            width: {% widthratio dept.team_count max_teams 100 %}%;
+          "></div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- === TEAMS WITHOUT LEADERS TABLE === -->
+  <div class="table-card">
+    <h3 class="chart-title">Teams Without Leaders</h3>
+    {% if unmanaged %}
+    <table>
+      <thead>
+        <tr>
+          <th>Team Name</th>
+          <th>Department</th>
+          <th>Team Type</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in unmanaged %}
+        <tr>
+          <td class="name">{{ t.teamName }}</td>
+          <td>{{ t.department.departmentName }}</td>
+          <td>{{ t.teamType|default:"–" }}</td>
+          <td><span class="badge badge-unclassified">No Leader</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>✅ All teams currently have designated leaders.</p>
+    {% endif %}
+  </div>
+
+  <!-- === TEAMS MISSING INFO === -->
+  <div class="table-card">
+    <h3 class="chart-title">Teams Missing Key Information</h3>
+    <p class="chart-sub">Teams that are missing skills or focus area data.</p>
+
+    {% if incomplete_teams %}
+    <p style="margin-bottom: 16px; font-size: 0.9rem; color: var(--text-sec);">
+      ⚠️ <strong>{{ summary.incomplete_count }}</strong> out of 
+      <strong>{{ summary.total_teams }}</strong> teams have incomplete profiles.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Team Name</th>
+          <th>Department</th>
+          <th>Team Leader</th>
+          <th>Missing</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in incomplete_teams|slice:":10" %}
+        <tr>
+          <td class="name">{{ t.teamName }}</td>
+          <td>{{ t.department.departmentName }}</td>
+          <td>
+            {% if t.teamLeader %}
+              {{ t.teamLeader.firstName }} {{ t.teamLeader.lastName }}
+            {% else %}
+              —
+            {% endif %}
+          </td>
+          <td>
+            {% if not t.keySkills %}
+              <span class="badge badge-unclassified">No Skills</span>
+            {% endif %}
+            {% if not t.developmentFocusAreas %}
+              <span class="badge badge-unclassified">No Focus Areas</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% if summary.incomplete_count > 10 %}
+    <p style="margin-top: 12px; font-size: 0.82rem; color: var(--text-sec);">
+      Showing 10 of {{ summary.incomplete_count }} incomplete teams. Download the Excel report for the full list.
+    </p>
+    {% endif %}
+    {% else %}
+    <p>✅ All teams have complete information.</p>
+    {% endif %}
+  </div>
+
+  <!-- === EXPORT OPTIONS === -->
+  <div class="reports-export-card table-card">
+    <h3 class="chart-title">Download Reports</h3>
+    <p class="chart-sub">Export full listings for review and audit compliance.</p>
+    <div class="reports-export-btns">
+      <a href="{% url 'reports:export_pdf' %}" class="btn-grad">⬇️ PDF Report</a>
+      <a href="{% url 'reports:export_excel' %}" class="btn-outline">⬇️ Excel Report</a>
+    </div>
+  </div>
+
+  <!-- === QUICK ACTIONS === -->
+  <div class="quick-actions">
+    <div class="quick-actions-title">Quick Actions</div>
+    <div class="action-item" onclick="window.location.href='/teams/';">
+      <div class="action-icon">👥</div>
+      <div>
+        <div class="action-label">View All Teams</div>
+        <div class="action-desc">Explore team profiles and dependencies in detail.</div>
+      </div>
+      <span class="action-badge">{{ summary.total_teams }}</span>
+    </div>
+    <div class="action-item" onclick="window.location.href='/organisation/';">
+      <div class="action-icon">🏢</div>
+      <div>
+        <div class="action-label">Department Structure</div>
+        <div class="action-desc">See current departments and team allocations.</div>
+      </div>
+      <span class="action-badge">{{ summary.total_departments }}</span>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

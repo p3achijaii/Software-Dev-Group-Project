@@ -2250,3 +2250,83 @@ select {
     gap: 8px;
   }
 }
+/* ================================================
+   REPORTS PAGE (Student 5)
+   ================================================ */
+.reports-wrapper {
+  padding: 40px 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.reports-summary-card,
+.reports-table-card,
+.reports-export-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm);
+  padding: 28px;
+  margin-bottom: 24px;
+}
+
+.reports-summary-card h3,
+.reports-table-card h3,
+.reports-export-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.reports-summary-card ul {
+  list-style: none;
+}
+.reports-summary-card li {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: var(--text-sec);
+}
+.reports-summary-card li strong {
+  color: var(--text-pri);
+}
+
+.reports-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+.reports-table th,
+.reports-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+.reports-table thead {
+  background: #fafafa;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--text-sec);
+}
+
+.reports-export-btns {
+  display: flex;
+  gap: 12px;
+}
+.reports-export-btns .btn {
+  padding: 10px 20px;
+  border-radius: var(--r-pill);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.reports-export-btns .btn.pdf {
+  background: #ec4899;
+}
+.reports-export-btns .btn.excel {
+  background: #10b981;
+}
+.reports-export-btns .btn:hover {
+  opacity: 0.9;
+}

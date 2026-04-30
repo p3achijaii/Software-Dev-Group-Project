@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Sky Engineering Directory{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="logo">
+      <span class="logo-sky">sky</span>
+      <span class="logo-dir">Directory</span>
+    </div>
+    <a href="/accounts/logout/" class="btn-logout">Sign out</a>
+  </div>
+  <div class="main-nav">
+    <a class="nav-link {% if request.path == '/dashboard/' %}active{% endif %}" href="/dashboard/">🛖 Dashboard</a>
+    <a class="nav-link {% if '/teams/' in request.path %}active{% endif %}" href="/teams/">👥 Team Directory</a>
+    <a class="nav-link {% if '/organisation/' in request.path %}active{% endif %}" href="/organisation/">🌍 Org chart</a>
+    <a class="nav-link {% if '/insights/' in request.path %}active{% endif %}" href="/insights/">📊 Insights</a>
+    <a class="nav-link {% if '/messages/' in request.path %}active{% endif %}" href="/messages/">💌 Messages</a>
+    <a class="nav-link {% if '/meetings/' in request.path %}active{% endif %}" href="/meetings/">🤝 Meetings</a>
+    <a class="nav-link {% if '/calendar/' in request.path %}active{% endif %}" href="/calendar/">🗓️ Calendar</a>
+    <a class="nav-link {% if '/reports/' in request.path %}active{% endif %}" href="{% url 'reports:dashboard' %}">📈 Reports</a>
+    <a class="nav-link {% if '/profile/' in request.path %}active{% endif %}" href="/profile/">⭐ My profile</a>
+  </div>
+</header>
+
+{% block content %}{% endblock %}
+
+<footer class="site-foo

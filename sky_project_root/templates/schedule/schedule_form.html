@@ -30,6 +30,7 @@
             <a class="nav-link" href="/messages/">💌 Messages</a>
             <a class="nav-link" href="/meetings/">🤝 Meetings</a>
             <a class="nav-link" href="/calendar/">🗓️ Calendar</a>
+            <a class="nav-link" href="{% url 'reports:dashboard' %}">📈 Reports</a>
             <a class="nav-link" href="/profile/">⭐ My profile</a>
         </div>
 </header>
@@ -95,8 +96,8 @@
                     Schedule Meeting
                 </button>
 
-                <a href="/meetings/" class="btn-outline">
-                    Cancel
+                <a href="/calendar/" class="btn-outline">
+                Cancel
                 </a>
             </div>
         </form>
