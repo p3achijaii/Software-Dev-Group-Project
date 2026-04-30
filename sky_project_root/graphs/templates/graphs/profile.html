@@ -5,84 +5,6 @@
     <meta charset="UTF-8">
     <title>Sky Engineering - My Profile</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=3">
-    <style>
-        /* Profile-only styles, self-contained */
-        .p-wrap      { max-width: 720px; margin: 0 auto; padding: 32px 24px 64px; }
-        .p-card      { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px;
-                       box-shadow: 0 1px 3px rgba(0,0,0,.07); padding: 28px; margin-bottom: 20px; }
-        .p-card-title{ font-size: 1rem; font-weight: 700; margin: 0 0 4px; color: #111827; }
-        .p-card-sub  { font-size: .83rem; color: #6b7280; margin: 0 0 20px; }
-
-        /* Hero */
-        .p-hero      { display: flex; align-items: center; gap: 20px; }
-        .p-avatar    { width: 68px; height: 68px; border-radius: 50%; flex-shrink: 0;
-                       background: linear-gradient(135deg,#ec4899,#8b5cf6);
-                       color: #fff; font-size: 1.5rem; font-weight: 800;
-                       display: flex; align-items: center; justify-content: center; }
-        .p-name      { font-size: 1.35rem; font-weight: 800; margin: 0 0 3px; color: #111827; }
-        .p-meta      { font-size: .85rem; color: #6b7280; margin: 0 0 8px; }
-        .p-badges    { display: flex; flex-wrap: wrap; gap: 6px; }
-        .p-badge     { font-size: .72rem; font-weight: 600; padding: 3px 10px;
-                       border-radius: 999px; }
-        .p-badge-g   { background: #d1fae5; color: #065f46; }
-        .p-badge-p   { background: #ede9fe; color: #6d28d9; }
-        .p-badge-gr  { background: #f3f4f6; color: #374151; }
-
-        /* Form */
-        .p-grid2     { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .p-field     { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
-        .p-label     { font-size: .78rem; font-weight: 700; color: #6b7280;
-                       text-transform: uppercase; letter-spacing: .04em; }
-        .p-input     { padding: 10px 13px; border: 1.5px solid #e5e7eb; border-radius: 8px;
-                       font-size: .9rem; font-family: inherit; color: #111827;
-                       background: #fff; width: 100%; box-sizing: border-box;
-                       transition: border-color .15s; }
-        .p-input:focus { outline: none; border-color: #8b5cf6; }
-        .p-input:disabled { background: #f9fafb; color: #9ca3af; }
-        .p-hint      { font-size: .75rem; color: #9ca3af; }
-        .p-btn       { padding: 10px 26px; background: linear-gradient(135deg,#ec4899,#8b5cf6);
-                       color: #fff; border: none; border-radius: 999px; font-size: .9rem;
-                       font-weight: 700; cursor: pointer; transition: opacity .15s; }
-        .p-btn:hover { opacity: .88; }
-
-        /* Flash messages */
-        .p-flash     { padding: 11px 16px; border-radius: 8px; margin-bottom: 16px;
-                       font-size: .88rem; font-weight: 500; }
-        .p-flash-ok  { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
-        .p-flash-err { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
-
-        /* Stats */
-        .p-stats     { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
-        .p-stat      { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px;
-                       padding: 16px; display: flex; flex-direction: column; gap: 3px; }
-        .p-stat-val  { font-size: 1.7rem; font-weight: 800; color: #111827; line-height: 1; }
-        .p-stat-val small { font-size: 1rem; font-weight: 600; color: #6b7280; }
-        .p-stat-key  { font-size: .68rem; font-weight: 700; color: #9ca3af;
-                       text-transform: uppercase; letter-spacing: .05em; }
-        .p-stat-sub  { font-size: .77rem; color: #6b7280; }
-
-        /* Meetings list */
-        .p-meeting   { display: flex; align-items: center; gap: 12px;
-                       padding: 11px 0; border-bottom: 1px solid #f3f4f6; }
-        .p-meeting:last-child { border-bottom: none; }
-        .p-dot       { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-        .p-m-title   { font-size: .9rem; font-weight: 600; color: #111827; }
-        .p-m-meta    { font-size: .78rem; color: #6b7280; }
-
-        /* Danger */
-        .p-card-danger { border-color: #fca5a5; background: #fff5f5; }
-        .p-danger-title { color: #b91c1c; }
-
-        /* Divider between form sections */
-        .p-divider   { border: none; border-top: 1px solid #f3f4f6; margin: 20px 0; }
-
-        @media (max-width: 600px) {
-            .p-grid2  { grid-template-columns: 1fr; }
-            .p-stats  { grid-template-columns: 1fr 1fr; }
-            .p-hero   { flex-direction: column; text-align: center; }
-            .p-badges { justify-content: center; }
-        }
-    </style>
 </head>
 <body>
 
@@ -105,7 +27,6 @@
         <a class="nav-link" href="/insights/">📊 Insights</a>
         <a class="nav-link" href="/messages/">💌 Messages</a>
         <a class="nav-link" href="/meetings/">🤝 Meetings</a>
-        <a class="nav-link" href="/calendar/">🗓️ Calendar</a>
         <a class="nav-link active" href="/profile/">⭐ My profile</a>
     </div>
 </header>

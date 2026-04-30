@@ -1,69 +1,107 @@
 {% load static %}
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meetings | Sky Engineering Directory</title>
 
-{% block title %}Meetings | Sky Engineering Directory{% endblock %}
+    <!-- Group stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
 
-{% block content %}
+<!-- ===== TOP BAR ===== -->
+<header class="topbar">
+    <div class="topbar-inner">
+        <div class="logo">
+            <span class="logo-sky">sky</span>
+            <span class="logo-dir">Directory</span>
+        </div>
 
+        <a href="/accounts/logout/" class="btn-logout">Sign out</a>
+    </div>
+
+ <div class="main-nav">
+            <a class="nav-link" href="/dashboard/"> 🛖 Dashboard</a>
+            <a class="nav-link" href="/teams/">👥 Team Directory</a>
+            <a class="nav-link" href="/organisation/"> 🌍 Org chart</a>
+            <a class="nav-link" href="/insights/">📊 Insights</a>
+            <a class="nav-link" href="/messages/">💌 Messages</a>
+            <a class="nav-link active" href="/meetings/">🤝 Meetings</a>
+            <a class="nav-link" href="/profile/">⭐ My profile</a>
+        </div>
+</header>
+
+<!-- ===== PAGE CONTENT ===== -->
 <div class="page-wrap">
-  <!-- Page header -->
-  <div class="page-header">
-    <div class="page-eyebrow">CALENDAR</div>
-    <h1 class="page-title">Schedule Meetings</h1>
-    <p class="page-desc">Plan and manage cross‑team meetings and syncs</p>
-  </div>
 
-  <!-- Filters + CTA -->
-  <div class="meetings-header">
-    <div class="filter-row">
-      <a href="/meetings/"
-         class="filter-pill {% if active_filter == 'all' %}active{% endif %}">
-        All
-      </a>
-      <a href="/meetings/?filter=upcoming"
-         class="filter-pill {% if active_filter == 'upcoming' %}active{% endif %}">
-        Upcoming
-      </a>
-      <a href="/meetings/?filter=past"
-         class="filter-pill {% if active_filter == 'past' %}active{% endif %}">
-        Past
-      </a>
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-eyebrow">CALENDAR</div>
+        <h1 class="page-title">Schedule Meetings</h1>
+        <p class="page-desc">Plan and manage cross‑team meetings and syncs</p>
     </div>
-    <a href="/meetings/new/" class="btn-grad">+ Schedule Meeting</a>
-  </div>
 
-  <!-- Meetings list -->
-  {% for meeting in meetings %}
-  <div class="meeting-item">
-    <div class="meeting-type-icon online">📹</div>
-    <div class="meeting-info">
-      <div class="meeting-title">
-        {{ meeting.title }}
-        {% if meeting.date_time >= now %}
-          <span class="meeting-badge upcoming">upcoming</span>
-        {% else %}
-          <span class="meeting-badge past">past</span>
-        {% endif %}
-      </div>
-      <div class="meeting-meta">
-        <span>📅 {{ meeting.date_time|date:"D, j M Y" }}</span>
-        <span>⏰ {{ meeting.date_time|date:"H:i" }}</span>
-        <span>📍 {{ meeting.platform }}</span>
-      </div>
+    <!-- Filters + CTA -->
+    <div class="meetings-header">
+        <div class="filter-row">
+            <a href="/meetings/"
+               class="filter-pill {% if active_filter == 'all' %}active{% endif %}">
+                All
+            </a>
+
+            <a href="/meetings/?filter=upcoming"
+               class="filter-pill {% if active_filter == 'upcoming' %}active{% endif %}">
+                Upcoming
+            </a>
+
+            <a href="/meetings/?filter=past"
+               class="filter-pill {% if active_filter == 'past' %}active{% endif %}">
+                Past
+            </a>
+        </div>
+
+        <a href="/meetings/new/" class="btn-grad">
+            + Schedule Meeting
+        </a>
     </div>
-  </div>
-  {% empty %}
-  <div class="meeting-item">
-    <div class="meeting-info">
-      <div class="meeting-title">No meetings found</div>
-    </div>
-  </div>
-  {% endfor %}
+
+    <!-- Meetings list -->
+    {% for meeting in meetings %}
+        <div class="meeting-item">
+            <div class="meeting-type-icon online">📹</div>
+
+            <div class="meeting-info">
+                <div class="meeting-title">
+                    {{ meeting.title }}
+
+                    {% if meeting.date_time >= now %}
+                        <span class="meeting-badge upcoming">upcoming</span>
+                    {% else %}
+                        <span class="meeting-badge past">past</span>
+                    {% endif %}
+                </div>
+
+                <div class="meeting-meta">
+                    <span>📅 {{ meeting.date_time|date:"D, j M Y" }}</span>
+                    <span>⏰ {{ meeting.date_time|date:"H:i" }}</span>
+                    <span>📍 {{ meeting.platform }}</span>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="meeting-item">
+            <div class="meeting-info">
+                <div class="meeting-title">No meetings found</div>
+            </div>
+        </div>
+    {% endfor %}
 
 </div>
 
 <footer class="site-footer">
-  Sky Engineering Team Directory © 2026
+    Sky Engineering Team Directory © 2026
 </footer>
 
-{% endblock %}
+</body>
+</html>
